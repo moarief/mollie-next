@@ -1,8 +1,15 @@
 import { revalidatePath } from "next/cache";
-import { Button, TextArea, TextFieldInput, Flex } from "@radix-ui/themes";
+import {
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  TextFieldRoot,
+  TextFieldInput,
+} from "@radix-ui/themes";
 
 export default function Form() {
-  const addPost = async (formData: FormData) => {
+  const createOrder = async (formData: FormData) => {
     "use server";
 
     // hier Mondu Request
@@ -11,13 +18,23 @@ export default function Form() {
   };
 
   return (
-    <Flex>
-      <form action={addPost} className="flex flex-col mb-10 mx-auto space-y-2">
-        <TextFieldInput type="text" name="title" placeholder="Title" required />
-        <TextArea name="body" placeholder="Body" rows={5} required />
+    <Flex direction="column">
+      <Heading>Checkout</Heading>
+      <Grid pt="2" columns="2" gap="3">
+        <Flex direction="column" gap="2">
+          <form action={createOrder}>
+            <TextFieldRoot mb="2">
+              <TextFieldInput placeholder="Firstname"></TextFieldInput>
+            </TextFieldRoot>
+            <TextFieldRoot mb="2">
+              <TextFieldInput placeholder="Lastname"></TextFieldInput>
+            </TextFieldRoot>
 
-        <Button> Submit </Button>
-      </form>
+            <Button> Submit </Button>
+          </form>
+        </Flex>
+        <Flex direction="column"></Flex>
+      </Grid>
     </Flex>
   );
 }

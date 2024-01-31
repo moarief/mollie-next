@@ -66,6 +66,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                   </Flex>
                 </Flex>
               </TabsContent>
+              <TabsContent value="webhooks">Coming Soon</TabsContent>
               <TabsContent value="full">
                 <Flex>
                   <ScrollArea

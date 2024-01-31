@@ -17,10 +17,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
         <Theme
-          appearance="light"
+          appearance="dark"
           accentColor="purple"
           grayColor="slate"
           panelBackground="solid"

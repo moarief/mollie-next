@@ -2,7 +2,6 @@
 
 import {
   Flex,
-  Badge,
   TableRoot,
   TableHeader,
   TableRow,
@@ -13,6 +12,8 @@ import {
 } from "@radix-ui/themes";
 import { monduOrders } from "@/app/lib/mondu";
 import Link from "next/link";
+
+import StateBadge from "./orderStateBadge";
 
 export default async function Ordertable() {
   const orders = await monduOrders();
@@ -40,23 +41,7 @@ export default async function Ordertable() {
                 </>
                 <TableCell>{order.external_reference_id}</TableCell>
                 <TableCell>
-                  <Badge
-                    color={
-                      order.state === "data_required"
-                        ? "gray"
-                        : order.state === "created"
-                        ? "amber"
-                        : order.state === "authorized"
-                        ? "green"
-                        : order.state === "shipped"
-                        ? "green"
-                        : order.state === "canceled"
-                        ? "red"
-                        : "gray"
-                    }
-                  >
-                    {order.state}
-                  </Badge>
+                  <StateBadge state={order.state} />
                 </TableCell>
                 <TableCell>{order.buyer_name}</TableCell>
                 <TableCell>

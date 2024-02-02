@@ -1,5 +1,5 @@
-import { Flex } from "@radix-ui/themes";
-import { Text, Badge, TabsContent } from "@radix-ui/themes";
+import { Text, Badge, TabsContent, Flex } from "@radix-ui/themes";
+import StateBadge from "../ui/orderStateBadge";
 
 export default function OrderOverview(order: {
   external_reference_id: string;
@@ -25,7 +25,7 @@ export default function OrderOverview(order: {
         </Flex>
         <Flex direction="row" justify="between">
           <Text>Order State</Text>
-          <Badge ml="4">{order.state}</Badge>
+          <StateBadge state={order.state} />
         </Flex>
         <Flex direction="row" justify="between">
           <Text>Payment method</Text>

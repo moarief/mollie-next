@@ -12,12 +12,10 @@ import {
   TableRowHeaderCell,
 } from "@radix-ui/themes";
 import { monduOrders } from "@/app/lib/mondu";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
 
-export default async function Table() {
+export default async function Ordertable() {
   const orders = await monduOrders();
-  revalidatePath("/orders", 60);
   return (
     <Flex justify="center" pt="4">
       <Flex>
@@ -62,7 +60,10 @@ export default async function Table() {
                 </TableCell>
                 <TableCell>{order.buyer_name}</TableCell>
                 <TableCell>
-                  {new Date(order.created_at).toLocaleDateString()}
+                  {new Date(order.created_at).toLocaleString("de-DE", {
+                    dateStyle: "medium",
+                    timeStyle: "short",
+                  })}
                 </TableCell>
               </TableRow>
             ))}

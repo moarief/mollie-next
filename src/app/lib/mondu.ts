@@ -18,9 +18,10 @@ class MonduApi {
     });
 
     if (!response.ok) {
-    console.log("Mondu API Error: ", response.status);
-    return
-  }
+      console.log("Mondu API Error: ", response.status);
+      return { error: response.status };
+    }
+
     const rawResponse = await response.json();
     const orders = rawResponse.orders;
     return orders;
@@ -35,7 +36,7 @@ class MonduApi {
 
     if (!response.ok) {
     console.log("Mondu API Error: ", response.status);
-    return
+    return { error: response.status }
   }
     const rawResponse = await response.json();
     const order = rawResponse.order;

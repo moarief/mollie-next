@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import {
   Button,
+  Box,
   Flex,
   Grid,
   Heading,
@@ -17,9 +18,19 @@ import {
   Card,
   RadioGroupRoot,
   RadioGroupItem,
+  TableRoot,
+  TableRow,
+  TableCell,
+  TableColumnHeaderCell,
+  Link,
+  CalloutRoot,
+  CalloutIcon,
+  CalloutText,
 } from "@radix-ui/themes";
+import MonduLogo from "@/app/components/ui/MonduLogo.js";
 import { redirect } from "next/navigation";
 import { monduCreateOrder } from "@/app/lib/mondu";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 export default async function Form() {
   const createOrder = async (formData: FormData) => {
@@ -35,12 +46,14 @@ export default async function Form() {
   };
 
   return (
-    <Flex direction="column" m="6">
-      <Heading mb="4">Checkout</Heading>
-      <Heading size="3">Billing Address</Heading>
-      <Grid pt="2" columns="2" gap="3">
-        <Flex direction="column" gap="2">
-          <form action={createOrder}>
+    <form action={createOrder}>
+      <Flex direction="column" m="6">
+        <Heading mb="4">Checkout</Heading>
+
+        <Grid pt="2" columns="2" gap="5">
+          <Flex direction="column" gap="2">
+            <Heading size="3">Billing Address</Heading>
+
             <Grid columns="2" gap="3" width="auto">
               <Flex direction="column" gap="1">
                 <Text>Firstname</Text>
@@ -152,44 +165,108 @@ export default async function Form() {
               </Text>
             </Flex>
             <Separator my="3" size="4" />
-            <Heading size="3" mb="4">
-              Payment
-            </Heading>
-            <RadioGroupRoot defaultValue="invoice" name="payment_method">
-              <Flex gap="2" direction="column">
-                <Text as="label" size="2">
-                  <Flex gap="2">
-                    <RadioGroupItem value="invoice" />
-                    Invoice
-                  </Flex>
-                </Text>
-              </Flex>
-              <Flex gap="2" direction="column">
-                <Text as="label" size="2">
-                  <Flex gap="2">
-                    <RadioGroupItem value="sepa" />
-                    Sepa
-                  </Flex>
-                </Text>
-              </Flex>
-              <Flex gap="2" direction="column">
-                <Text as="label" size="2">
-                  <Flex gap="2">
-                    <RadioGroupItem value="installments" />
-                    Installments
-                  </Flex>
-                </Text>
-              </Flex>
-            </RadioGroupRoot>
-            <Separator my="3" size="4" />
-            <Flex justify="center" align="center">
-              <Button variant="classic" size="4">
+            <Flex align="center" justify="center">
+              <Button variant="classic" size="3" className="w-full">
                 Buy Now
               </Button>
             </Flex>
-          </form>
-        </Flex>
-      </Grid>
-    </Flex>
+          </Flex>
+          <Flex direction="column" gap="2">
+            <Heading size="3">Your Shopping Cart</Heading>
+            <Card m="1">
+              <Flex direction="column">
+                <TableRoot>
+                  <TableRow>
+                    <TableColumnHeaderCell>Product</TableColumnHeaderCell>
+                    <TableColumnHeaderCell>Quantity</TableColumnHeaderCell>
+                    <TableColumnHeaderCell>Price</TableColumnHeaderCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Flex direction="column">
+                        <Text>Product 1</Text>
+                        <Text size="1" color="gray">
+                          Description
+                        </Text>
+                      </Flex>
+                    </TableCell>
+                    <TableCell>5</TableCell>
+                    <TableCell>200,00 €</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Flex direction="column">
+                        <Text>Product 2</Text>
+                        <Text size="1" color="gray">
+                          Description
+                        </Text>
+                      </Flex>
+                    </TableCell>
+                    <TableCell>1</TableCell>
+                    <TableCell>10,00 €</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Flex direction="column">
+                        <Text>Product 3</Text>
+                        <Text size="1" color="gray">
+                          Description
+                        </Text>
+                      </Flex>
+                    </TableCell>
+                    <TableCell>1</TableCell>
+                    <TableCell>10,00 €</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>
+                      <Heading size="2">Total</Heading>
+                    </TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>
+                      <Heading size="2">1020,00 €</Heading>
+                    </TableCell>
+                  </TableRow>
+                </TableRoot>
+              </Flex>
+            </Card>
+            <Heading size="3" mb="4" mt="2">
+              Payment
+            </Heading>
+            <Card m="1">
+              <Flex direction="column">
+                <Flex align="center" gap="4">
+                  <MonduLogo />
+                  <Text>Invoice</Text>
+                </Flex>
+                <Separator my="3" size="4" />
+                <Flex align="center" gap="4">
+                  <MonduLogo />
+                  <Text>SEPA Direct Debit</Text>
+                </Flex>
+                <Separator my="3" size="4" />
+                <Flex align="center" gap="4">
+                  <MonduLogo />
+                  <Text>Installments</Text>
+                </Flex>
+                <Separator my="3" size="4" />
+                <CalloutRoot>
+                  <CalloutIcon>
+                    <InfoCircledIcon />
+                  </CalloutIcon>
+                  <CalloutText>
+                    Information on the processing of your personal data by Mondu
+                    GmbH can be found{" "}
+                    <Link href="https://www.mondu.ai/gdpr-notification-for-buyers/">
+                      here
+                    </Link>
+                    .
+                  </CalloutText>
+                </CalloutRoot>
+              </Flex>
+            </Card>
+          </Flex>
+        </Grid>
+      </Flex>
+    </form>
   );
 }

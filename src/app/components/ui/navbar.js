@@ -33,7 +33,7 @@ export default function Navbar() {
   );
 }
 
-function MonduIcon(props) {
+function MonduIcon() {
   return (
     <svg
       width="25"

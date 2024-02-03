@@ -1,4 +1,4 @@
-export default function MonduLogo() {
+export default async function MonduLogo() {
   return (
     <svg
       width="72"

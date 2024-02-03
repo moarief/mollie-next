@@ -20,27 +20,29 @@ export default async function Page({ params }: { params: { id: string } }) {
   revalidatePath(`/orders/${params.id}`);
   return (
     <main>
-      <Heading mb="4">Order Overview</Heading>
-      <Flex justify="center" p="2">
-        <Card variant="classic" style={{ width: 720 }}>
-          <TabsRoot defaultValue="overview">
-            <TabsList>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="invoices">Invoices</TabsTrigger>
-              <TabsTrigger value="states">Order States</TabsTrigger>
-              <TabsTrigger value="webhooks">Webhooks</TabsTrigger>
-              <TabsTrigger value="full">Full Order Object</TabsTrigger>
-            </TabsList>
+      <Flex direction="column" m="6">
+        <Heading mb="4">Order Overview</Heading>
+        <Flex justify="center" p="2">
+          <Card variant="classic" style={{ width: 720 }}>
+            <TabsRoot defaultValue="overview">
+              <TabsList>
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="invoices">Invoices</TabsTrigger>
+                <TabsTrigger value="states">Order States</TabsTrigger>
+                <TabsTrigger value="webhooks">Webhooks</TabsTrigger>
+                <TabsTrigger value="full">Full Order Object</TabsTrigger>
+              </TabsList>
 
-            <Box px="4" pt="3" pb="2">
-              <OrderOverview {...order} />
-              <OrderInvoices {...order} />
-              <OrderStates {...order} />
-              <TabsContent value="webhooks">Coming Soon</TabsContent>
-              <OrderFull {...order} />
-            </Box>
-          </TabsRoot>
-        </Card>
+              <Box px="4" pt="3" pb="2">
+                <OrderOverview {...order} />
+                <OrderInvoices {...order} />
+                <OrderStates {...order} />
+                <TabsContent value="webhooks">Coming Soon</TabsContent>
+                <OrderFull {...order} />
+              </Box>
+            </TabsRoot>
+          </Card>
+        </Flex>
       </Flex>
     </main>
   );

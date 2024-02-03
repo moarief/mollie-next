@@ -4,7 +4,6 @@ import {
   TableCell,
   TableRow,
   TableRowHeaderCell,
-  IconButton,
   Flex,
 } from "@radix-ui/themes";
 import { DownloadIcon } from "@radix-ui/react-icons";

@@ -6,7 +6,7 @@ export default function Page() {
   revalidatePath("/orders");
   return (
     <main>
-      <Flex direction="column" gap="4">
+      <Flex direction="column" m="6">
         <Heading>Orders</Heading>
       </Flex>
       <OrderTable />

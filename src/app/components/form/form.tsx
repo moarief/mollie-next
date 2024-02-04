@@ -11,7 +11,6 @@ import {
   SelectTrigger,
   SelectContent,
   SelectItem,
-  Tooltip,
   Separator,
   Switch,
   Card,

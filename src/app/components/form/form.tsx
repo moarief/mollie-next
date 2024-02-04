@@ -19,6 +19,7 @@ import {
   RadioGroupRoot,
   RadioGroupItem,
   TableRoot,
+  TableBody,
   TableRow,
   TableCell,
   TableColumnHeaderCell,
@@ -176,57 +177,54 @@ export default async function Form() {
             <Card m="1">
               <Flex direction="column">
                 <TableRoot>
-                  <TableRow>
-                    <TableColumnHeaderCell>Product</TableColumnHeaderCell>
-                    <TableColumnHeaderCell>Quantity</TableColumnHeaderCell>
-                    <TableColumnHeaderCell>Price</TableColumnHeaderCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Flex direction="column">
-                        <Text>Product 1</Text>
-                        <Text size="1" color="gray">
-                          Description
-                        </Text>
-                      </Flex>
-                    </TableCell>
-                    <TableCell>5</TableCell>
-                    <TableCell>200,00 €</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Flex direction="column">
-                        <Text>Product 2</Text>
-                        <Text size="1" color="gray">
-                          Description
-                        </Text>
-                      </Flex>
-                    </TableCell>
-                    <TableCell>1</TableCell>
-                    <TableCell>10,00 €</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Flex direction="column">
-                        <Text>Product 3</Text>
-                        <Text size="1" color="gray">
-                          Description
-                        </Text>
-                      </Flex>
-                    </TableCell>
-                    <TableCell>1</TableCell>
-                    <TableCell>10,00 €</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Heading size="2">Total</Heading>
-                    </TableCell>
-                    <TableCell></TableCell>
-                    <TableCell>
-                      <Heading size="2">1020,00 €</Heading>
-                    </TableCell>
-                  </TableRow>
+                  <TableBody>
+                    <TableRow>
+                      <TableColumnHeaderCell>Product</TableColumnHeaderCell>
+                      <TableColumnHeaderCell>Quantity</TableColumnHeaderCell>
+                      <TableColumnHeaderCell>Price</TableColumnHeaderCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <Flex direction="column">
+                          <Text>Product 1</Text>
+                          <Text size="1" color="gray">
+                            Description
+                          </Text>
+                        </Flex>
+                      </TableCell>
+                      <TableCell>5</TableCell>
+                      <TableCell>200,00 €</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <Flex direction="column">
+                          <Text>Product 2</Text>
+                          <Text size="1" color="gray">
+                            Description
+                          </Text>
+                        </Flex>
+                      </TableCell>
+                      <TableCell>1</TableCell>
+                      <TableCell>10,00 €</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>
+                        <Flex direction="column">
+                          <Text>Product 3</Text>
+                          <Text size="1" color="gray">
+                            Description
+                          </Text>
+                        </Flex>
+                      </TableCell>
+                      <TableCell>1</TableCell>
+                      <TableCell>10,00 €</TableCell>
+                    </TableRow>
+                  </TableBody>
                 </TableRoot>
+                <Flex direction="column" align="end" gap="2" mr="6" mt="2">
+                  <Heading size="2">Total</Heading>
+                  <Heading size="2">1020,00 €</Heading>
+                </Flex>
               </Flex>
             </Card>
             <Heading size="3" mb="4" mt="2">

@@ -28,7 +28,7 @@ import {
   CalloutIcon,
   CalloutText,
 } from "@radix-ui/themes";
-import MonduLogo from "@/app/components/ui/MonduLogo.js";
+import MonduLogo from "@/app/components/ui/monduLogo.js";
 import { redirect } from "next/navigation";
 import { monduCreateOrder } from "@/app/lib/mondu";
 import { InfoCircledIcon } from "@radix-ui/react-icons";

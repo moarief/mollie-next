@@ -33,8 +33,8 @@ class MonduApi {
     return redirectURL;
   }
   
-  async getOrders() {
-    const response = await fetch(`${this.url}`+ "?page=1&per_page=20", {
+  async getOrders(page: number, per_page: number) {
+    const response = await fetch(`${this.url}`+ "?page="+ page + "&per_page=" + per_page, {
       headers: {
         'Api-Token': this.apiKey
       },
@@ -68,9 +68,9 @@ class MonduApi {
   }
 }
 
-export async function monduOrders() {
+export async function monduOrders(page: number, per_page: number) {
   const monduApi = new MonduApi();
-  const orders = await monduApi.getOrders();
+  const orders = await monduApi.getOrders(page, per_page);
   return orders;
 }
 

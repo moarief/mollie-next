@@ -15,8 +15,8 @@ import Link from "next/link";
 
 import StateBadge from "./orderStateBadge";
 
-export default async function Ordertable() {
-  const orders = await monduOrders();
+export default async function Ordertable({ page, per_page }) {
+  const orders = await monduOrders(page, per_page);
   return (
     <Flex justify="center" pt="4">
       <Flex>

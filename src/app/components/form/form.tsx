@@ -178,7 +178,7 @@ export default async function Form() {
             </Flex>
             <Separator my="3" size="4" />
             <Flex align="center" justify="center">
-              <Button variant="classic" size="3" className="w-full">
+              <Button variant="solid" size="3" className="w-full">
                 Buy Now
               </Button>
             </Flex>

@@ -8,8 +8,8 @@ export default function Page() {
     <main>
       <Flex direction="column" m="6">
         <Heading>Orders</Heading>
+        <OrderTable />
       </Flex>
-      <OrderTable />
     </main>
   );
 }

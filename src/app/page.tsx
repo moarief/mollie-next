@@ -1,7 +1,9 @@
+import { Flex, Heading } from "@radix-ui/themes";
+
 export default function Home() {
   return (
-    <main className="flex flex-col p-6">
-      <h1>Hello World</h1>
-    </main>
+    <Flex direction="column" m="6">
+      <Heading>Hello World</Heading>
+    </Flex>
   );
 }

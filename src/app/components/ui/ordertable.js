@@ -9,6 +9,7 @@ import {
   TableCell,
   TableBody,
   TableRowHeaderCell,
+  Link as Rlink,
 } from "@radix-ui/themes";
 import { monduOrders } from "@/app/lib/mondu";
 import Link from "next/link";
@@ -36,7 +37,9 @@ export default async function Ordertable({ page, per_page }) {
               <TableRow key={index}>
                 <>
                   <TableRowHeaderCell>
-                    <Link href={"/orders/" + order.uuid}>{order.uuid}</Link>
+                    <Rlink>
+                      <Link href={"/orders/" + order.uuid}>{order.uuid}</Link>
+                    </Rlink>
                   </TableRowHeaderCell>
                 </>
                 <TableCell>{order.external_reference_id}</TableCell>

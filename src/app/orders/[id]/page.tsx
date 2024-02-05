@@ -13,6 +13,7 @@ import OrderOverview from "@/app/components/tabs/overview";
 import OrderInvoices from "@/app/components/tabs/invoices";
 import OrderStates from "@/app/components/tabs/states";
 import OrderFull from "@/app/components/tabs/fullOrder";
+import WebhooksTab from "@/app/components/tabs/webhooks";
 import { revalidatePath } from "next/cache";
 import { validateUuid } from "@/app/lib/validation";
 
@@ -39,7 +40,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <OrderOverview {...order} />
                 <OrderInvoices {...order} />
                 <OrderStates {...order} />
-                <TabsContent value="webhooks">Coming Soon</TabsContent>
+                <WebhooksTab {...order} />
                 <OrderFull {...order} />
               </Box>
             </TabsRoot>

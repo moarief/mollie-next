@@ -147,9 +147,9 @@ class MonduApi {
     return order;
   }
 
-  async confirmOrder(uuid: string, externalRefId: string) {
+  async confirmOrder(uuid: string, externalRefId?: string) {
     const response = await fetch(
-      `${this.apiUrl}` + "/orders" + uuid + "/confirm",
+      `${this.apiUrl}` + "/orders/" + uuid + "/confirm",
       {
         method: "POST",
         headers: {
@@ -217,7 +217,7 @@ export async function monduCreateOrder(validatedForm: {
   return redirectURL;
 }
 
-export async function monduConfirm(uuid: string, externalRefId: string) {
+export async function monduConfirm(uuid: string, externalRefId?: string) {
   const monduApi = new MonduApi();
   const result = await monduApi.confirmOrder(uuid, externalRefId);
   return result;

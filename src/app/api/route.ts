@@ -1,5 +1,6 @@
 import { headers } from "next/headers";
 import MonduVerifier from "@/app/lib/webhookVerifier";
+import { monduConfirm } from "../lib/mondu";
 import { PrismaClient } from "@prisma/client";
 
 export async function POST(request: Request) {
@@ -26,9 +27,9 @@ export async function POST(request: Request) {
       event_time: Date;
     } = webhookData;
 
-    const primsa = new PrismaClient();
+    const prisma = new PrismaClient();
 
-    const webhook = await primsa.webhooks.create({
+    const webhook = await prisma.webhooks.create({
       data: {
         topic,
         order_uuid,
@@ -38,6 +39,10 @@ export async function POST(request: Request) {
       },
     });
 
+    // confirm the order after webhook verification
+    if (topic === "order/authorized") {
+      await monduConfirm(order_uuid);
+    }
     // Process the webhook payload
     return new Response("Webhook successfully verified", {
       status: 200,

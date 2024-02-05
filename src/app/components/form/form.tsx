@@ -40,11 +40,12 @@ export default async function Form() {
     console.log("Form submitted", validatedForm);
 
     // TODO: get values from form and submit to Mondu API
-    // await monduCreateOrder();
+    const monduRedirectUrl = await monduCreateOrder(validatedForm);
     revalidatePath("/orders");
+    console.log(monduRedirectUrl);
 
     // redirect to Mondu hosted checkout
-    // redirect("");
+    redirect(monduRedirectUrl);
   };
 
   return (

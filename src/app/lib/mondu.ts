@@ -1,26 +1,102 @@
-'use server';
+"use server";
 
 class MonduApi {
-  url: string;
+  apiUrl: string;
   apiKey: string;
 
   constructor() {
-    this.url = "https://api.demo.mondu.ai/api/v1/orders";
+    this.apiUrl = "https://api.demo.mondu.ai/api/v1/orders";
     this.apiKey = process.env.MONDU_API_KEY;
   }
 
-  async createOrder() {
-    const response = await fetch(`${this.url}`, {
-      method: 'POST',
+  async createOrder({
+    firstname,
+    lastname,
+    company,
+    email,
+    address,
+    city,
+    zip_code,
+    country,
+    payment_method,
+  }: {
+    firstname: string;
+    lastname: string;
+    company: string;
+    email: string;
+    address: string;
+    city: string;
+    zip_code: string;
+    country: string;
+    payment_method: string;
+  }) {
+    const response = await fetch(`${this.apiUrl}`, {
+      method: "POST",
       headers: {
-        'Api-Token': this.apiKey,
-        accept: 'application/json',
-        'content-type': 'application/json',
+        "Api-Token": this.apiKey,
+        accept: "application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify({
-          gross_amount_cents: 102000,
-          currency: "EUR"
-          })
+        currency: "EUR",
+        billing_address: {
+          country_code: country,
+          city: city,
+          zip_code: zip_code,
+          address_line1: address,
+        },
+        shipping_address: {
+          country_code: country,
+          city: city,
+          zip_code: zip_code,
+          address_line1: address,
+        },
+        buyer: {
+          is_registered: false,
+          email: email,
+          first_name: firstname,
+          last_name: lastname,
+          company_name: company,
+        },
+        lines: [
+          {
+            line_items: [
+              {
+                quantity: 5,
+                external_reference_id: "1",
+                title: "Product 1",
+                net_price_per_item_cents: 20000,
+                tax_cents: 3800,
+              },
+              {
+                quantity: 1,
+                external_reference_id: "2",
+                title: "Product 2",
+                net_price_per_item_cents: 1000,
+                tax_cents: 190,
+              },
+              {
+                quantity: 1,
+                external_reference_id: "3",
+                title: "Product 3",
+                net_price_per_item_cents: 1000,
+                tax_cents: 190,
+              },
+            ],
+          },
+        ],
+        payment_method: payment_method,
+        language: "en",
+        // URLs to redirect to after hosted checkout
+        success_url: "https://mondu-next.vercel.app/success",
+        declined_url: "https://mondu-next.vercel.app/decline",
+        cancel_url: "https://mondu-next.vercel.app/checkout",
+        total_discount_cents: 0,
+        external_reference_id: "mondu-next-ord-" + Date.now(), // fill external reference with a unique value. Can be changed later
+        source: "widget",
+        gross_amount_cents: 102000,
+        state_flow: "authorization_flow",
+      }),
     });
 
     if (!response.ok) {
@@ -29,17 +105,21 @@ class MonduApi {
     }
 
     const rawResponse = await response.json();
+    console.log(rawResponse);
     const redirectURL = rawResponse.order.hosted_checkout_url;
     return redirectURL;
   }
-  
+
   async getOrders(page: number, per_page: number) {
-    const response = await fetch(`${this.url}`+ "?page="+ page + "&per_page=" + per_page, {
-      headers: {
-        'Api-Token': this.apiKey
-      },
-      next: {revalidate: 60}
-    });
+    const response = await fetch(
+      `${this.apiUrl}` + "?page=" + page + "&per_page=" + per_page,
+      {
+        headers: {
+          "Api-Token": this.apiKey,
+        },
+        next: { revalidate: 60 },
+      }
+    );
 
     if (!response.ok) {
       console.log("Mondu API Error: ", response.status);
@@ -52,16 +132,16 @@ class MonduApi {
   }
 
   async getOrder(uuid: string) {
-    const response = await fetch(`${this.url}` + "/" + uuid, {
+    const response = await fetch(`${this.apiUrl}` + "/" + uuid, {
       headers: {
-        'Api-Token': this.apiKey
-      }
+        "Api-Token": this.apiKey,
+      },
     });
 
     if (!response.ok) {
-    console.log("Mondu API Error: ", response.status);
-    return { error: response.status }
-  }
+      console.log("Mondu API Error: ", response.status);
+      return { error: response.status };
+    }
     const rawResponse = await response.json();
     const order = rawResponse.order;
     return order;
@@ -80,8 +160,18 @@ export async function monduOrder(uuid: string) {
   return order;
 }
 
-export async function monduCreateOrder() {
+export async function monduCreateOrder(validatedForm: {
+  firstname: string;
+  lastname: string;
+  company: string;
+  email: string;
+  address: string;
+  city: string;
+  zip_code: string;
+  country: string;
+  payment_method: string;
+}) {
   const monduApi = new MonduApi();
-  const redirectURL = await monduApi.createOrder();
+  const redirectURL = await monduApi.createOrder(validatedForm);
   return redirectURL;
 }

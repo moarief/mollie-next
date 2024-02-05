@@ -14,9 +14,11 @@ import OrderInvoices from "@/app/components/tabs/invoices";
 import OrderStates from "@/app/components/tabs/states";
 import OrderFull from "@/app/components/tabs/fullOrder";
 import { revalidatePath } from "next/cache";
+import { validateUuid } from "@/app/lib/validation";
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const order = await monduOrder(params.id);
+  const validatedUuid = await validateUuid(params.id);
+  const order = await monduOrder(validatedUuid);
   revalidatePath(`/orders/${params.id}`);
   return (
     <main>

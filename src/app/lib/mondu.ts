@@ -5,7 +5,7 @@ class MonduApi {
   apiKey: string;
 
   constructor() {
-    this.apiUrl = "https://api.demo.mondu.ai/api/v1/orders";
+    this.apiUrl = "https://api.demo.mondu.ai/api/v1";
     this.apiKey = process.env.MONDU_API_KEY;
   }
 
@@ -30,7 +30,7 @@ class MonduApi {
     country: string;
     payment_method: string;
   }) {
-    const response = await fetch(`${this.apiUrl}`, {
+    const response = await fetch(`${this.apiUrl}` + "/orders", {
       method: "POST",
       headers: {
         "Api-Token": this.apiKey,
@@ -112,7 +112,7 @@ class MonduApi {
 
   async getOrders(page: number, per_page: number) {
     const response = await fetch(
-      `${this.apiUrl}` + "?page=" + page + "&per_page=" + per_page,
+      `${this.apiUrl}` + "/orders?page=" + page + "&per_page=" + per_page,
       {
         headers: {
           "Api-Token": this.apiKey,
@@ -132,7 +132,7 @@ class MonduApi {
   }
 
   async getOrder(uuid: string) {
-    const response = await fetch(`${this.apiUrl}` + "/" + uuid, {
+    const response = await fetch(`${this.apiUrl}` + "/orders/" + uuid, {
       headers: {
         "Api-Token": this.apiKey,
       },
@@ -148,17 +148,20 @@ class MonduApi {
   }
 
   async confirmOrder(uuid: string, externalRefId: string) {
-    const response = await fetch(`${this.apiUrl}` + "/" + uuid + "/confirm", {
-      method: "POST",
-      headers: {
-        "Api-Token": this.apiKey,
-        accept: "application/json",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        external_reference_id: externalRefId,
-      }),
-    });
+    const response = await fetch(
+      `${this.apiUrl}` + "/orders" + uuid + "/confirm",
+      {
+        method: "POST",
+        headers: {
+          "Api-Token": this.apiKey,
+          accept: "application/json",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          external_reference_id: externalRefId,
+        }),
+      }
+    );
 
     if (!response.ok) {
       console.log("Mondu API Error: ", response.status);
@@ -166,6 +169,23 @@ class MonduApi {
     } else {
       return { success: true };
     }
+  }
+
+  async getWebhookSecret() {
+    const response = await fetch(`${this.apiUrl}` + "/webhooks/keys", {
+      headers: {
+        "Api-Token": this.apiKey,
+      },
+      next: { revalidate: 86400 }, // get webhook secret once a day
+    });
+
+    if (!response.ok) {
+      console.log("Mondu API Error: ", response.status);
+      return { error: response.status };
+    }
+    const rawResponse = await response.json();
+    const secret = rawResponse.webhook_secret;
+    return secret;
   }
 }
 
@@ -199,6 +219,12 @@ export async function monduCreateOrder(validatedForm: {
 
 export async function monduConfirm(uuid: string, externalRefId: string) {
   const monduApi = new MonduApi();
-  const order = await monduApi.confirmOrder(uuid, externalRefId);
-  return order;
+  const result = await monduApi.confirmOrder(uuid, externalRefId);
+  return result;
+}
+
+export async function monduWebhookSecret() {
+  const monduApi = new MonduApi();
+  const secret = await monduApi.getWebhookSecret();
+  return secret;
 }

@@ -1,14 +1,24 @@
+import { headers } from "next/headers";
+import MonduVerifier from "@/app/lib/webhookVerifier";
+
 export async function POST(request: Request) {
   try {
-    const text = await request.text();
+    const headersList = headers();
+    const payload = await request.text();
+    const signature = headersList.get("X-Mondu-Signature");
+    const isVerified = MonduVerifier(payload, signature || ""); // Handle null case
+
+    if (!isVerified) {
+      return new Error("Webhook verification failed");
+    }
+
     // Process the webhook payload
+    return new Response("Success! " + payload, {
+      status: 200,
+    });
   } catch (error: any) {
     return new Response(`Webhook error: ${error.message}`, {
-      status: 400,
+      status: 403,
     });
   }
-
-  return new Response("Success!", {
-    status: 200,
-  });
 }

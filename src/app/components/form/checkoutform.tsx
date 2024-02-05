@@ -33,7 +33,7 @@ import MonduLogo from "@/app/components/ui/monduLogo.js";
 import { redirect } from "next/navigation";
 
 // Lib
-import validateFormData from "@/app/lib/formValidation";
+import validateFormData from "@/app/lib/validation";
 import { monduCreateOrder } from "@/app/lib/mondu";
 
 export default async function CheckoutForm() {

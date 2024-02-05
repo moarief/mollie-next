@@ -11,6 +11,9 @@ export default async function StateBadge(props: { state: string }) {
     case "shipped":
       result = <Badge color="green">{state}</Badge>;
       break;
+    case "complete":
+      result = <Badge color="green">{state}</Badge>;
+      break;
     case "partially_shipped":
       result = <Badge color="teal">{state}</Badge>;
       break;

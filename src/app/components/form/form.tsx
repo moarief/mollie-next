@@ -52,10 +52,17 @@ export default async function Form() {
       <Flex direction="column" m="6">
         <Heading mb="4">Checkout</Heading>
 
-        <Grid pt="2" columns="2" gap="5">
+        <Grid
+          pt="2"
+          columns={{
+            initial: "1",
+            md: "2",
+          }}
+          gap="5"
+          gapY="6"
+        >
           <Flex direction="column" gap="2">
             <Heading size="3">Billing Address</Heading>
-
             <Grid columns="2" gap="3" width="auto">
               <Flex direction="column" gap="1">
                 <Text as="label">Firstname</Text>
@@ -177,11 +184,6 @@ export default async function Form() {
               </Text>
             </Flex>
             <Separator my="3" size="4" />
-            <Flex align="center" justify="center">
-              <Button variant="solid" size="3" className="w-full">
-                Buy Now
-              </Button>
-            </Flex>
           </Flex>
           <Flex direction="column" gap="2">
             <Heading size="3">Your Shopping Cart</Heading>
@@ -238,7 +240,7 @@ export default async function Form() {
                 </Flex>
               </Flex>
             </Card>
-            <Heading size="3" mb="4" mt="2">
+            <Heading size="3" mt="2">
               Payment
             </Heading>
             <RadioGroupRoot
@@ -318,6 +320,15 @@ export default async function Form() {
             </RadioGroupRoot>
           </Flex>
         </Grid>
+        <Flex align="center" justify="center" mt="6">
+          <Button
+            variant="solid"
+            size="3"
+            className="w-8/12 sm:w-6/12 lg:w-4/12"
+          >
+            Buy Now
+          </Button>
+        </Flex>
       </Flex>
     </form>
   );

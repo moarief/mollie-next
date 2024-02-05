@@ -1,9 +1,7 @@
 import { headers } from "next/headers";
 import MonduVerifier from "@/app/lib/webhookVerifier";
 
-export async function POST(
-  request: Request
-): Promise<void | Response | Promise<void | Response>> {
+export async function POST(request: Request) {
   try {
     const headersList = headers();
     const payload = await request.text();

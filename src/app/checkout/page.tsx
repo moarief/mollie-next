@@ -1,9 +1,9 @@
-import Form from "../components/form/form";
+import CheckoutForm from "../components/form/checkoutform";
 
 export default function Page() {
   return (
     <main>
-      <Form />
+      <CheckoutForm />
     </main>
   );
 }

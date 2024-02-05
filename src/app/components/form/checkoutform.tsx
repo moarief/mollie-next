@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache";
+// UI
 import {
   Button,
   Flex,
@@ -26,23 +26,24 @@ import {
   CalloutIcon,
   CalloutText,
 } from "@radix-ui/themes";
-import MonduLogo from "@/app/components/ui/monduLogo.js";
-import { redirect } from "next/navigation";
-import { monduCreateOrder } from "@/app/lib/mondu";
-import validateFormData from "@/app/lib/formValidation";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
+import MonduLogo from "@/app/components/ui/monduLogo.js";
 
-export default async function Form() {
+// Next logic
+import { redirect } from "next/navigation";
+
+// Lib
+import validateFormData from "@/app/lib/formValidation";
+import { monduCreateOrder } from "@/app/lib/mondu";
+
+export default async function CheckoutForm() {
+  // This Server Action takes the form data, validates it and creates an order
   const createOrder = async (formData: FormData) => {
     "use server";
 
-    let validatedForm = await validateFormData(formData);
-    console.log("Form submitted", validatedForm);
+    const validatedForm = await validateFormData(formData);
 
-    // TODO: get values from form and submit to Mondu API
     const monduRedirectUrl = await monduCreateOrder(validatedForm);
-    revalidatePath("/orders");
-    console.log(monduRedirectUrl);
 
     // redirect to Mondu hosted checkout
     redirect(monduRedirectUrl);

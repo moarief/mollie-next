@@ -146,6 +146,27 @@ class MonduApi {
     const order = rawResponse.order;
     return order;
   }
+
+  async confirmOrder(uuid: string, externalRefId: string) {
+    const response = await fetch(`${this.apiUrl}` + "/" + uuid + "/confirm", {
+      method: "POST",
+      headers: {
+        "Api-Token": this.apiKey,
+        accept: "application/json",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        external_reference_id: externalRefId,
+      }),
+    });
+
+    if (!response.ok) {
+      console.log("Mondu API Error: ", response.status);
+      return { error: response.status };
+    } else {
+      return { success: true };
+    }
+  }
 }
 
 export async function monduOrders(page: number, per_page: number) {
@@ -174,4 +195,10 @@ export async function monduCreateOrder(validatedForm: {
   const monduApi = new MonduApi();
   const redirectURL = await monduApi.createOrder(validatedForm);
   return redirectURL;
+}
+
+export async function monduConfirm(uuid: string, externalRefId: string) {
+  const monduApi = new MonduApi();
+  const order = await monduApi.confirmOrder(uuid, externalRefId);
+  return order;
 }

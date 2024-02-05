@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 
-export default async function validateFormData(formData: FormData) {
+export async function validateFormData(formData: FormData) {
   const form = Object.fromEntries(formData.entries());
 
   const formSchema = z.object({
@@ -40,5 +40,11 @@ export default async function validateFormData(formData: FormData) {
 export async function validateUuid(uuid: string) {
   const uuidSchema = z.string().uuid();
   const data = uuidSchema.parse(uuid);
+  return data;
+}
+
+export async function validateUrl(url: string) {
+  const urlSchema = z.string().url();
+  const data = urlSchema.parse(url);
   return data;
 }

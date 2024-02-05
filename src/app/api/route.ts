@@ -1,7 +1,9 @@
 import { headers } from "next/headers";
 import MonduVerifier from "@/app/lib/webhookVerifier";
 
-export async function POST(request: Request) {
+export async function POST(
+  request: Request
+): Promise<void | Response | Promise<void | Response>> {
   try {
     const headersList = headers();
     const payload = await request.text();
@@ -9,7 +11,7 @@ export async function POST(request: Request) {
     const isVerified = MonduVerifier(payload, signature || ""); // Handle null case
 
     if (!isVerified) {
-      return new Error("Webhook verification failed");
+      throw new Error("Webhook verification failed");
     }
 
     // Process the webhook payload

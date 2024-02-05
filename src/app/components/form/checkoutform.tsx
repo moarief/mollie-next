@@ -33,7 +33,7 @@ import MonduLogo from "@/app/components/ui/monduLogo.js";
 import { redirect } from "next/navigation";
 
 // Lib
-import validateFormData from "@/app/lib/validation";
+import { validateFormData, validateUrl } from "@/app/lib/validation";
 import { monduCreateOrder } from "@/app/lib/mondu";
 
 export default async function CheckoutForm() {
@@ -44,9 +44,9 @@ export default async function CheckoutForm() {
     const validatedForm = await validateFormData(formData);
 
     const monduRedirectUrl = await monduCreateOrder(validatedForm);
-
+    const validatedRedirectUrl = await validateUrl(monduRedirectUrl);
     // redirect to Mondu hosted checkout
-    redirect(monduRedirectUrl);
+    redirect(validatedRedirectUrl);
   };
 
   return (

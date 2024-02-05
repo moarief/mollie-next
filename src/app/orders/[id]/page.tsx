@@ -19,7 +19,7 @@ import { validateUuid } from "@/app/lib/validation";
 export default async function Page({ params }: { params: { id: string } }) {
   const validatedUuid = await validateUuid(params.id);
   const order = await monduOrder(validatedUuid);
-  revalidatePath(`/orders/${params.id}`);
+  revalidatePath(`/orders/${validatedUuid}`);
   return (
     <main>
       <Flex direction="column" m="6">

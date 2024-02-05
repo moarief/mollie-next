@@ -4,7 +4,7 @@ import { monduWebhookSecret } from "./mondu";
 
 export default async function MonduVerifier(payload: any, signature: string) {
   const secret = await monduWebhookSecret();
-  const encodedPayload = Buffer.from(JSON.stringify(payload), "utf8");
+  const encodedPayload = payload;
 
   const signaturePayload = crypto
     .createHmac("sha256", secret)

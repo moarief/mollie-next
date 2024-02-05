@@ -6,14 +6,14 @@ export async function POST(request: Request) {
     const headersList = headers();
     const payload = await request.text();
     const signature = headersList.get("X-Mondu-Signature");
-    const isVerified = MonduVerifier(payload, signature || ""); // Handle null case
+    const isVerified = await MonduVerifier(payload, signature || ""); // Handle null case
 
     if (!isVerified) {
       throw new Error("Webhook verification failed");
     }
 
     // Process the webhook payload
-    return new Response("Success! " + payload, {
+    return new Response("Webhook successfully verified", {
       status: 200,
     });
   } catch (error: any) {

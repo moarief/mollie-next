@@ -8,7 +8,7 @@ import { Providers } from "@/app/components/ui/providers.jsx";
 
 export const metadata: Metadata = {
   title: "Mondu Demo App",
-  description: "A demo app for Mondu",
+  description: "A demo app for Mondu BNPL payments, written in nextJS",
 };
 
 export default function RootLayout({

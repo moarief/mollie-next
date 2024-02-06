@@ -1,5 +1,5 @@
 import { Flex, Heading } from "@radix-ui/themes";
-import OrderTable from "@/app/components/ui/ordertable.js";
+import OrderTable from "@/app/components/ui/ordertable.jsx";
 import Pagination from "../components/ui/pagination";
 import { revalidatePath } from "next/cache";
 

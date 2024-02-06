@@ -1,4 +1,16 @@
-import { Text, Badge, TabsContent, Flex } from "@radix-ui/themes";
+import {
+  Text,
+  Badge,
+  TabsContent,
+  Flex,
+  Separator,
+  DialogRoot,
+  DialogTrigger,
+  DialogContent,
+  DialogTitle,
+  Button,
+  ScrollArea,
+} from "@radix-ui/themes";
 import StateBadge from "../ui/orderStateBadge";
 
 export default function OrderOverview(order: {
@@ -40,6 +52,23 @@ export default function OrderOverview(order: {
             })}
           </Badge>
         </Flex>
+      </Flex>
+      <Separator my="3" size="4" />
+      <Flex justify="end">
+        <DialogRoot>
+          <DialogTrigger>
+            <Button variant="outline">Show Raw Order Data</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogTitle>Raw Order Data</DialogTitle>
+            <Separator my="2" size="4" />
+            <ScrollArea>
+              <Text size="1">
+                <pre>{JSON.stringify(order, null, 2)}</pre>
+              </Text>
+            </ScrollArea>
+          </DialogContent>
+        </DialogRoot>
       </Flex>
     </TabsContent>
   );

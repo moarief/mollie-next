@@ -7,12 +7,10 @@ import {
   TabsRoot,
   TabsList,
   TabsTrigger,
-  TabsContent,
 } from "@radix-ui/themes";
 import OrderOverview from "@/app/components/tabs/overview";
 import OrderInvoices from "@/app/components/tabs/invoices";
 import OrderStates from "@/app/components/tabs/states";
-import OrderFull from "@/app/components/tabs/fullOrder";
 import WebhooksTab from "@/app/components/tabs/webhooks";
 import { revalidatePath } from "next/cache";
 import { validateUuid } from "@/app/lib/validation";
@@ -33,7 +31,6 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <TabsTrigger value="invoices">Invoices</TabsTrigger>
                 <TabsTrigger value="states">Order States</TabsTrigger>
                 <TabsTrigger value="webhooks">Webhooks</TabsTrigger>
-                <TabsTrigger value="full">Full Order Object</TabsTrigger>
               </TabsList>
 
               <Box px="4" pt="3" pb="2">
@@ -41,7 +38,6 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <OrderInvoices {...order} />
                 <OrderStates {...order} />
                 <WebhooksTab {...order} />
-                <OrderFull {...order} />
               </Box>
             </TabsRoot>
           </Card>

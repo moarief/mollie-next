@@ -17,9 +17,11 @@ import {
 } from "@radix-ui/themes";
 import Link from "next/link";
 import { prisma } from "@/app/lib/db";
+import { revalidatePath } from "next/cache";
 
 export default async function Page() {
   const entryList = await prisma.webhooks.findMany();
+  revalidatePath("/webhooks");
   return (
     <main>
       <Flex direction="column" m="6">

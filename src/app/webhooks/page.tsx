@@ -35,7 +35,7 @@ export default async function Page() {
               <Flex gap="1" direction="column">
                 <Flex gap="2" justify="between">
                   <Text>Order ID</Text>
-                  <Text>{entry.order_external_ref_id}</Text>
+                  <Text>{entry.external_reference_id}</Text>
                 </Flex>
                 <Flex gap="2" justify="between">
                   <Text>Triggered at</Text>

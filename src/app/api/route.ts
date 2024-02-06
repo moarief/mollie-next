@@ -19,13 +19,13 @@ export async function POST(request: Request) {
     const {
       topic,
       order_uuid,
-      order_external_ref_id,
+      external_reference_id,
       order_state,
       event_time,
     }: {
       topic: string;
       order_uuid: string;
-      order_external_ref_id: string;
+      external_reference_id: string;
       order_state: string;
       event_time: Date;
     } = webhookData;
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
 
     const webhook = await prisma.webhooks.create({
       data: {
-        order_external_ref_id,
+        external_reference_id,
         topic,
         order_uuid,
         order_state,

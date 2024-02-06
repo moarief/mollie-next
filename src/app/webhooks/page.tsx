@@ -1,3 +1,5 @@
+"use server";
+
 import {
   Button,
   Flex,
@@ -9,12 +11,12 @@ import {
   DialogTrigger,
   DialogContent,
   DialogTitle,
-  Box,
   Separator,
   ScrollArea,
+  Badge,
 } from "@radix-ui/themes";
+import Link from "next/link";
 import { prisma } from "@/app/lib/db";
-import StateBadge from "../components/ui/orderStateBadge";
 
 export default async function Page() {
   const entryList = await prisma.webhooks.findMany();
@@ -26,7 +28,6 @@ export default async function Page() {
           columns={{
             xs: "1",
             md: "2",
-            lg: "3",
           }}
           gap="5"
         >
@@ -35,26 +36,32 @@ export default async function Page() {
               <Flex gap="1" direction="column">
                 <Flex gap="2" justify="between">
                   <Text>Order ID</Text>
-                  <Text>{entry.external_reference_id}</Text>
+                  <Badge color="gray">{entry.external_reference_id}</Badge>
                 </Flex>
                 <Flex gap="2" justify="between">
                   <Text>Triggered at</Text>
-                  <Text>
+                  <Badge color="gray">
                     {new Date(entry.event_time).toLocaleString("de-DE", {
                       dateStyle: "medium",
                       timeStyle: "short",
                     })}
-                  </Text>
+                  </Badge>
                 </Flex>
                 <Flex gap="2" justify="between">
                   <Text>Topic</Text>
-                  <Text>{entry.topic}</Text>
+                  <Badge color="gray">{entry.topic}</Badge>
                 </Flex>
               </Flex>
-              <Flex justify="end" mt="2">
+              <Separator m="3" size="4" />
+              <Flex justify="end" mt="2" gap="3">
+                <Button size="1" variant="outline" asChild>
+                  <Link href={`/orders/${entry.order_uuid}`}>
+                    Order details
+                  </Link>
+                </Button>
                 <DialogRoot>
                   <DialogTrigger>
-                    <Button size="1" variant="soft">
+                    <Button size="1" variant="outline">
                       Show Payload
                     </Button>
                   </DialogTrigger>
@@ -63,7 +70,9 @@ export default async function Page() {
                     <Separator my="2" size="4" />
                     <ScrollArea>
                       <Text size="1">
-                        <pre>{entry.payload}</pre>
+                        <pre>
+                          {JSON.stringify(JSON.parse(entry.payload), null, 2)}
+                        </pre>
                       </Text>
                     </ScrollArea>
                   </DialogContent>

@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     const headersList = headers();
     const payload = await request.text();
     const signature = headersList.get("X-Mondu-Signature");
-    const isVerified = await MonduVerifier(payload, signature || ""); // Handle null case
+    const isVerified = await MonduVerifier(payload, signature || "");
 
     if (!isVerified) {
       throw new Error("Webhook verification failed");
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         order_uuid,
         order_state,
         event_time,
-        payload,
+        payload: webhookData,
       },
     });
 

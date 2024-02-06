@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         order_uuid,
         order_state,
         event_time,
-        payload: webhookData,
+        payload,
       },
     });
 

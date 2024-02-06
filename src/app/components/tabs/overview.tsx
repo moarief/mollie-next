@@ -62,7 +62,7 @@ export default function OrderOverview(order: {
           <DialogContent>
             <DialogTitle>Raw Order Data</DialogTitle>
             <Separator my="2" size="4" />
-            <ScrollArea>
+            <ScrollArea style={{ height: 480 }}>
               <Text size="1">
                 <pre>{JSON.stringify(order, null, 2)}</pre>
               </Text>

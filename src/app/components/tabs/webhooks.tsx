@@ -10,9 +10,7 @@ import {
 } from "@radix-ui/themes";
 import { Key } from "react";
 import StateBadge from "../ui/orderStateBadge";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/app/lib/db";
 
 export default async function WebhooksTab(order: { uuid: string }) {
   const entryList = await prisma.webhooks.findMany({

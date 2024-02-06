@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "@radix-ui/themes/styles.css";
 import { Theme, ThemePanel, Container, Section } from "@radix-ui/themes";
 
 import Navbar from "@/app/components/ui/navbar.js";

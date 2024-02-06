@@ -245,20 +245,13 @@ export default async function CheckoutForm() {
             <Heading size="3" mt="2">
               Payment
             </Heading>
-            <RadioGroupRoot
-              variant="soft"
-              defaultValue="invoice"
-              name="payment_method"
-            >
+            <RadioGroupRoot defaultValue="invoice" name="payment_method">
               <Card m="1">
                 <Flex direction="column">
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroupItem
-                          value="invoice"
-                          className="bg-[var(--accent-a5)]"
-                        />
+                        <RadioGroupItem value="invoice" />
                         Invoice
                       </Flex>
                     </Text>
@@ -268,10 +261,7 @@ export default async function CheckoutForm() {
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroupItem
-                          value="direct_debit"
-                          className="bg-[var(--accent-a5)]"
-                        />
+                        <RadioGroupItem value="direct_debit" />
                         SEPA Direct Debit
                       </Flex>
                     </Text>
@@ -281,10 +271,7 @@ export default async function CheckoutForm() {
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroupItem
-                          value="installment"
-                          className="bg-[var(--accent-a5)]"
-                        />
+                        <RadioGroupItem value="installment" />
                         Installments
                       </Flex>
                     </Text>
@@ -294,10 +281,7 @@ export default async function CheckoutForm() {
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroupItem
-                          value="installment_by_invoice"
-                          className="bg-[var(--accent-a5)]"
-                        />
+                        <RadioGroupItem value="installment_by_invoice" />
                         Installments by invoice
                       </Flex>
                     </Text>

@@ -10,11 +10,12 @@ datasource db {
 }
 
 model Webhooks {
-    id          Int      @id @default(autoincrement())
-    createdAt   DateTime @default(now())
-    topic       String
-    order_uuid  String
-    order_state String
-    event_time  DateTime
-    payload     String
+    id                    Int      @id @default(autoincrement())
+    createdAt             DateTime @default(now())
+    order_external_ref_id String
+    topic                 String
+    order_uuid            String
+    order_state           String
+    event_time            DateTime
+    payload               String
 }

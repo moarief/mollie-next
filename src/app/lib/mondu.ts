@@ -112,12 +112,11 @@ class MonduApi {
 
   async getOrders(page: number, per_page: number) {
     const response = await fetch(
-      `${this.apiUrl}` + "/orders?page=" + page + "&per_page=" + per_page,
+      `${this.apiUrl}/orders?page=${page}&per_page=${per_page}`,
       {
         headers: {
           "Api-Token": this.apiKey,
         },
-        next: { revalidate: 60 },
       }
     );
 
@@ -127,7 +126,24 @@ class MonduApi {
     }
 
     const rawResponse = await response.json();
-    const orders = rawResponse.orders;
+    const orders = rawResponse.orders.map((order: any) => {
+      const {
+        uuid,
+        state,
+        real_price_cents,
+        external_reference_id,
+        buyer_name,
+        created_at,
+      } = order;
+      return {
+        uuid,
+        state,
+        real_price_cents,
+        external_reference_id,
+        buyer_name,
+        created_at,
+      };
+    });
     return orders;
   }
 

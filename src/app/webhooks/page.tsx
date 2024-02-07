@@ -20,7 +20,11 @@ import { prisma } from "@/app/lib/db";
 import { revalidatePath } from "next/cache";
 
 export default async function Page() {
-  const entryList = await prisma.webhooks.findMany();
+  const entryList = await prisma.webhooks.findMany({
+    orderBy: {
+      event_time: "desc",
+    },
+  });
   revalidatePath("/webhooks");
   return (
     <main>

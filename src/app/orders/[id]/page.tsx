@@ -24,7 +24,15 @@ export default async function Page({ params }: { params: { id: string } }) {
       <Flex direction="column" m="6">
         <Heading mb="4">Order Overview</Heading>
         <Flex justify="center" p="2">
-          <Card variant="classic" style={{ width: 720 }}>
+          <Card
+            variant="classic"
+            style={{ maxWidth: 720 }}
+            size={{
+              initial: "1",
+              sm: "2",
+              lg: "3",
+            }}
+          >
             <TabsRoot defaultValue="overview">
               <TabsList>
                 <TabsTrigger value="overview">Overview</TabsTrigger>

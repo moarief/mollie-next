@@ -7,7 +7,7 @@ export default async function Pagination({ page }: { page: number }) {
   let prevpage = page - 1;
 
   return (
-    <Flex direction="row" gap="3" mt="2" mr="2" justify="end">
+    <Flex direction="row" gap="3" mt="2" mr="2" justify="center">
       <Link href={"/orders/?page=" + prevpage}>
         <IconButton variant="soft">
           <ArrowLeftIcon />

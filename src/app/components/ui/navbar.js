@@ -1,32 +1,78 @@
 import Link from "next/link";
-import { Text, Code } from "@radix-ui/themes";
+import { Text, Code, Flex } from "@radix-ui/themes";
 
 export default function Navbar() {
   return (
-    <header className="flex items-center justify-between px-6 py-4">
-      <Link href="/">
-        <div className="flex items-center gap-2">
-          <MonduIcon className="h-6 w-6" />
-          <Text weight="medium">Mondu Demo App</Text>
-        </div>
-      </Link>
-      <nav className="flex gap-6">
-        <Link href="/checkout">
-          <Text>Checkout</Text>
+    <Flex asChild="true" justify="between" align="center" m="4">
+      <header>
+        <Link href="/">
+          <Flex gap="2" align="center">
+            <MonduIcon className="h-6 w-6" />
+            <Text
+              weight="medium"
+              size={{
+                initial: "1",
+                xs: "2",
+                md: "3",
+                xl: "4",
+              }}
+            >
+              Mondu Demo
+            </Text>
+          </Flex>
         </Link>
-        <Link href="/orders">
-          <Text>Orders</Text>
-        </Link>
-        <Link href="/webhooks">
-          <Text>Webhooks</Text>
-        </Link>
-        <Link href="https://github.com/hreinberger">
-          <Text>
-            <Code>Github Repo</Code>
-          </Text>
-        </Link>
-      </nav>
-    </header>
+        <nav className="flex gap-6">
+          <Link href="/checkout">
+            <Text
+              size={{
+                initial: "1",
+                xs: "2",
+                md: "3",
+                xl: "4",
+              }}
+            >
+              Checkout
+            </Text>
+          </Link>
+          <Link href="/orders">
+            <Text
+              size={{
+                initial: "1",
+                xs: "2",
+                md: "3",
+                xl: "4",
+              }}
+            >
+              Orders
+            </Text>
+          </Link>
+          <Link href="/webhooks">
+            <Text
+              size={{
+                initial: "1",
+                xs: "2",
+                md: "3",
+                xl: "4",
+              }}
+            >
+              Webhooks
+            </Text>
+          </Link>
+          <Link href="https://github.com/hreinberger">
+            <Text
+              size={{
+                initial: "1",
+                xs: "2",
+                md: "3",
+                xl: "4",
+              }}
+            >
+              <Code>Github Repo</Code>
+            </Text>
+          </Link>
+        </nav>
+      </header>
+    </Flex>
   );
 }
 

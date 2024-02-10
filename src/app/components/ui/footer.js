@@ -3,7 +3,15 @@ import { Text, Flex } from "@radix-ui/themes";
 export default function Footer() {
   return (
     <Flex direction="column" align="center">
-      <Text size="3" color="gray">
+      <Text
+        size={{
+          initial: "1",
+          xs: "2",
+          md: "3",
+          xl: "4",
+        }}
+        color="gray"
+      >
         © 2024 Mondu GmbH
       </Text>
       <Text size="1" color="gray">

@@ -9,10 +9,11 @@ import {
   TableCell,
   TableBody,
   TableRowHeaderCell,
-  Link as Rlink,
+  IconButton,
 } from "@radix-ui/themes";
 import { monduOrders } from "@/app/lib/mondu";
 import Link from "next/link";
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
 import StateBadge from "./orderStateBadge";
 
@@ -21,37 +22,44 @@ export default async function Ordertable({ page, per_page }) {
   return (
     <Flex justify="center" pt="4">
       <Flex>
-        <TableRoot variant="surface">
+        <TableRoot variant="surface" size={{
+          initial: "1",
+          sm: "2",
+          lg: "3" 
+        }}>
           <TableHeader>
             <TableRow>
-              <TableColumnHeaderCell>UUID</TableColumnHeaderCell>
-              <TableColumnHeaderCell>Order ID</TableColumnHeaderCell>
-              <TableColumnHeaderCell>State</TableColumnHeaderCell>
-              <TableColumnHeaderCell>Buyer</TableColumnHeaderCell>
-              <TableColumnHeaderCell>Created At</TableColumnHeaderCell>
+              <TableColumnHeaderCell align="center">Order ID</TableColumnHeaderCell>
+              <TableColumnHeaderCell align="center">Created At</TableColumnHeaderCell>
+              <TableColumnHeaderCell align="center">State</TableColumnHeaderCell>
+              <TableColumnHeaderCell align="center">Buyer</TableColumnHeaderCell>
+              
+              <TableColumnHeaderCell align="center">Details</TableColumnHeaderCell>
             </TableRow>
           </TableHeader>
 
           <TableBody>
             {Object.values(orders).map((order, index) => (
               <TableRow key={index}>
-                <>
-                  <TableRowHeaderCell>
-                    <Rlink>
-                      <Link href={"/orders/" + order.uuid}>{order.uuid}</Link>
-                    </Rlink>
+                  <TableRowHeaderCell align="center">
+{order.external_reference_id}
                   </TableRowHeaderCell>
-                </>
-                <TableCell>{order.external_reference_id}</TableCell>
-                <TableCell>
-                  <StateBadge state={order.state} />
-                </TableCell>
-                <TableCell>{order.buyer_name}</TableCell>
-                <TableCell>
+                                  <TableCell align="center">
                   {new Date(order.created_at).toLocaleString("de-DE", {
                     dateStyle: "medium",
                     timeStyle: "short",
                   })}
+                </TableCell>
+                <TableCell align="center">
+                  <StateBadge state={order.state} />
+                </TableCell>
+                <TableCell align="center">{order.buyer_name}</TableCell>
+
+                <TableCell align="center">
+                  <IconButton variant="outline">
+                    
+                      <Link href={"/orders/" + order.uuid}><MagnifyingGlassIcon /></Link>
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}

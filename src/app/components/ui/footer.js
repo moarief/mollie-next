@@ -1,8 +1,9 @@
 import { Text, Flex } from "@radix-ui/themes";
+import MonduStatus from "./monduStatus";
 
 export default function Footer() {
   return (
-    <Flex direction="column" align="center">
+    <Flex direction="column" align="center" gap="2">
       <Text
         size={{
           initial: "1",
@@ -18,6 +19,7 @@ export default function Footer() {
         This site is not part of Mondus official product offering. Use at your
         own risk.
       </Text>
+      <MonduStatus />
     </Flex>
   );
 }

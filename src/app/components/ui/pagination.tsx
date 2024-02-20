@@ -5,7 +5,7 @@ import { ArrowRightIcon, ArrowLeftIcon, HomeIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default async function Pagination({ page }: { page: number }) {
+export default function Pagination({ page }: { page: number }) {
   const pathname = usePathname();
   let nextpage = page + 1;
   let prevpage = page - 1;

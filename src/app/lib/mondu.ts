@@ -203,6 +203,17 @@ class MonduApi {
     const secret = rawResponse.webhook_secret;
     return secret;
   }
+
+  async healthCheck() {
+    const response = await fetch("https://api.demo.mondu.ai/healthcheck", {
+      next: { revalidate: 300 }, // get healthcheck every 5 minutes
+    });
+    if (!response.ok) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
 
 export async function monduOrders(page: number, per_page: number) {
@@ -243,4 +254,10 @@ export async function monduWebhookSecret() {
   const monduApi = new MonduApi();
   const secret = await monduApi.getWebhookSecret();
   return secret;
+}
+
+export async function isMonduUp() {
+  const monduApi = new MonduApi();
+  const result = await monduApi.healthCheck();
+  return result;
 }

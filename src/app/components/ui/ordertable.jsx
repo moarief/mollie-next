@@ -22,29 +22,45 @@ export default async function Ordertable({ page, per_page }) {
   return (
     <Flex justify="center" pt="4">
       <Flex>
-        <TableRoot variant="surface" size={{
-          initial: "1",
-          sm: "2",
-          lg: "3" 
-        }}>
+        <TableRoot
+          variant="ghost"
+          size={{
+            initial: "1",
+            sm: "2",
+            lg: "3",
+          }}
+        >
           <TableHeader>
             <TableRow>
-              <TableColumnHeaderCell align="center">Order ID</TableColumnHeaderCell>
-              <TableColumnHeaderCell align="center">Created At</TableColumnHeaderCell>
-              <TableColumnHeaderCell align="center">State</TableColumnHeaderCell>
-              <TableColumnHeaderCell align="center">Buyer</TableColumnHeaderCell>
-              
-              <TableColumnHeaderCell align="center">Details</TableColumnHeaderCell>
+              <TableColumnHeaderCell align="center">
+                Order ID
+              </TableColumnHeaderCell>
+              <TableColumnHeaderCell align="center">
+                Created At
+              </TableColumnHeaderCell>
+              <TableColumnHeaderCell align="center">
+                State
+              </TableColumnHeaderCell>
+              <TableColumnHeaderCell align="center">
+                Buyer
+              </TableColumnHeaderCell>
+
+              <TableColumnHeaderCell align="center">
+                Details
+              </TableColumnHeaderCell>
             </TableRow>
           </TableHeader>
 
           <TableBody>
             {Object.values(orders).map((order, index) => (
-              <TableRow key={index}>
-                  <TableRowHeaderCell align="center">
-{order.external_reference_id}
-                  </TableRowHeaderCell>
-                                  <TableCell align="center">
+              <TableRow
+                key={index}
+                className="hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              >
+                <TableRowHeaderCell align="center">
+                  {order.external_reference_id}
+                </TableRowHeaderCell>
+                <TableCell align="center">
                   {new Date(order.created_at).toLocaleString("de-DE", {
                     dateStyle: "medium",
                     timeStyle: "short",
@@ -57,8 +73,9 @@ export default async function Ordertable({ page, per_page }) {
 
                 <TableCell align="center">
                   <IconButton variant="outline">
-                    
-                      <Link href={"/orders/" + order.uuid}><MagnifyingGlassIcon /></Link>
+                    <Link href={"/orders/" + order.uuid}>
+                      <MagnifyingGlassIcon />
+                    </Link>
                   </IconButton>
                 </TableCell>
               </TableRow>

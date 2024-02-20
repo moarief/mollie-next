@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { Text, Code, Flex } from "@radix-ui/themes";
+import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  console.log(pathname);
   return (
     <Flex asChild="true" justify="between" align="center" m="4">
       <header>
@@ -9,13 +15,16 @@ export default function Navbar() {
           <Flex gap="2" align="center">
             <MonduIcon className="h-6 w-6" />
             <Text
-              weight="medium"
               size={{
                 initial: "1",
                 xs: "2",
                 md: "3",
                 xl: "4",
               }}
+              className={clsx(
+                "transition-all duration-100",
+                pathname === "/" ? "font-bold" : "font-medium"
+              )}
             >
               Mondu Demo
             </Text>
@@ -30,6 +39,10 @@ export default function Navbar() {
                 md: "3",
                 xl: "4",
               }}
+              className={clsx(
+                "transition-all duration-100",
+                pathname === "/checkout" ? "font-bold" : "font-medium"
+              )}
             >
               Checkout
             </Text>
@@ -42,6 +55,10 @@ export default function Navbar() {
                 md: "3",
                 xl: "4",
               }}
+              className={clsx(
+                "transition-all duration-100",
+                pathname === "/orders" ? "font-bold" : "font-medium"
+              )}
             >
               Orders
             </Text>
@@ -54,6 +71,10 @@ export default function Navbar() {
                 md: "3",
                 xl: "4",
               }}
+              className={clsx(
+                "transition-all duration-100",
+                pathname === "/webhooks" ? "font-bold" : "font-medium"
+              )}
             >
               Webhooks
             </Text>

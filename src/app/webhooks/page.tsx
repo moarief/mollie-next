@@ -18,9 +18,18 @@ import {
 import Link from "next/link";
 import { prisma } from "@/app/lib/db";
 import { revalidatePath } from "next/cache";
+import Pagination from "@/app/components/ui/pagination";
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { page: number; per_page: number };
+}) {
+  const page = Number(searchParams.page) || 1;
+  const per_page = Number(searchParams.per_page) || 10;
   const entryList = await prisma.webhooks.findMany({
+    take: per_page,
+    skip: (page - 1) * per_page,
     orderBy: {
       event_time: "desc",
     },
@@ -87,6 +96,9 @@ export default async function Page() {
             </Card>
           ))}
         </Grid>
+        <Flex justify="center">
+          <Pagination page={page} />
+        </Flex>
       </Flex>
     </main>
   );

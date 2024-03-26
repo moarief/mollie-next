@@ -7,10 +7,7 @@ import {
   Card,
   Text,
   Grid,
-  DialogRoot,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
+  Dialog,
   Separator,
   ScrollArea,
   Badge,
@@ -74,14 +71,14 @@ export default async function Page({
                     Order details
                   </Link>
                 </Button>
-                <DialogRoot>
-                  <DialogTrigger>
+                <Dialog.Root>
+                  <Dialog.Trigger>
                     <Button size="1" variant="outline">
                       Show Payload
                     </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogTitle>Webhook Payload</DialogTitle>
+                  </Dialog.Trigger>
+                  <Dialog.Content>
+                    <Dialog.Title>Webhook Payload</Dialog.Title>
                     <Separator my="2" size="4" />
                     <ScrollArea>
                       <Text size="1">
@@ -90,8 +87,8 @@ export default async function Page({
                         </pre>
                       </Text>
                     </ScrollArea>
-                  </DialogContent>
-                </DialogRoot>
+                  </Dialog.Content>
+                </Dialog.Root>
               </Flex>
             </Card>
           ))}

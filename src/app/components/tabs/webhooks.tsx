@@ -2,16 +2,10 @@
 
 import {
   Text,
-  TableRoot,
-  TabsContent,
-  TableRowHeaderCell,
-  TableRow,
-  TableCell,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
+  Table,
+  Dialog,
+  Tabs,
   Button,
-  DialogContent,
   ScrollArea,
   Separator,
 } from "@radix-ui/themes";
@@ -26,30 +20,30 @@ export default async function WebhooksTab(order: { uuid: string }) {
   });
 
   return (
-    <TabsContent value="webhooks">
-      <TableRoot variant="ghost">
+    <Tabs.Content value="webhooks">
+      <Table.Root variant="ghost">
         {entryList.map((entry) => (
-          <TableRow key={entry.id as Key}>
-            <TableRowHeaderCell>
+          <Table.Row key={entry.id as Key}>
+            <Table.RowHeaderCell>
               <Text mr="4">
                 {new Date(entry.event_time).toLocaleString("de-DE", {
                   dateStyle: "medium",
                   timeStyle: "short",
                 })}
               </Text>
-            </TableRowHeaderCell>
-            <TableCell>
+            </Table.RowHeaderCell>
+            <Table.Cell>
               <Text>{entry.topic}</Text>
-            </TableCell>
-            <TableCell>
-              <DialogRoot>
-                <DialogTrigger>
+            </Table.Cell>
+            <Table.Cell>
+              <Dialog.Root>
+                <Dialog.Trigger>
                   <Button size="1" variant="outline">
                     Show Payload
                   </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogTitle>Webhook Payload</DialogTitle>
+                </Dialog.Trigger>
+                <Dialog.Content>
+                  <Dialog.Title>Webhook Payload</Dialog.Title>
                   <Separator my="2" size="4" />
                   <ScrollArea>
                     <Text size="1">
@@ -58,12 +52,12 @@ export default async function WebhooksTab(order: { uuid: string }) {
                       </pre>
                     </Text>
                   </ScrollArea>
-                </DialogContent>
-              </DialogRoot>
-            </TableCell>
-          </TableRow>
+                </Dialog.Content>
+              </Dialog.Root>
+            </Table.Cell>
+          </Table.Row>
         ))}
-      </TableRoot>
-    </TabsContent>
+      </Table.Root>
+    </Tabs.Content>
   );
 }

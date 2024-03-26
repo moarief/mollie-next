@@ -1,16 +1,6 @@
 "use server";
 
-import {
-  Flex,
-  TableRoot,
-  TableHeader,
-  TableRow,
-  TableColumnHeaderCell,
-  TableCell,
-  TableBody,
-  TableRowHeaderCell,
-  IconButton,
-} from "@radix-ui/themes";
+import { Flex, Table, IconButton } from "@radix-ui/themes";
 import { monduOrders } from "@/app/lib/mondu";
 import Link from "next/link";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
@@ -22,7 +12,7 @@ export default async function Ordertable({ page, per_page }) {
   return (
     <Flex justify="center" pt="4">
       <Flex>
-        <TableRoot
+        <Table.Root
           variant="ghost"
           size={{
             initial: "1",
@@ -30,58 +20,58 @@ export default async function Ordertable({ page, per_page }) {
             lg: "3",
           }}
         >
-          <TableHeader>
-            <TableRow>
-              <TableColumnHeaderCell align="center">
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeaderCell align="center">
                 Order ID
-              </TableColumnHeaderCell>
-              <TableColumnHeaderCell align="center">
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell align="center">
                 Created At
-              </TableColumnHeaderCell>
-              <TableColumnHeaderCell align="center">
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell align="center">
                 State
-              </TableColumnHeaderCell>
-              <TableColumnHeaderCell align="center">
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell align="center">
                 Buyer
-              </TableColumnHeaderCell>
+              </Table.ColumnHeaderCell>
 
-              <TableColumnHeaderCell align="center">
+              <Table.ColumnHeaderCell align="center">
                 Details
-              </TableColumnHeaderCell>
-            </TableRow>
-          </TableHeader>
+              </Table.ColumnHeaderCell>
+            </Table.Row>
+          </Table.Header>
 
-          <TableBody>
+          <Table.Body>
             {Object.values(orders).map((order, index) => (
-              <TableRow
+              <Table.Row
                 key={index}
                 className="hover:bg-zinc-100 dark:hover:bg-zinc-800"
               >
-                <TableRowHeaderCell align="center">
+                <Table.RowHeaderCell align="center">
                   {order.external_reference_id}
-                </TableRowHeaderCell>
-                <TableCell align="center">
+                </Table.RowHeaderCell>
+                <Table.Cell align="center">
                   {new Date(order.created_at).toLocaleString("de-DE", {
                     dateStyle: "medium",
                     timeStyle: "short",
                   })}
-                </TableCell>
-                <TableCell align="center">
+                </Table.Cell>
+                <Table.Cell align="center">
                   <StateBadge state={order.state} />
-                </TableCell>
-                <TableCell align="center">{order.buyer_name}</TableCell>
+                </Table.Cell>
+                <Table.Cell align="center">{order.buyer_name}</Table.Cell>
 
-                <TableCell align="center">
+                <Table.Cell align="center">
                   <IconButton variant="outline">
                     <Link href={"/orders/" + order.uuid}>
                       <MagnifyingGlassIcon />
                     </Link>
                   </IconButton>
-                </TableCell>
-              </TableRow>
+                </Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
-        </TableRoot>
+          </Table.Body>
+        </Table.Root>
       </Flex>
     </Flex>
   );

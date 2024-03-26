@@ -5,26 +5,15 @@ import {
   Grid,
   Heading,
   Text,
-  TextFieldRoot,
-  TextFieldInput,
-  SelectRoot,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
+  TextField,
+  Select,
   Separator,
   Switch,
   Card,
-  RadioGroupRoot,
-  RadioGroupItem,
-  TableRoot,
-  TableBody,
-  TableRow,
-  TableCell,
-  TableColumnHeaderCell,
+  RadioGroup,
+  Table,
   Link,
-  CalloutRoot,
-  CalloutIcon,
-  CalloutText,
+  Callout,
 } from "@radix-ui/themes";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import MonduLogo from "@/app/components/ui/monduLogo.js";
@@ -68,37 +57,34 @@ export default async function CheckoutForm() {
             <Grid columns="2" gap="3" width="auto">
               <Flex direction="column" gap="1">
                 <Text as="label">Firstname</Text>
-                <TextFieldRoot mb="2">
-                  <TextFieldInput
-                    placeholder="Firstname"
-                    defaultValue="Max"
-                    name="firstname"
-                    required
-                  ></TextFieldInput>
-                </TextFieldRoot>
+                <TextField.Root
+                  mb="2"
+                  placeholder="Firstname"
+                  defaultValue="Max"
+                  name="firstname"
+                  required
+                ></TextField.Root>
               </Flex>
               <Flex direction="column" gap="1">
                 <Text as="label">Lastname</Text>
-                <TextFieldRoot mb="2">
-                  <TextFieldInput
-                    placeholder="Lastname"
-                    defaultValue="Mustermensch"
-                    name="lastname"
-                    required
-                  ></TextFieldInput>
-                </TextFieldRoot>
+                <TextField.Root
+                  mb="2"
+                  placeholder="Lastname"
+                  defaultValue="Mustermensch"
+                  name="lastname"
+                  required
+                ></TextField.Root>
               </Flex>
             </Grid>
             <Flex direction="column" gap="1">
               <Text as="label">Company Name</Text>
-              <TextFieldRoot mb="2">
-                <TextFieldInput
-                  placeholder="Company"
-                  defaultValue="Mondu GmbH"
-                  name="company"
-                  required
-                ></TextFieldInput>
-              </TextFieldRoot>
+              <TextField.Root
+                mb="2"
+                placeholder="Company"
+                defaultValue="Mondu GmbH"
+                name="company"
+                required
+              ></TextField.Root>
             </Flex>
             <Flex direction="column" gap="1">
               <Flex align="baseline" gap="2">
@@ -107,70 +93,67 @@ export default async function CheckoutForm() {
                   (determines your desired order outcome)
                 </Text>
               </Flex>
-              <SelectRoot
+              <Select.Root
                 defaultValue="accepted.mondu-next@example.com"
                 name="email"
                 required
               >
-                <SelectTrigger />
-                <SelectContent>
-                  <SelectItem value="accepted.mondu-next@example.com">
+                <Select.Trigger />
+                <Select.Content>
+                  <Select.Item value="accepted.mondu-next@example.com">
                     Accepted
-                  </SelectItem>
-                  <SelectItem value="declined.mondu-next@example.com">
+                  </Select.Item>
+                  <Select.Item value="declined.mondu-next@example.com">
                     Declined
-                  </SelectItem>
-                  <SelectItem value="pending.mondu-next@example.com">
+                  </Select.Item>
+                  <Select.Item value="pending.mondu-next@example.com">
                     Pending
-                  </SelectItem>
-                </SelectContent>
-              </SelectRoot>
+                  </Select.Item>
+                </Select.Content>
+              </Select.Root>
             </Flex>
             <Flex direction="column" gap="1">
               <Text as="label">Address</Text>
-              <TextFieldRoot mb="2">
-                <TextFieldInput
-                  placeholder="Somestreet 123"
-                  defaultValue="Alexanderstr. 36"
-                  name="address"
-                  required
-                ></TextFieldInput>
-              </TextFieldRoot>
+              <TextField.Root
+                mb="2"
+                placeholder="Somestreet 123"
+                defaultValue="Alexanderstr. 36"
+                name="address"
+                required
+              ></TextField.Root>
             </Flex>
             <Flex direction="column" gap="1">
               <Text as="label">City</Text>
-              <TextFieldRoot mb="2">
-                <TextFieldInput
-                  placeholder="Berlin"
-                  defaultValue="Berlin"
-                  name="city"
-                  required
-                ></TextFieldInput>
-              </TextFieldRoot>
+              <TextField.Root
+                mb="2"
+                placeholder="Berlin"
+                defaultValue="Berlin"
+                name="city"
+                required
+              ></TextField.Root>
             </Flex>
             <Grid columns="2" gap="3" width="auto">
               <Flex direction="column" gap="1">
                 <Text as="label">Zip</Text>
-                <TextFieldRoot mb="2">
-                  <TextFieldInput
-                    placeholder="10179"
-                    defaultValue="10179"
-                    name="zip_code"
-                    required
-                  ></TextFieldInput>
-                </TextFieldRoot>
+                <TextField.Root
+                  mb="2"
+                  placeholder="10179"
+                  defaultValue="10179"
+                  name="zip_code"
+                  required
+                ></TextField.Root>
               </Flex>
               <Flex direction="column" gap="1">
                 <Text as="label">Country</Text>
-                <SelectRoot defaultValue="DE" name="country" required>
-                  <SelectTrigger />
-                  <SelectContent>
-                    <SelectItem value="DE">Germany</SelectItem>
-                    <SelectItem value="AT">Austria</SelectItem>
-                    <SelectItem value="NL">Netherlands</SelectItem>
-                    <SelectItem value="UK">United Kingdom</SelectItem>
-                  </SelectContent>
-                </SelectRoot>
+                <Select.Root defaultValue="DE" name="country" required>
+                  <Select.Trigger />
+                  <Select.Content>
+                    <Select.Item value="DE">Germany</Select.Item>
+                    <Select.Item value="AT">Austria</Select.Item>
+                    <Select.Item value="NL">Netherlands</Select.Item>
+                    <Select.Item value="UK">United Kingdom</Select.Item>
+                  </Select.Content>
+                </Select.Root>
               </Flex>
             </Grid>
             <Separator my="3" size="4" />
@@ -191,51 +174,51 @@ export default async function CheckoutForm() {
             <Heading size="3">Your Shopping Cart</Heading>
             <Card m="1">
               <Flex direction="column">
-                <TableRoot>
-                  <TableBody>
-                    <TableRow>
-                      <TableColumnHeaderCell>Product</TableColumnHeaderCell>
-                      <TableColumnHeaderCell>Quantity</TableColumnHeaderCell>
-                      <TableColumnHeaderCell>Price</TableColumnHeaderCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>
+                <Table.Root>
+                  <Table.Body>
+                    <Table.Row>
+                      <Table.ColumnHeaderCell>Product</Table.ColumnHeaderCell>
+                      <Table.ColumnHeaderCell>Quantity</Table.ColumnHeaderCell>
+                      <Table.ColumnHeaderCell>Price</Table.ColumnHeaderCell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell>
                         <Flex direction="column">
                           <Text>Product 1</Text>
                           <Text size="1" color="gray">
                             Description
                           </Text>
                         </Flex>
-                      </TableCell>
-                      <TableCell>5</TableCell>
-                      <TableCell>200,00 €</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>
+                      </Table.Cell>
+                      <Table.Cell>5</Table.Cell>
+                      <Table.Cell>200,00 €</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell>
                         <Flex direction="column">
                           <Text>Product 2</Text>
                           <Text size="1" color="gray">
                             Description
                           </Text>
                         </Flex>
-                      </TableCell>
-                      <TableCell>1</TableCell>
-                      <TableCell>10,00 €</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>
+                      </Table.Cell>
+                      <Table.Cell>1</Table.Cell>
+                      <Table.Cell>10,00 €</Table.Cell>
+                    </Table.Row>
+                    <Table.Row>
+                      <Table.Cell>
                         <Flex direction="column">
                           <Text>Product 3</Text>
                           <Text size="1" color="gray">
                             Description
                           </Text>
                         </Flex>
-                      </TableCell>
-                      <TableCell>1</TableCell>
-                      <TableCell>10,00 €</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </TableRoot>
+                      </Table.Cell>
+                      <Table.Cell>1</Table.Cell>
+                      <Table.Cell>10,00 €</Table.Cell>
+                    </Table.Row>
+                  </Table.Body>
+                </Table.Root>
                 <Flex align="center" justify="center" gap="2" m="3">
                   <Heading size="2">Total</Heading>
                   <Heading size="2">1020,00 €</Heading>
@@ -245,13 +228,13 @@ export default async function CheckoutForm() {
             <Heading size="3" mt="2">
               Payment
             </Heading>
-            <RadioGroupRoot defaultValue="invoice" name="payment_method">
+            <RadioGroup.Root defaultValue="invoice" name="payment_method">
               <Card m="1">
                 <Flex direction="column">
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroupItem value="invoice" />
+                        <RadioGroup.Item value="invoice" />
                         Invoice
                       </Flex>
                     </Text>
@@ -261,7 +244,7 @@ export default async function CheckoutForm() {
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroupItem value="direct_debit" />
+                        <RadioGroup.Item value="direct_debit" />
                         SEPA Direct Debit
                       </Flex>
                     </Text>
@@ -271,7 +254,7 @@ export default async function CheckoutForm() {
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroupItem value="installment" />
+                        <RadioGroup.Item value="installment" />
                         Installments
                       </Flex>
                     </Text>
@@ -281,29 +264,29 @@ export default async function CheckoutForm() {
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroupItem value="installment_by_invoice" />
+                        <RadioGroup.Item value="installment_by_invoice" />
                         Installments by invoice
                       </Flex>
                     </Text>
                     <MonduLogo />
                   </Flex>
                   <Separator my="3" size="4" />
-                  <CalloutRoot>
-                    <CalloutIcon>
+                  <Callout.Root>
+                    <Callout.Icon>
                       <InfoCircledIcon />
-                    </CalloutIcon>
-                    <CalloutText>
+                    </Callout.Icon>
+                    <Callout.Text>
                       Information on the processing of your personal data by
                       Mondu GmbH can be found{" "}
                       <Link href="https://www.mondu.ai/gdpr-notification-for-buyers/">
                         here
                       </Link>
                       .
-                    </CalloutText>
-                  </CalloutRoot>
+                    </Callout.Text>
+                  </Callout.Root>
                 </Flex>
               </Card>
-            </RadioGroupRoot>
+            </RadioGroup.Root>
           </Flex>
         </Grid>
         <Flex align="center" justify="center" mt="6">

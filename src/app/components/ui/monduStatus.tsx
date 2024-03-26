@@ -4,7 +4,7 @@ import { Flex, Text, Badge } from "@radix-ui/themes";
 export default async function MonduStatus() {
   const monduUp = await isMonduUp();
   return (
-    <Flex gap="2" align="baseline">
+    <Flex gap="2" align="baseline" mb="4">
       <Text size="1" color="gray">
         Mondu API
       </Text>

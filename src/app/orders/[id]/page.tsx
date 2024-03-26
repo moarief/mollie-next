@@ -1,13 +1,5 @@
 import { monduOrder } from "@/app/lib/mondu";
-import {
-  Flex,
-  Box,
-  Card,
-  Heading,
-  TabsRoot,
-  TabsList,
-  TabsTrigger,
-} from "@radix-ui/themes";
+import { Flex, Box, Card, Heading, Tabs } from "@radix-ui/themes";
 import OrderOverview from "@/app/components/tabs/overview";
 import OrderInvoices from "@/app/components/tabs/invoices";
 import OrderStates from "@/app/components/tabs/states";
@@ -33,13 +25,13 @@ export default async function Page({ params }: { params: { id: string } }) {
               lg: "3",
             }}
           >
-            <TabsRoot defaultValue="overview">
-              <TabsList>
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="invoices">Invoices</TabsTrigger>
-                <TabsTrigger value="states">Order States</TabsTrigger>
-                <TabsTrigger value="webhooks">Webhooks</TabsTrigger>
-              </TabsList>
+            <Tabs.Root defaultValue="overview">
+              <Tabs.List>
+                <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
+                <Tabs.Trigger value="invoices">Invoices</Tabs.Trigger>
+                <Tabs.Trigger value="states">Order States</Tabs.Trigger>
+                <Tabs.Trigger value="webhooks">Webhooks</Tabs.Trigger>
+              </Tabs.List>
 
               <Box px="4" pt="3" pb="2">
                 <OrderOverview {...order} />
@@ -47,7 +39,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <OrderStates {...order} />
                 <WebhooksTab {...order} />
               </Box>
-            </TabsRoot>
+            </Tabs.Root>
           </Card>
         </Flex>
       </Flex>

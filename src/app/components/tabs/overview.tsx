@@ -1,13 +1,10 @@
 import {
   Text,
   Badge,
-  TabsContent,
+  Tabs,
   Flex,
   Separator,
-  DialogRoot,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
+  Dialog,
   Button,
   ScrollArea,
 } from "@radix-ui/themes";
@@ -21,7 +18,7 @@ export default function OrderOverview(order: {
   real_price_cents: number;
 }) {
   return (
-    <TabsContent value="overview">
+    <Tabs.Content value="overview">
       <Flex direction="column" gap="3">
         <Flex direction="row" justify="between">
           <Text weight="bold">Reference ID</Text>
@@ -55,21 +52,21 @@ export default function OrderOverview(order: {
       </Flex>
       <Separator my="3" size="4" />
       <Flex justify="end">
-        <DialogRoot>
-          <DialogTrigger>
+        <Dialog.Root>
+          <Dialog.Trigger>
             <Button variant="outline">Show Raw Order Data</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogTitle>Raw Order Data</DialogTitle>
+          </Dialog.Trigger>
+          <Dialog.Content>
+            <Dialog.Title>Raw Order Data</Dialog.Title>
             <Separator my="2" size="4" />
             <ScrollArea style={{ height: 480 }}>
               <Text size="1">
                 <pre>{JSON.stringify(order, null, 2)}</pre>
               </Text>
             </ScrollArea>
-          </DialogContent>
-        </DialogRoot>
+          </Dialog.Content>
+        </Dialog.Root>
       </Flex>
-    </TabsContent>
+    </Tabs.Content>
   );
 }

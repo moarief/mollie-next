@@ -1,39 +1,32 @@
-import {
-  Text,
-  TableRoot,
-  TabsContent,
-  TableRowHeaderCell,
-  TableRow,
-  TableCell,
-} from "@radix-ui/themes";
+import { Text, Table, Tabs } from "@radix-ui/themes";
 import { Key } from "react";
 import StateBadge from "../ui/orderStateBadge";
 
 export default function OrderStates(order: { state_histories: any[] }) {
   return (
-    <TabsContent value="states">
-      <TableRoot variant="ghost">
+    <Tabs.Content value="states">
+      <Table.Root variant="ghost">
         {order.state_histories.map(
           (state_history: {
             state: string;
             created_at: string | number | Date;
           }) => (
-            <TableRow key={state_history.created_at as Key}>
-              <TableRowHeaderCell>
+            <Table.Row key={state_history.created_at as Key}>
+              <Table.RowHeaderCell>
                 <Text mr="4">
                   {new Date(state_history.created_at).toLocaleString("de-DE", {
                     dateStyle: "medium",
                     timeStyle: "short",
                   })}
                 </Text>
-              </TableRowHeaderCell>
-              <TableCell>
+              </Table.RowHeaderCell>
+              <Table.Cell>
                 <StateBadge state={state_history.state} />
-              </TableCell>
-            </TableRow>
+              </Table.Cell>
+            </Table.Row>
           )
         )}
-      </TableRoot>
-    </TabsContent>
+      </Table.Root>
+    </Tabs.Content>
   );
 }

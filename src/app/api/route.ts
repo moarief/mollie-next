@@ -44,7 +44,10 @@ export async function POST(request: Request) {
     });
 
     // confirm the order after webhook verification
-    if (topic === "order/authorized") {
+    if (
+      topic === "order/authorized" &&
+      external_reference_id.startsWith("mondu-next-ord")
+    ) {
       await monduConfirm(order_uuid);
     }
     revalidatePath("/orders/" + order_uuid);

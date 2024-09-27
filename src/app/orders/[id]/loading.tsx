@@ -35,8 +35,6 @@ export default async function Page() {
             <Tabs.Root defaultValue="overview">
               <Tabs.List>
                 <Tabs.Trigger value="overview">Overview</Tabs.Trigger>
-                <Tabs.Trigger value="invoices">Invoices</Tabs.Trigger>
-                <Tabs.Trigger value="states">Order States</Tabs.Trigger>
                 <Tabs.Trigger value="webhooks">Webhooks</Tabs.Trigger>
               </Tabs.List>
 

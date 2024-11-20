@@ -4,6 +4,7 @@ export async function POST(request: Request) {
   try {
     const headersList = await headers();
     const payload = await request.text();
+    console.log("Received webhook payload:", payload);
     return new Response("Webhook successfully received", {
       status: 200,
     });

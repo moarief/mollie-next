@@ -44,7 +44,7 @@ export async function mollieCreateOrder(
         "description": "Demo payment from " + firstname,
         "redirectUrl": domain + "\/success",
         "cancelUrl": domain,
-        "webhookUrl": "https:\/\/webhook.site\/50e5edca-396e-40ec-82fe-59f08c71b077",
+        "webhookUrl": domain + "\/api",
         "method": payment_method as undefined,
         "billingAddress": {
             "givenName": firstname,

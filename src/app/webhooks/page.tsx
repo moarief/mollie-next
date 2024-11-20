@@ -13,15 +13,15 @@ import {
   Badge,
 } from "@radix-ui/themes";
 import Link from "next/link";
-import { prisma } from "@/app/lib/db";
 import { revalidatePath } from "next/cache";
 import Pagination from "@/app/components/ui/pagination";
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: { page: number; per_page: number };
-}) {
+export default async function Page(
+  props: {
+    searchParams: Promise<{ page: number; per_page: number }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const page = Number(searchParams.page) || 1;
   const per_page = Number(searchParams.per_page) || 10;
   const entryList = await prisma.webhooks.findMany({

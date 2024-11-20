@@ -16,14 +16,13 @@ import {
   Callout,
 } from "@radix-ui/themes";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
-import MonduLogo from "@/app/components/ui/monduLogo.js";
 
 // Next logic
 import { redirect } from "next/navigation";
 
 // Lib
 import { validateFormData, validateUrl } from "@/app/lib/validation";
-import { monduCreateOrder } from "@/app/lib/mondu";
+import { mollieCreateOrder } from "@/app/lib/mollie";
 
 export default async function CheckoutForm() {
   // This Server Action takes the form data, validates it and creates an order
@@ -32,9 +31,9 @@ export default async function CheckoutForm() {
 
     const validatedForm = await validateFormData(formData);
 
-    const monduRedirectUrl = await monduCreateOrder(validatedForm);
-    const validatedRedirectUrl = await validateUrl(monduRedirectUrl);
-    // redirect to Mondu hosted checkout
+    const mollieRedirectUrl = await mollieCreateOrder(validatedForm);
+    const validatedRedirectUrl = await validateUrl(mollieRedirectUrl);
+    // redirect to Mollie hosted checkout
     redirect(validatedRedirectUrl);
   };
 
@@ -81,36 +80,21 @@ export default async function CheckoutForm() {
               <TextField.Root
                 mb="2"
                 placeholder="Company"
-                defaultValue="Mondu GmbH"
+                defaultValue="Mollie BV"
                 name="company"
                 required
               ></TextField.Root>
             </Flex>
             <Flex direction="column" gap="1">
-              <Flex align="baseline" gap="2">
                 <Text as="label">Email</Text>
-                <Text size="1" color="gray">
-                  (determines your desired order outcome)
-                </Text>
-              </Flex>
-              <Select.Root
-                defaultValue="accepted.mondu-next@example.com"
+                <TextField.Root
+                mb="2"
+                placeholder="test@example.com"
+                defaultValue="demo@example.com"
                 name="email"
                 required
-              >
-                <Select.Trigger />
-                <Select.Content>
-                  <Select.Item value="accepted.mondu-next@example.com">
-                    Accepted
-                  </Select.Item>
-                  <Select.Item value="declined.mondu-next@example.com">
-                    Declined
-                  </Select.Item>
-                  <Select.Item value="pending.mondu-next@example.com">
-                    Pending
-                  </Select.Item>
-                </Select.Content>
-              </Select.Root>
+              ></TextField.Root>
+
             </Flex>
             <Flex direction="column" gap="1">
               <Text as="label">Address</Text>
@@ -228,47 +212,43 @@ export default async function CheckoutForm() {
             <Heading size="3" mt="2">
               Payment
             </Heading>
-            <RadioGroup.Root defaultValue="invoice" name="payment_method">
+            <RadioGroup.Root defaultValue="creditcard" name="payment_method">
               <Card m="1">
                 <Flex direction="column">
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroup.Item value="invoice" />
-                        Invoice
+                        <RadioGroup.Item value="creditcard" />
+                        Credit Card
                       </Flex>
                     </Text>
-                    <MonduLogo />
                   </Flex>
                   <Separator my="3" size="4" />
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroup.Item value="direct_debit" />
+                        <RadioGroup.Item value="directdebit" />
                         SEPA Direct Debit
                       </Flex>
                     </Text>
-                    <MonduLogo />
                   </Flex>
                   <Separator my="3" size="4" />
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroup.Item value="installment" />
-                        Installments
+                        <RadioGroup.Item value="ideal" />
+                        iDeal
                       </Flex>
                     </Text>
-                    <MonduLogo />
                   </Flex>
                   <Separator my="3" size="4" />
                   <Flex align="center" justify="between" gap="4">
                     <Text as="label">
                       <Flex gap="2" align="center">
-                        <RadioGroup.Item value="installment_by_invoice" />
-                        Installments by invoice
+                        <RadioGroup.Item value="bancontact" />
+                        Bancontact
                       </Flex>
                     </Text>
-                    <MonduLogo />
                   </Flex>
                   <Separator my="3" size="4" />
                   <Callout.Root>
@@ -276,12 +256,7 @@ export default async function CheckoutForm() {
                       <InfoCircledIcon />
                     </Callout.Icon>
                     <Callout.Text>
-                      Information on the processing of your personal data by
-                      Mondu GmbH can be found{" "}
-                      <Link href="https://www.mondu.ai/gdpr-notification-for-buyers/">
-                        here
-                      </Link>
-                      .
+                      Test Mode only!
                     </Callout.Text>
                   </Callout.Root>
                 </Flex>
@@ -295,7 +270,7 @@ export default async function CheckoutForm() {
             size="3"
             className="w-8/12 sm:w-6/12 lg:w-4/12"
           >
-            Buy Now
+            Buy Now (Hosted Checkout)
           </Button>
         </Flex>
       </Flex>

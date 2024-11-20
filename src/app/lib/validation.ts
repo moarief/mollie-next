@@ -8,28 +8,23 @@ export async function validateFormData(formData: FormData) {
   const formSchema = z.object({
     firstname: z
       .string()
-      .min(1, { message: "Must be at least 1 cahracter long." }),
+      .min(1, { message: "Must be at least 1 character long." }),
     lastname: z
       .string()
-      .min(1, { message: "Must be at least 1 cahracter long." }),
+      .min(1, { message: "Must be at least 1 character long." }),
     company: z
       .string()
-      .min(1, { message: "Must be at least 1 cahracter long." }),
+      .min(1, { message: "Must be at least 1 character long." }),
     email: z.string().email(),
     address: z
       .string()
-      .min(1, { message: "Must be at least 1 cahracter long." }),
-    city: z.string().min(1, { message: "Must be at least 1 cahracter long." }),
+      .min(1, { message: "Must be at least 1 character long." }),
+    city: z.string().min(1, { message: "Must be at least 1 character long." }),
     zip_code: z
       .string()
-      .min(1, { message: "Must be at least 1 cahracter long." }),
+      .min(1, { message: "Must be at least 1 character long." }),
     country: z.string().length(2),
-    payment_method: z.enum([
-      "invoice",
-      "direct_debit",
-      "installment",
-      "installment_by_invoice",
-    ]),
+    payment_method: z.string(),
   });
 
   const data = formSchema.parse(form);

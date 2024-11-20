@@ -1,9 +1,7 @@
-import { Flex, Heading } from "@radix-ui/themes";
+import { permanentRedirect } from 'next/navigation'
 
 export default function Home() {
   return (
-    <Flex direction="column" m="6">
-      <Heading>Hello World</Heading>
-    </Flex>
+    permanentRedirect("/checkout")
   );
 }

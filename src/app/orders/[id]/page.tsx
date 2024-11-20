@@ -1,11 +1,11 @@
-import { monduOrder } from "@/app/lib/mondu";
 import { Flex, Box, Card, Heading, Tabs } from "@radix-ui/themes";
 import OrderOverview from "@/app/components/tabs/overview";
 import WebhooksTab from "@/app/components/tabs/webhooks";
 import { revalidatePath } from "next/cache";
 import { validateUuid } from "@/app/lib/validation";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   const validatedUuid = await validateUuid(params.id);
   const order = await monduOrder(validatedUuid);
   revalidatePath(`/orders/${validatedUuid}`);

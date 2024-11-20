@@ -13,10 +13,10 @@ export default function Footer() {
         }}
         color="gray"
       >
-        © 2024 Mondu GmbH
+        © Hannes Reinberger
       </Text>
       <Text size="1" color="gray">
-        This site is not part of Mondus official product offering. Use at your
+        This site is not part of Mollies official product offering. Use at your
         own risk.
       </Text>
       <MonduStatus />

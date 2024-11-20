@@ -13,7 +13,8 @@ export default function Navbar() {
       <header>
         <Link href="/">
           <Flex gap="2" align="center">
-            <MonduIcon className="h-6 w-6" />
+            {/* @TODO: Add Mollie Icon */}
+            {/* <MonduIcon className="h-6 w-6" /> */}
             <Text
               size={{
                 initial: "1",
@@ -26,7 +27,7 @@ export default function Navbar() {
                 pathname === "/" ? "font-bold" : "font-medium"
               )}
             >
-              Mondu Demo
+              Mollie Demo
             </Text>
           </Flex>
         </Link>
@@ -114,3 +115,4 @@ function MonduIcon() {
     </svg>
   );
 }
+

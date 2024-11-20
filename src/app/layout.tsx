@@ -7,8 +7,8 @@ import Footer from "@/app/components/ui/footer.js";
 import { Providers } from "@/app/components/ui/providers.jsx";
 
 export const metadata: Metadata = {
-  title: "Mondu Demo App",
-  description: "A demo app for Mondu BNPL payments, written in nextJS",
+  title: "Mollie Demo App",
+  description: "A demo app for Mollie payments, written in nextJS",
 };
 
 export default function RootLayout({
@@ -21,11 +21,11 @@ export default function RootLayout({
       <body>
         <Providers>
           <Theme
-            accentColor="violet"
+            accentColor="blue"
             grayColor="gray"
             panelBackground="solid"
             scaling="110%"
-            radius="small"
+            radius="large"
           >
             {/* <ThemePanel /> */}
             <Container size="4">

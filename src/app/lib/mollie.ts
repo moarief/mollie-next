@@ -31,7 +31,7 @@ export async function mollieCreateOrder(
         city: string;
         zip_code: string;
         country: string;
-        payment_method: string;
+        payment_method: string | undefined;
       }
 ) {
     const payment = await mollieClient.payments.create({
@@ -43,8 +43,9 @@ export async function mollieCreateOrder(
         "redirectUrl": "https:\/\/google.com",
         "cancelUrl": "https:\/\/bing.com",
         "webhookUrl": "https:\/\/webhook.site\/50e5edca-396e-40ec-82fe-59f08c71b077",
-        "method": payment_method,
+        "method": payment_method as undefined,
         "billingAddress": {
+        } as any, 
             "givenName": firstname,
             "familyName": lastname,
             "organizationName": company,
@@ -53,7 +54,6 @@ export async function mollieCreateOrder(
             "city": city,
             "country": country,
             "email": email
-        }
     });
     const redirectUrl = payment.getCheckoutUrl();
     // console.log(payment);

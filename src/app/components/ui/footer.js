@@ -1,5 +1,4 @@
 import { Text, Flex } from "@radix-ui/themes";
-import MonduStatus from "./monduStatus";
 
 export default function Footer() {
   return (
@@ -19,7 +18,6 @@ export default function Footer() {
         This site is not part of Mollies official product offering. Use at your
         own risk.
       </Text>
-      <MonduStatus />
     </Flex>
   );
 }

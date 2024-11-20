@@ -2,7 +2,7 @@
 
 import createMollieClient from '@mollie/api-client';
 const apiKey = process.env.MOLLIE_API_KEY;
-const domain = process.env.DOMAIN;
+const domain = process.env.MOLLIE_DOMAIN;
 
 if (!apiKey) {
   throw new Error('MOLLIE_API_KEY is not defined');
@@ -46,7 +46,6 @@ export async function mollieCreateOrder(
         "webhookUrl": "https:\/\/webhook.site\/50e5edca-396e-40ec-82fe-59f08c71b077",
         "method": payment_method as undefined,
         "billingAddress": {
-        } as any, 
             "givenName": firstname,
             "familyName": lastname,
             "organizationName": company,
@@ -55,6 +54,7 @@ export async function mollieCreateOrder(
             "city": city,
             "country": country,
             "email": email
+        }
     });
     const redirectUrl = payment.getCheckoutUrl();
     // console.log(payment);

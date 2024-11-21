@@ -1,8 +1,9 @@
 "use server";
 
-import createMollieClient from '@mollie/api-client';
+import createMollieClient, {Payment} from '@mollie/api-client';
 const apiKey = process.env.MOLLIE_API_KEY;
 const domain = process.env.DOMAIN;
+const webhookUrl = process.env.WEBHOOK_URL;
 
 
 if (!apiKey) {
@@ -36,15 +37,15 @@ export async function mollieCreateOrder(
         payment_method: string | undefined;
       }
 ) {
-    const payment = await mollieClient.payments.create({
+    const payment: Payment = await mollieClient.payments.create({
         "amount": {
             "currency": "EUR",
-            "value": "1020.00"
+            "value": "220.00"
         },
         "description": "Demo payment from " + firstname,
         "redirectUrl": domain + "\/success",
         "cancelUrl": domain,
-        "webhookUrl": domain + "\/api",
+        "webhookUrl": webhookUrl,
         "method": payment_method as undefined,
         "billingAddress": {
             "givenName": firstname,

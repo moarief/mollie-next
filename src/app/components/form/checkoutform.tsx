@@ -29,9 +29,22 @@ export default async function CheckoutForm() {
   const createOrder = async (formData: FormData) => {
     "use server";
 
-    const validatedForm = await validateFormData(formData);
+    const validatedForm: {
+      firstname: string;
+      lastname: string;
+      company: string;
+      email: string;
+      address: string;
+      city: string;
+      zip_code: string;
+      country: string;
+      payment_method: string | undefined;
+    } = await validateFormData(formData);
 
-    const mollieRedirectUrl = await mollieCreateOrder(validatedForm);
+    const mollieRedirectUrl: string | null = await mollieCreateOrder(validatedForm);
+    if (!mollieRedirectUrl) {
+      throw new Error("Failed to create Mollie order");
+    }
     const validatedRedirectUrl = await validateUrl(mollieRedirectUrl);
     // redirect to Mollie hosted checkout
     redirect(validatedRedirectUrl);
@@ -174,7 +187,7 @@ export default async function CheckoutForm() {
                           </Text>
                         </Flex>
                       </Table.Cell>
-                      <Table.Cell>5</Table.Cell>
+                      <Table.Cell>1</Table.Cell>
                       <Table.Cell>200,00 €</Table.Cell>
                     </Table.Row>
                     <Table.Row>
@@ -205,7 +218,7 @@ export default async function CheckoutForm() {
                 </Table.Root>
                 <Flex align="center" justify="center" gap="2" m="3">
                   <Heading size="2">Total</Heading>
-                  <Heading size="2">1020,00 €</Heading>
+                  <Heading size="2">220,00 €</Heading>
                 </Flex>
               </Flex>
             </Card>

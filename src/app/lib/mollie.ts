@@ -2,8 +2,8 @@
 
 import createMollieClient, { Payment } from '@mollie/api-client';
 const apiKey = process.env.MOLLIE_API_KEY;
-const domain = process.env.DOMAIN;
-const webhookUrl = process.env.WEBHOOK_URL;
+const domain = process.env.DOMAIN || 'http://localhost';
+const webhookUrl = process.env.WEBHOOK_URL || 'http://not.provided';
 
 if (!apiKey) {
     throw new Error('MOLLIE_API_KEY is not defined');

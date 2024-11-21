@@ -1,8 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project that utilizes Mollie's node JS library.
+
+![Mollie Demo App](/.github/assets/mollie-next.png 'Mollie Demo App')
+
+## Payment Flow
+
+```mermaid
+sequenceDiagram
+    Buyer ->> Merchant: Choose Mollie payment method
+    Merchant ->>+ Mollie: Create Payment
+    Mollie -->>- Merchant: hosted checkout URL
+    Merchant -->> Buyer: Redirect to Mollie hosted checkout
+    Buyer ->>+ Mollie: Interact on Mondu Hosted Checkout
+    Mollie -->> Buyer: Redirect to success page
+
+```
 
 ## Getting Started
 
-First, run the development server:
+After cloning the project, create your own copy of the environment file:
+
+```bash
+cp .env.example .env.local
+nano .env.local
+```
+
+You'll need your own Mollie API key from Mollie's merchant dashboard. You can also specify a domain and webhook URL.
+
+If no domain is set, we will simply use localhost for redirects. If no webhook URL is set, webhooks will fail.
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -12,22 +38,23 @@ yarn dev
 pnpm dev
 # or
 bun dev
+# or
+deno dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Todo
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+✅ make payments work
 
-## Learn More
+✅ log webhooks
 
-To learn more about Next.js, take a look at the following resources:
+▫️ Auth/Capture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+▫️ Get payment methods from methods API
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+▫️ list recent payments
 
 ## Deploy on Vercel
 

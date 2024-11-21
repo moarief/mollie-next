@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Page() {
     const router = useRouter();
-
+    // Redirect to checkout after 7 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
             router.push('/checkout');

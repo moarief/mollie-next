@@ -59,3 +59,8 @@ export async function mollieCreatePayment({
     const redirectUrl = payment.getCheckoutUrl();
     return redirectUrl;
 }
+
+export async function mollieGetPayments() {
+    const payments = await mollieClient.payments.page({ limit: 10 });
+    return payments;
+}

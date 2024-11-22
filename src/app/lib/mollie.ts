@@ -9,11 +9,11 @@ if (!apiKey) {
     throw new Error('MOLLIE_API_KEY is not defined');
 }
 
+// Set up Mollie API client
 const mollieClient = createMollieClient({ apiKey: apiKey });
 
-// Forward the customer to payment.getCheckoutUrl().
-
-export async function mollieCreateOrder({
+// Create a simple payment using data gathered from the checkout form
+export async function mollieCreatePayment({
     firstname,
     lastname,
     company,
@@ -57,6 +57,5 @@ export async function mollieCreateOrder({
     });
     console.log(domain);
     const redirectUrl = payment.getCheckoutUrl();
-    // console.log(payment);
     return redirectUrl;
 }

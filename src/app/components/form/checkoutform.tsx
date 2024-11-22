@@ -1,6 +1,5 @@
 // UI
 import {
-    Button,
     Flex,
     Grid,
     Heading,
@@ -12,24 +11,28 @@ import {
     Card,
     RadioGroup,
     Table,
-    Link,
     Callout,
 } from '@radix-ui/themes';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
+import PaymentLogo from '@/app/components/form/paymentlogo';
 
 // Next logic
 import { redirect } from 'next/navigation';
 
 // Lib
 import { validateFormData, validateUrl } from '@/app/lib/validation';
-import { mollieCreateOrder } from '@/app/lib/mollie';
-import PaymentLogo from '@/app/components/form/paymentlogo';
+import { mollieCreatePayment } from '@/app/lib/mollie';
+
+// Form components
+import CheckoutButton from './checkoutbutton';
 
 export default async function CheckoutForm() {
-    // This Server Action takes the form data, validates it and creates an order
-    const createOrder = async (formData: FormData) => {
+    // This Server Action takes the form data, validates it and creates a payment
+    // The 'use server' pragma is used to indicate that this function should be run on the server
+    const createPayment = async (formData: FormData) => {
         'use server';
 
+        // Always validate user input
         const validatedForm: {
             firstname: string;
             lastname: string;
@@ -42,19 +45,24 @@ export default async function CheckoutForm() {
             payment_method: string | undefined;
         } = await validateFormData(formData);
 
-        const mollieRedirectUrl: string | null = await mollieCreateOrder(
+        // Create a payment with the validated form data and retrieve the redirect URL
+        const mollieRedirectUrl: string | null = await mollieCreatePayment(
             validatedForm
         );
         if (!mollieRedirectUrl) {
-            throw new Error('Failed to create Mollie order');
+            throw new Error('Failed to create Mollie payment');
         }
+
+        // we also validate the redirect URL
         const validatedRedirectUrl = await validateUrl(mollieRedirectUrl);
+
         // redirect to Mollie hosted checkout
         redirect(validatedRedirectUrl);
     };
 
     return (
-        <form action={createOrder}>
+        // The form data is sent to the createPayment function when the form is submitted
+        <form action={createPayment}>
             <Flex
                 direction="column"
                 m="6"
@@ -319,6 +327,7 @@ export default async function CheckoutForm() {
                         >
                             Payment
                         </Heading>
+
                         <RadioGroup.Root
                             defaultValue="creditcard"
                             name="payment_method"
@@ -423,13 +432,7 @@ export default async function CheckoutForm() {
                     justify="center"
                     mt="6"
                 >
-                    <Button
-                        variant="solid"
-                        size="3"
-                        className="w-8/12 sm:w-6/12 lg:w-4/12"
-                    >
-                        Buy Now (Hosted Checkout)
-                    </Button>
+                    <CheckoutButton />
                 </Flex>
             </Flex>
         </form>

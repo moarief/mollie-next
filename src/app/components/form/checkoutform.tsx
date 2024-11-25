@@ -12,9 +12,11 @@ import {
     RadioGroup,
     Table,
     Callout,
+    Skeleton,
 } from '@radix-ui/themes';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import PaymentLogo from '@/app/components/form/paymentlogo';
+import { Suspense } from 'react';
 
 // Next logic
 import { redirect } from 'next/navigation';
@@ -348,7 +350,16 @@ export default async function CheckoutForm() {
                                                 Credit Card
                                             </Flex>
                                         </Text>
-                                        <PaymentLogo method="creditcard" />
+                                        <Suspense
+                                            fallback={
+                                                <Skeleton
+                                                    width="32px"
+                                                    height="32px"
+                                                />
+                                            }
+                                        >
+                                            <PaymentLogo method="creditcard" />
+                                        </Suspense>
                                     </Flex>
                                     <Separator
                                         my="3"
@@ -368,7 +379,16 @@ export default async function CheckoutForm() {
                                                 SEPA Direct Debit
                                             </Flex>
                                         </Text>
-                                        <PaymentLogo method="directdebit" />
+                                        <Suspense
+                                            fallback={
+                                                <Skeleton
+                                                    width="32px"
+                                                    height="32px"
+                                                />
+                                            }
+                                        >
+                                            <PaymentLogo method="directdebit" />
+                                        </Suspense>
                                     </Flex>
                                     <Separator
                                         my="3"
@@ -388,7 +408,16 @@ export default async function CheckoutForm() {
                                                 iDeal
                                             </Flex>
                                         </Text>
-                                        <PaymentLogo method="ideal" />
+                                        <Suspense
+                                            fallback={
+                                                <Skeleton
+                                                    width="32px"
+                                                    height="32px"
+                                                />
+                                            }
+                                        >
+                                            <PaymentLogo method="ideal" />
+                                        </Suspense>
                                     </Flex>
                                     <Separator
                                         my="3"
@@ -408,7 +437,16 @@ export default async function CheckoutForm() {
                                                 Bancontact
                                             </Flex>
                                         </Text>
-                                        <PaymentLogo method="bancontact" />
+                                        <Suspense
+                                            fallback={
+                                                <Skeleton
+                                                    width="32px"
+                                                    height="32px"
+                                                />
+                                            }
+                                        >
+                                            <PaymentLogo method="bancontact" />
+                                        </Suspense>
                                     </Flex>
                                     <Separator
                                         my="3"

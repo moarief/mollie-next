@@ -2,7 +2,7 @@
 
 import createMollieClient, { Payment } from '@mollie/api-client';
 const apiKey = process.env.MOLLIE_API_KEY;
-const domain = process.env.DOMAIN || 'http://localhost';
+const domain = process.env.DOMAIN || 'http://localhost:3000';
 const webhookUrl = process.env.WEBHOOK_URL || 'http://not.provided';
 
 if (!apiKey) {

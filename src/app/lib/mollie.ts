@@ -34,6 +34,19 @@ export async function mollieCreatePayment({
     country: string;
     payment_method: string | undefined;
 }) {
+    // we need to construct the billingAdress object first as long as this isn't fixed:
+    // https://github.com/mollie/mollie-api-node/issues/390#issuecomment-2467604847
+    const billingAddress = {
+        givenName: firstname,
+        familyName: lastname,
+        organizationName: company,
+        streetAndNumber: address,
+        postalCode: zip_code,
+        city: city,
+        country: country,
+        email: email,
+    };
+    // set up the actual payment with mollie library
     const payment: Payment = await mollieClient.payments.create({
         amount: {
             currency: 'EUR',
@@ -43,17 +56,8 @@ export async function mollieCreatePayment({
         redirectUrl: domain + '/success',
         cancelUrl: domain,
         webhookUrl: webhookUrl,
-        method: payment_method as undefined,
-        billingAddress: {
-            givenName: firstname,
-            familyName: lastname,
-            organizationName: company,
-            streetAndNumber: address,
-            postalCode: zip_code,
-            city: city,
-            country: country,
-            email: email,
-        },
+        method: payment_method as undefined, // undefined for now
+        ...{ billingAddress },
     });
     console.log(domain);
     const redirectUrl = payment.getCheckoutUrl();

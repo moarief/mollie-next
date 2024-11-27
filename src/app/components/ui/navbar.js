@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { Text, Code, Flex } from '@radix-ui/themes';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import MollieLogo from './mollielogo';
 
 export default function Navbar() {
     const pathname = usePathname();
     console.log(pathname);
+
     return (
         <Flex
             asChild="true"
@@ -21,8 +23,7 @@ export default function Navbar() {
                         gap="2"
                         align="center"
                     >
-                        {/* @TODO: Add Mollie Icon */}
-                        {/* <MonduIcon className="h-6 w-6" /> */}
+                        <MollieLogo className="h-6 w-6" />
                         <Text
                             size={{
                                 initial: '1',
@@ -30,12 +31,10 @@ export default function Navbar() {
                                 md: '3',
                                 xl: '4',
                             }}
-                            className={clsx(
-                                'transition-all duration-100',
-                                pathname === '/' ? 'font-bold' : 'font-medium'
-                            )}
+                            className="font-light"
+                            color="gray"
                         >
-                            Mollie Demo
+                            Checkout Demo
                         </Text>
                     </Flex>
                 </Link>

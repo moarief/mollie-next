@@ -65,12 +65,7 @@ export default async function PaymentsTable() {
                                 </Table.Cell>
                                 <Table.Cell align="center">
                                     <IconButton variant="outline">
-                                        <Link
-                                            href={
-                                                'https://my.mollie.com/dashboard/org_19122057/payments/' +
-                                                payment.id
-                                            }
-                                        >
+                                        <Link href={'/payments/' + payment.id}>
                                             <MagnifyingGlassIcon />
                                         </Link>
                                     </IconButton>

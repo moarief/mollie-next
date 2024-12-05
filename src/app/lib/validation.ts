@@ -15,7 +15,7 @@ export async function validateFormData(formData: FormData) {
         company: z
             .string()
             .min(1, { message: 'Must be at least 1 character long.' }),
-        email: z.string().email(),
+        email: z.string().email({ message: 'Must be valid email address.' }),
         address: z
             .string()
             .min(1, { message: 'Must be at least 1 character long.' }),
@@ -29,13 +29,30 @@ export async function validateFormData(formData: FormData) {
         payment_method: z.string(),
     });
 
-    const data = formSchema.parse(form);
-
-    return data;
+    try {
+        const result = formSchema.parse(form);
+        return result;
+    } catch (error) {
+        throw new Error(`Computer says no: ${error}`);
+    }
 }
 
 export async function validateUrl(url: string) {
     const urlSchema = z.string().url();
-    const data = urlSchema.parse(url);
-    return data;
+    try {
+        const result = urlSchema.parse(url);
+        return result;
+    } catch (error) {
+        throw new Error(`No valid URL.`);
+    }
+}
+
+export async function validateMolliePayment(id: string) {
+    const paymentSchema = z.string().startsWith('tr_');
+    try {
+        const result = paymentSchema.parse(id);
+        return result;
+    } catch (error) {
+        throw new Error(`No valid Mollie payment ID.`);
+    }
 }

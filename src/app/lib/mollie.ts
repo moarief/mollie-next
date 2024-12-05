@@ -68,3 +68,8 @@ export async function mollieGetPayments() {
     const payments = await mollieClient.payments.page({ limit: 10 });
     return payments;
 }
+
+export async function mollieGetPayment(id: string) {
+    const payment = await mollieClient.payments.get(id);
+    return payment;
+}

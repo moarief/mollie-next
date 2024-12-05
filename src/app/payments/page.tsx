@@ -1,5 +1,5 @@
 import { Flex, Heading } from '@radix-ui/themes';
-import PaymentsTable from '@/app/components/ui/paymentstable';
+import PaymentsTable from '../components/ui/paymentstable';
 
 export default function Page() {
     return (

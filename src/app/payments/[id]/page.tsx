@@ -11,15 +11,17 @@ export default async function Page({
     const input = (await params).id;
     const id = await validateMolliePayment(input);
     return (
-        <Flex
-            direction="column"
-            m="6"
-        >
-            <Heading>
-                Payment: &nbsp;
-                <Code variant="ghost">{id}</Code>
-            </Heading>
-            <PaymentOverview id={id} />
-        </Flex>
+        <main>
+            <Flex
+                direction="column"
+                m="6"
+            >
+                <Heading>
+                    Payment: &nbsp;
+                    <Code variant="ghost">{id}</Code>
+                </Heading>
+                <PaymentOverview id={id} />
+            </Flex>
+        </main>
     );
 }

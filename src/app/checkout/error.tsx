@@ -15,30 +15,32 @@ export default function Error({
     }, [error]);
 
     return (
-        <Flex
-            direction="column"
-            m="6"
-        >
-            <Heading>💀 Error</Heading>
+        <main>
             <Flex
-                align="center"
-                justify="center"
-                mt="4"
-            ></Flex>
-            <Callout.Root
-                size="3"
-                color="red"
+                direction="column"
+                m="6"
             >
-                <Callout.Text>{error.message}</Callout.Text>
-            </Callout.Root>
-            <Flex
-                justify="center"
-                mt="4"
-            >
-                <Link href="/checkout">
-                    <Button variant="soft">Back to Checkout</Button>
-                </Link>
+                <Heading>💀 Error</Heading>
+                <Flex
+                    align="center"
+                    justify="center"
+                    mt="4"
+                ></Flex>
+                <Callout.Root
+                    size="3"
+                    color="red"
+                >
+                    <Callout.Text>{error.message}</Callout.Text>
+                </Callout.Root>
+                <Flex
+                    justify="center"
+                    mt="4"
+                >
+                    <Link href="/">
+                        <Button variant="soft">Back to Checkout</Button>
+                    </Link>
+                </Flex>
             </Flex>
-        </Flex>
+        </main>
     );
 }

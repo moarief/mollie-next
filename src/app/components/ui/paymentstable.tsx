@@ -1,12 +1,14 @@
 'use server';
 
+// UI Components
 import { Flex, Table, IconButton } from '@radix-ui/themes';
-
-import Link from 'next/link';
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
-
 import StateBadge from './orderstatebadge';
 
+// Routing
+import Link from 'next/link';
+
+// Mollie API
 import { mollieGetPayments } from '@/app/lib/mollie';
 
 export default async function PaymentsTable() {

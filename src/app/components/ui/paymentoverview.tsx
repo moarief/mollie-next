@@ -1,11 +1,14 @@
 'use server';
 
+// UI Components
+
 import { Flex, Code, Card, DataList, Button } from '@radix-ui/themes';
-
-import Link from 'next/link';
-
 import StateBadge from './orderstatebadge';
 
+// Routing
+import Link from 'next/link';
+
+// Mollie API
 import { mollieGetPayment } from '@/app/lib/mollie';
 import { Payment } from '@mollie/api-client';
 

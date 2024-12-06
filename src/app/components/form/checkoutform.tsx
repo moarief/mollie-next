@@ -9,12 +9,8 @@ import {
     Separator,
     Switch,
     Card,
-    RadioGroup,
     Table,
-    Callout,
 } from '@radix-ui/themes';
-import { InfoCircledIcon } from '@radix-ui/react-icons';
-import PaymentLogo from '@/app/components/form/paymentlogo';
 
 // Next logic
 import { redirect } from 'next/navigation';
@@ -25,6 +21,7 @@ import { mollieCreatePayment } from '@/app/lib/mollie';
 
 // Form components
 import CheckoutButton from './checkoutbutton';
+import PaymentMethods from './paymentmethods';
 
 export default async function CheckoutForm() {
     // This Server Action takes the form data, validates it and creates a payment
@@ -327,104 +324,7 @@ export default async function CheckoutForm() {
                         >
                             Payment
                         </Heading>
-
-                        <RadioGroup.Root
-                            defaultValue="creditcard"
-                            name="payment_method"
-                        >
-                            <Card m="1">
-                                <Flex direction="column">
-                                    <Flex
-                                        align="center"
-                                        justify="between"
-                                        gap="4"
-                                    >
-                                        <Text as="label">
-                                            <Flex
-                                                gap="2"
-                                                align="center"
-                                            >
-                                                <RadioGroup.Item value="creditcard" />
-                                                Credit Card
-                                            </Flex>
-                                        </Text>
-                                        <PaymentLogo method="creditcard" />
-                                    </Flex>
-                                    <Separator
-                                        my="3"
-                                        size="4"
-                                    />
-                                    <Flex
-                                        align="center"
-                                        justify="between"
-                                        gap="4"
-                                    >
-                                        <Text as="label">
-                                            <Flex
-                                                gap="2"
-                                                align="center"
-                                            >
-                                                <RadioGroup.Item value="directdebit" />
-                                                SEPA Direct Debit
-                                            </Flex>
-                                        </Text>
-                                        <PaymentLogo method="directdebit" />
-                                    </Flex>
-                                    <Separator
-                                        my="3"
-                                        size="4"
-                                    />
-                                    <Flex
-                                        align="center"
-                                        justify="between"
-                                        gap="4"
-                                    >
-                                        <Text as="label">
-                                            <Flex
-                                                gap="2"
-                                                align="center"
-                                            >
-                                                <RadioGroup.Item value="ideal" />
-                                                iDeal
-                                            </Flex>
-                                        </Text>
-                                        <PaymentLogo method="ideal" />
-                                    </Flex>
-                                    <Separator
-                                        my="3"
-                                        size="4"
-                                    />
-                                    <Flex
-                                        align="center"
-                                        justify="between"
-                                        gap="4"
-                                    >
-                                        <Text as="label">
-                                            <Flex
-                                                gap="2"
-                                                align="center"
-                                            >
-                                                <RadioGroup.Item value="bancontact" />
-                                                Bancontact
-                                            </Flex>
-                                        </Text>
-                                        <PaymentLogo method="bancontact" />
-                                    </Flex>
-                                    <Separator
-                                        my="3"
-                                        size="4"
-                                    />
-                                    <Callout.Root>
-                                        <Callout.Icon>
-                                            <InfoCircledIcon />
-                                        </Callout.Icon>
-                                        <Callout.Text>
-                                            Test Mode only!
-                                        </Callout.Text>
-                                    </Callout.Root>
-                                </Flex>
-                            </Card>
-                        </RadioGroup.Root>
+                        <PaymentMethods />
                     </Flex>
                 </Grid>
                 <Flex

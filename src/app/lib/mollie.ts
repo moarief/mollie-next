@@ -1,6 +1,10 @@
 'use server';
 
-import createMollieClient, { Payment } from '@mollie/api-client';
+import createMollieClient, {
+    Locale,
+    Payment,
+    SequenceType,
+} from '@mollie/api-client';
 const apiKey = process.env.MOLLIE_API_KEY;
 const domain = process.env.DOMAIN || 'http://localhost:3000';
 const webhookUrl = process.env.WEBHOOK_URL || 'http://not.provided';
@@ -12,7 +16,7 @@ if (!apiKey) {
 // Set up Mollie API client
 const mollieClient = createMollieClient({ apiKey: apiKey });
 
-// Create a simple payment using data gathered from the checkout form
+// Create a payment using data gathered from the checkout form
 export async function mollieCreatePayment({
     firstname,
     lastname,
@@ -46,12 +50,57 @@ export async function mollieCreatePayment({
         country: country,
         email: email,
     };
+
+    // Likewise, we need to construct the lines object
+    const lines = [
+        {
+            description: 'An expensive product',
+            quantity: 1,
+            unitPrice: {
+                currency: 'EUR',
+                value: '200.00',
+            },
+            totalAmount: {
+                currency: 'EUR',
+                value: '200.00',
+            },
+        },
+        {
+            description: 'A cheap product',
+            quantity: 1,
+            unitPrice: {
+                currency: 'EUR',
+                value: '10.00',
+            },
+            totalAmount: {
+                currency: 'EUR',
+                value: '10.00',
+            },
+        },
+        {
+            description: 'Another cheap product',
+            quantity: 1,
+            unitPrice: {
+                currency: 'EUR',
+                value: '10.00',
+            },
+            totalAmount: {
+                currency: 'EUR',
+                value: '10.00',
+            },
+        },
+    ];
+
     // set up the actual payment with mollie library
     const payment: Payment = await mollieClient.payments.create({
         amount: {
             currency: 'EUR',
             value: '220.00',
         },
+        metadata: {
+            internal_payment_id: 'mollie-next-' + Date.now(),
+        },
+        ...{ lines },
         description: 'Demo payment from ' + firstname,
         redirectUrl: domain + '/success',
         cancelUrl: domain,
@@ -59,17 +108,34 @@ export async function mollieCreatePayment({
         method: payment_method as undefined, // undefined for now
         ...{ billingAddress },
     });
-    console.log(domain);
     const redirectUrl = payment.getCheckoutUrl();
     return redirectUrl;
 }
+
+// Get the last 10 payments made
 
 export async function mollieGetPayments() {
     const payments = await mollieClient.payments.page({ limit: 10 });
     return payments;
 }
 
+// Get a specific payment by its ID
+
 export async function mollieGetPayment(id: string) {
     const payment = await mollieClient.payments.get(id);
     return payment;
+}
+
+// Get the available payment methods in the checkout
+// we're passing some additional info like sequencetype, locale and amount
+// this way we can filter the available payment methods.
+
+export async function mollieGetMethods() {
+    const methods = await mollieClient.methods.list({
+        sequenceType: SequenceType.oneoff,
+        locale: Locale.en_US,
+        resource: 'payments',
+        amount: { currency: 'EUR', value: '220.00' },
+    });
+    return methods;
 }

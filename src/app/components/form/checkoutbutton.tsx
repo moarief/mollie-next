@@ -14,7 +14,7 @@ export default function CheckoutButton() {
             className="w-8/12 sm:w-6/12 lg:w-4/12"
             loading={pending}
         >
-            Buy Now (Hosted Checkout)
+            Buy Now
         </Button>
     );
 }

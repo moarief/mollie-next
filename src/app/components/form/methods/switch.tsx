@@ -2,13 +2,18 @@
 
 import { SegmentedControl } from '@radix-ui/themes';
 
-import React, { Children, Suspense } from 'react';
+import React, { Suspense } from 'react';
+
+import MethodsSkeleton from './methodskeleton';
+import ComponentPaymentMethods from './componentpaymentmethods';
 
 export default function MethodSwitch({ prop }: { prop: React.ReactNode }) {
     const [value, setValue] = React.useState('hpp');
     return (
         <>
             <SegmentedControl.Root
+                size="1"
+                mx="1"
                 value={value}
                 onValueChange={(value) => {
                     if (value) setValue(value);
@@ -22,9 +27,11 @@ export default function MethodSwitch({ prop }: { prop: React.ReactNode }) {
                 </SegmentedControl.Item>
             </SegmentedControl.Root>
             {value === 'hpp' ? (
-                <Suspense fallback={<p>Loading Methods...</p>}>{prop}</Suspense>
+                <Suspense fallback={MethodsSkeleton()}>{prop}</Suspense>
             ) : (
-                <div>Components</div>
+                <Suspense fallback={MethodsSkeleton()}>
+                    <ComponentPaymentMethods />
+                </Suspense>
             )}
         </>
     );

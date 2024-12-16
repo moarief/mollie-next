@@ -22,8 +22,8 @@ import { mollieCreatePayment } from '@/app/lib/mollie';
 
 // Form components
 import CheckoutButton from './checkoutbutton';
-import PaymentMethods from './paymentmethods';
-import MethodSwitch from './switch';
+import HostedPaymentMethods from './methods/hostedpaymentmethods';
+import MethodSwitch from './methods/switch';
 
 export default async function CheckoutForm() {
     // This Server Action takes the form data, validates it and creates a payment
@@ -326,7 +326,7 @@ export default async function CheckoutForm() {
                         >
                             Payment
                         </Heading>
-                        <MethodSwitch prop={PaymentMethods()} />
+                        <MethodSwitch prop={HostedPaymentMethods()} />
                     </Flex>
                 </Grid>
                 <Flex

@@ -1,5 +1,11 @@
 'use client';
 
+declare global {
+    interface Window {
+        Mollie: any;
+    }
+}
+
 import {
     Card,
     Flex,
@@ -15,7 +21,6 @@ import {
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import PaymentLogo from '@/app/components/form/paymentlogo';
-import Script from 'next/script';
 
 export default function ComponentPaymentMethods() {
     const mollieInitialized = useRef(false);
@@ -54,7 +59,7 @@ export default function ComponentPaymentMethods() {
             mollieObject.current = null;
             mollieComponents.current = null;
         };
-    }, [mollieInitialized, mollieObject, mollieComponents, window.Mollie]);
+    }, [mollieInitialized, mollieObject, mollieComponents]);
 
     return (
         <>

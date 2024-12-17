@@ -18,8 +18,8 @@ import {
     Box,
 } from '@radix-ui/themes';
 
-import React, { Suspense, useEffect, useRef, useState } from 'react';
-import { InfoCircledIcon } from '@radix-ui/react-icons';
+import React, { Suspense, useEffect, useRef } from 'react';
+import { IdCardIcon } from '@radix-ui/react-icons';
 import PaymentLogo from '@/app/components/form/paymentlogo';
 
 export default function ComponentPaymentMethods() {
@@ -110,10 +110,9 @@ export default function ComponentPaymentMethods() {
                         </Flex>
                         <Callout.Root size="1">
                             <Callout.Icon>
-                                <InfoCircledIcon />
+                                <IdCardIcon />
                             </Callout.Icon>
                             <Callout.Text>
-                                Test Card:
                                 <Code variant="soft">2223 0000 1047 9399</Code>
                             </Callout.Text>
                         </Callout.Root>

@@ -14,7 +14,7 @@ import {
     Text,
     Callout,
     Skeleton,
-    TextField,
+    Code,
     Box,
 } from '@radix-ui/themes';
 
@@ -102,18 +102,20 @@ export default function ComponentPaymentMethods() {
                             direction="column"
                             gap="1"
                         >
-                            <Text as="label">Card Data</Text>
                             <Box
                                 mb="2"
                                 mx="1"
                                 id="card"
                             ></Box>
                         </Flex>
-                        <Callout.Root>
+                        <Callout.Root size="1">
                             <Callout.Icon>
                                 <InfoCircledIcon />
                             </Callout.Icon>
-                            <Callout.Text>Test Mode only!</Callout.Text>
+                            <Callout.Text>
+                                Test Card:
+                                <Code variant="soft">2223 0000 1047 9399</Code>
+                            </Callout.Text>
                         </Callout.Root>
                     </Flex>
                 </Card>

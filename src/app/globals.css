@@ -309,6 +309,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Styling for Mollie Components. We can use tailwind classes with @apply */
+
 .mollie-component {
     @apply m-2 border rounded-md p-2 shadow-sm;
     background-color: var(--color-surface);

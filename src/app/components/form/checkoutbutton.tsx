@@ -2,8 +2,13 @@
 
 import { Button } from '@radix-ui/themes';
 import { useFormStatus } from 'react-dom';
+import { checkoutVariant } from '@/app/lib/validation';
 
-export default function CheckoutButton() {
+export default function CheckoutButton({
+    variant,
+}: {
+    variant: checkoutVariant;
+}) {
     // display a loading indicator once the button is clicked
     const { pending } = useFormStatus();
 

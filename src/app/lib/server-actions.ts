@@ -9,8 +9,6 @@ import { redirect } from 'next/navigation';
 
 export async function createPayment(formData: FormData) {
     // This Server Action takes the form data, validates it and creates a payment
-    // The 'use server' pragma is used to indicate that this function should be run on the server
-
     // Always validate user input
     const validatedForm: {
         firstname: string;
@@ -22,6 +20,7 @@ export async function createPayment(formData: FormData) {
         zip_code: string;
         country: string;
         payment_method: string | undefined;
+        cardToken?: string;
     } = await validateFormData(formData);
 
     // Create a payment with the validated form data and retrieve the redirect URL

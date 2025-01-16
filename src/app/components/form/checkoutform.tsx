@@ -7,7 +7,6 @@ import { Flex, Grid, Heading } from '@radix-ui/themes';
 import React, { useState } from 'react';
 
 // Lib
-import { createPayment } from '@/app/lib/server-actions';
 import { checkoutVariant } from '@/app/lib/validation';
 
 // Form components
@@ -28,7 +27,7 @@ export default function CheckoutForm({
         React.useState<checkoutVariant>('hosted');
     return (
         // The form data is sent to the createPayment function when the form is submitted
-        <form action={createPayment}>
+        <form>
             <Flex
                 direction="column"
                 m="6"

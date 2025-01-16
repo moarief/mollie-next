@@ -134,6 +134,9 @@ export default async function Address() {
                             <Select.Item value="AT">Austria</Select.Item>
                             <Select.Item value="NL">Netherlands</Select.Item>
                             <Select.Item value="UK">United Kingdom</Select.Item>
+                            <Select.Item value="XI">
+                                Northern Ireland (will error)
+                            </Select.Item>
                         </Select.Content>
                     </Select.Root>
                 </Flex>

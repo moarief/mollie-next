@@ -27,6 +27,7 @@ export async function validateFormData(formData: FormData) {
             .min(1, { message: 'Must be at least 1 character long.' }),
         country: z.string().length(2),
         payment_method: z.string(),
+        cardToken: z.string().startsWith('tkn_').optional(),
     });
 
     try {

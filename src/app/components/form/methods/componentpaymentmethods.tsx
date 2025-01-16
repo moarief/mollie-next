@@ -1,11 +1,5 @@
 'use client';
 
-declare global {
-    interface Window {
-        Mollie: any;
-    }
-}
-
 import {
     Card,
     Flex,
@@ -18,48 +12,26 @@ import {
     Box,
 } from '@radix-ui/themes';
 
-import React, { Suspense, useEffect, useRef } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { useMollie } from '@/app/lib/MollieContext';
 import { IdCardIcon } from '@radix-ui/react-icons';
 import PaymentLogo from '@/app/components/form/paymentlogo';
 
 export default function ComponentPaymentMethods() {
-    const mollieInitialized = useRef(false);
-    const mollieObject = useRef<any>(null);
-    const mollieComponents = useRef<any>(null);
-
-    // Load Mollie script and initialize Mollie object
+    const { mollie } = useMollie();
     useEffect(() => {
-        let mollie = window.Mollie('pfl_FHTbr2nyYb', {
-            locale: 'en_US',
-            testmode: true,
-        });
-        console.debug('Mollie object created');
-        console.debug(mollie);
-        mollieInitialized.current = true;
-        mollieObject.current = mollie;
-
-        if (mollieInitialized.current) {
-            const card = document.getElementById('card');
-            if (card) {
-                console.debug('Creating Mollie card component');
-                console.debug(mollieObject.current);
-                const mollie = mollieObject.current;
-                const cardComponent = mollie.createComponent('card');
-                cardComponent.mount(card);
-                mollieComponents.current = cardComponent;
-            }
+        let cardComponent: any;
+        if (mollie) {
+            cardComponent = mollie.createComponent('card');
+            cardComponent.mount('#card');
         }
 
         return () => {
-            console.debug('Unmounting Mollie card component');
-            const cardComponent = mollieComponents.current;
-            cardComponent.unmount();
-            mollie = null;
-            mollieInitialized.current = false;
-            mollieObject.current = null;
-            mollieComponents.current = null;
+            if (cardComponent) {
+                cardComponent.unmount();
+            }
         };
-    }, [mollieInitialized, mollieObject, mollieComponents]);
+    }, [mollie]);
 
     return (
         <>
@@ -113,7 +85,7 @@ export default function ComponentPaymentMethods() {
                                 <IdCardIcon />
                             </Callout.Icon>
                             <Callout.Text>
-                                <Code variant="soft">2223 0000 1047 9399</Code>
+                                <Code variant="ghost">2223 0000 1047 9399</Code>
                             </Callout.Text>
                         </Callout.Root>
                     </Flex>

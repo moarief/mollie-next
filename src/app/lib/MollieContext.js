@@ -18,10 +18,13 @@ export const MollieProvider = ({ children }) => {
         // Load Mollie script and initialize
         const loadMollie = async () => {
             if (!mollieRef.current) {
-                mollieRef.current = Mollie('pfl_FHTbr2nyYb', {
-                    locale: 'en_US',
-                    testmode: true,
-                });
+                mollieRef.current = Mollie(
+                    process.env.NEXT_PUBLIC_MOLLIE_PROFILE,
+                    {
+                        locale: 'en_US',
+                        testmode: true,
+                    }
+                );
                 setMollie(mollieRef.current);
             }
         };

@@ -27,6 +27,7 @@ export async function mollieCreatePayment({
     zip_code,
     country,
     payment_method,
+    cardToken,
 }: {
     firstname: string;
     lastname: string;
@@ -37,6 +38,7 @@ export async function mollieCreatePayment({
     zip_code: string;
     country: string;
     payment_method: string | undefined;
+    cardToken?: string;
 }) {
     // we need to construct the billingAdress object first as long as this isn't fixed:
     // https://github.com/mollie/mollie-api-node/issues/390#issuecomment-2467604847
@@ -107,6 +109,7 @@ export async function mollieCreatePayment({
         webhookUrl: webhookUrl,
         method: payment_method as undefined, // undefined for now
         ...{ billingAddress },
+        cardToken: cardToken,
     });
     const redirectUrl = payment.getCheckoutUrl();
     return redirectUrl;

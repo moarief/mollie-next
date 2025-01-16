@@ -27,6 +27,7 @@ export async function validateFormData(formData: FormData) {
             .min(1, { message: 'Must be at least 1 character long.' }),
         country: z.string().length(2),
         payment_method: z.string(),
+        cardToken: z.string().startsWith('tkn_').optional(),
     });
 
     try {
@@ -56,3 +57,8 @@ export async function validateMolliePayment(id: string) {
         throw new Error(`No valid Mollie payment ID.`);
     }
 }
+
+// types
+
+// type for checkout variant
+export type checkoutVariant = 'hosted' | 'components';

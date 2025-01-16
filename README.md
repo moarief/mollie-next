@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project that utilizes Mollie's node JS 
 
 ![Mollie Demo App](/.github/assets/mollie-next.png 'Mollie Demo App')
 
-## Payment Flow
+## Payment Flow (hosted Checkout)
 
 ```mermaid
 sequenceDiagram
@@ -12,6 +12,7 @@ sequenceDiagram
     Merchant -->> Buyer: Redirect to Mollie hosted checkout
     Buyer ->>+ Mollie: Interact on Mondu Hosted Checkout
     Mollie -->> Buyer: Redirect to success page
+    Mollie -->> Merchant: Webhook
 
 ```
 
@@ -50,11 +51,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser and start 
 
 ▫️ Auth/Capture
 
-▫️ Get payment methods from methods API
+✅ Get payment methods from methods API
 
 ✅ list recent payments
 
-▫️ Use Mollie Components where it makes sense
+✅ Use Mollie Components where it makes sense
 
 ## Deploy on Vercel
 

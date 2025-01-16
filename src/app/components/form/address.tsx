@@ -156,11 +156,14 @@ export default async function Address() {
                     as="label"
                     size="2"
                 >
-                    <Flex gap="2">
+                    <Flex
+                        gap="2"
+                        direction="column"
+                    >
                         <Switch
                             defaultChecked
                             radius="full"
-                        />{' '}
+                        />
                         Shipping address is the same as my billing address
                     </Flex>
                 </Text>

@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
+import { CaptureMethod, PaymentMethod } from '@mollie/api-client';
+
 export async function validateFormData(formData: FormData) {
     const form = Object.fromEntries(formData.entries());
 
@@ -26,8 +28,9 @@ export async function validateFormData(formData: FormData) {
             .string()
             .min(1, { message: 'Must be at least 1 character long.' }),
         country: z.string().length(2),
-        payment_method: z.string(),
+        payment_method: z.nativeEnum(PaymentMethod),
         cardToken: z.string().startsWith('tkn_').optional(),
+        captureMode: z.nativeEnum(CaptureMethod).optional(),
     });
 
     try {

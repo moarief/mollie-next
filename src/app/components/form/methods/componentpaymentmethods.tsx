@@ -10,6 +10,7 @@ import {
     Skeleton,
     Code,
     Box,
+    Switch,
 } from '@radix-ui/themes';
 
 import React, { Suspense, useEffect, useRef, useState } from 'react';
@@ -88,6 +89,37 @@ export default function ComponentPaymentMethods() {
                                 <Code variant="ghost">2223 0000 1047 9399</Code>
                             </Callout.Text>
                         </Callout.Root>
+                        <Separator
+                            my="3"
+                            size="4"
+                        />
+                        <Flex>
+                            <Text
+                                as="label"
+                                size="2"
+                            >
+                                <Flex
+                                    gap="2"
+                                    direction="column"
+                                >
+                                    <Flex gap="2">
+                                        <Switch
+                                            radius="full"
+                                            name="captureMode"
+                                            value={'manual'}
+                                        />
+                                        Authorize payment
+                                    </Flex>
+                                    <Text
+                                        size="1"
+                                        color="gray"
+                                    >
+                                        Authorized payments need to be captured
+                                        later
+                                    </Text>
+                                </Flex>
+                            </Text>
+                        </Flex>
                     </Flex>
                 </Card>
             </RadioGroup.Root>

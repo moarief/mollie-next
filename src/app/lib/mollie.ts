@@ -1,10 +1,13 @@
 'use server';
 
 import createMollieClient, {
+    CaptureMethod,
     Locale,
     Payment,
+    PaymentMethod,
     SequenceType,
 } from '@mollie/api-client';
+
 const apiKey = process.env.MOLLIE_API_KEY;
 const domain = process.env.DOMAIN || 'http://localhost:3000';
 const webhookUrl = process.env.WEBHOOK_URL || 'http://not.provided';
@@ -28,6 +31,7 @@ export async function mollieCreatePayment({
     country,
     payment_method,
     cardToken,
+    captureMode,
 }: {
     firstname: string;
     lastname: string;
@@ -37,8 +41,9 @@ export async function mollieCreatePayment({
     city: string;
     zip_code: string;
     country: string;
-    payment_method: string | undefined;
+    payment_method: PaymentMethod;
     cardToken?: string;
+    captureMode?: CaptureMethod;
 }) {
     // we need to construct the billingAdress object first as long as this isn't fixed:
     // https://github.com/mollie/mollie-api-node/issues/390#issuecomment-2467604847
@@ -107,9 +112,10 @@ export async function mollieCreatePayment({
         redirectUrl: domain + '/success',
         cancelUrl: domain,
         webhookUrl: webhookUrl,
-        method: payment_method as undefined, // undefined for now
+        method: payment_method,
         ...{ billingAddress },
         cardToken: cardToken,
+        captureMode: captureMode as CaptureMethod,
     });
     const redirectUrl = payment.getCheckoutUrl();
     return redirectUrl;
@@ -141,4 +147,14 @@ export async function mollieGetMethods() {
         amount: { currency: 'EUR', value: '220.00' },
     });
     return methods;
+}
+
+// Capture a payment in full
+
+export async function mollieCapturePayment(id: string) {
+    console.log('Capturing payment with id: ' + id);
+    const capture = await mollieClient.paymentCaptures.create({
+        paymentId: id,
+    });
+    return capture;
 }

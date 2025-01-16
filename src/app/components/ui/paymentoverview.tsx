@@ -12,19 +12,28 @@ import {
     Dialog,
     ScrollArea,
     Text,
-    Heading,
 } from '@radix-ui/themes';
 import StateBadge from './orderstatebadge';
 
 // Routing
 import Link from 'next/link';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 // Mollie API
-import { mollieGetPayment } from '@/app/lib/mollie';
+import { mollieGetPayment, mollieCapturePayment } from '@/app/lib/mollie';
 import { Payment } from '@mollie/api-client';
 
 export default async function PaymentOverview({ id }: { id: string }) {
+    // get details for this payment
     const payment: Payment = await mollieGetPayment(id);
+    // server function for capturing this payment if authorized
+    async function capturePayment() {
+        'use server';
+        await mollieCapturePayment(id);
+        revalidatePath('/payments/' + id);
+        redirect('/payments/' + id);
+    }
     return (
         <Flex
             justify="center"
@@ -127,6 +136,18 @@ export default async function PaymentOverview({ id }: { id: string }) {
                                     Change State
                                 </Button>
                             </Link>
+                        )}
+                        {payment.status == 'authorized' && (
+                            <form action={capturePayment}>
+                                <Button
+                                    size="1"
+                                    color="green"
+                                    variant="soft"
+                                    type="submit"
+                                >
+                                    Capture
+                                </Button>
+                            </form>
                         )}
                     </Flex>
                 </Card>

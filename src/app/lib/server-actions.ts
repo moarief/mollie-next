@@ -2,10 +2,12 @@
 
 // Lib
 import { validateFormData, validateUrl } from '@/app/lib/validation';
-import { mollieCreatePayment } from '@/app/lib/mollie';
+import { mollieCreatePayment, mollieCapturePayment } from '@/app/lib/mollie';
+import { PaymentMethod, CaptureMethod } from '@mollie/api-client';
 
 // Next.js
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export async function createPayment(formData: FormData) {
     // This Server Action takes the form data, validates it and creates a payment
@@ -19,8 +21,9 @@ export async function createPayment(formData: FormData) {
         city: string;
         zip_code: string;
         country: string;
-        payment_method: string | undefined;
+        payment_method: PaymentMethod;
         cardToken?: string;
+        captureMode?: CaptureMethod;
     } = await validateFormData(formData);
 
     // Create a payment with the validated form data and retrieve the redirect URL

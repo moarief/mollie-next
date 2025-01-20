@@ -8,7 +8,12 @@ import React, {
     useEffect,
 } from 'react';
 
+// create a context to store the Mollie object for components
+
 export const MollieContext = createContext();
+
+// Provider component to wrap the app with
+// this is needed so that the Mollie object is available to all components
 
 export const MollieProvider = ({ children }) => {
     const mollieRef = useRef(null);
@@ -47,6 +52,7 @@ export const MollieProvider = ({ children }) => {
     );
 };
 
+// Custom hook to use the Mollie object
 export const useMollie = () => {
     return useContext(MollieContext);
 };

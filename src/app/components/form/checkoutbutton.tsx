@@ -20,18 +20,23 @@ export default function CheckoutButton({
 
     const { mollie } = useMollie();
     const payWithToken = async () => {
+        // get the form data
         const formElement = document.querySelector('form');
         if (!formElement) {
             console.error('Form element not found');
             return;
         }
+        // create a new FormData object
         const formData = new FormData(formElement);
+        // get the card token from mollie
         const { token, error } = await mollie.createToken();
         if (error) {
             console.error('Error creating card token:', error);
             return;
         }
+        // append the card token to the form data
         formData.append('cardToken', token);
+        // submit the form to the createPayment function
         createPayment(formData);
     };
 
@@ -43,7 +48,7 @@ export default function CheckoutButton({
             loading={pending}
             formAction={variant === 'components' ? payWithToken : createPayment}
         >
-            Buy Now ({variant})
+            Buy Now
         </Button>
     );
 }

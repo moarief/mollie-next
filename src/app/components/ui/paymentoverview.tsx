@@ -98,6 +98,7 @@ export default async function PaymentOverview({ id }: { id: string }) {
                             <Button
                                 size="1"
                                 variant="soft"
+                                aria-label="Mollie Dashboard"
                             >
                                 Mollie Dashboard
                             </Button>
@@ -107,6 +108,7 @@ export default async function PaymentOverview({ id }: { id: string }) {
                                 <Button
                                     size="1"
                                     variant="soft"
+                                    aria-label="Raw Payment Data"
                                 >
                                     Raw Payment Data
                                 </Button>
@@ -132,6 +134,7 @@ export default async function PaymentOverview({ id }: { id: string }) {
                                     size="1"
                                     color="red"
                                     variant="soft"
+                                    aria-label="Change State"
                                 >
                                     Change State
                                 </Button>
@@ -144,6 +147,7 @@ export default async function PaymentOverview({ id }: { id: string }) {
                                     color="green"
                                     variant="soft"
                                     type="submit"
+                                    aria-label="Capture"
                                 >
                                     Capture
                                 </Button>

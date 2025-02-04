@@ -66,7 +66,10 @@ export default async function PaymentsTable() {
                                     <StateBadge state={payment.status} />
                                 </Table.Cell>
                                 <Table.Cell align="center">
-                                    <IconButton variant="outline">
+                                    <IconButton
+                                        variant="outline"
+                                        aria-label="Details"
+                                    >
                                         <Link href={'/payments/' + payment.id}>
                                             <MagnifyingGlassIcon />
                                         </Link>

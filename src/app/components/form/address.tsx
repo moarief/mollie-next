@@ -25,12 +25,19 @@ export default async function Address() {
                     direction="column"
                     gap="1"
                 >
-                    <Text as="label">Firstname</Text>
+                    <Text
+                        as="label"
+                        htmlFor="firstname"
+                    >
+                        Firstname
+                    </Text>
                     <TextField.Root
                         mb="2"
                         placeholder="Firstname"
                         defaultValue="Max"
                         name="firstname"
+                        id="firstname"
+                        type="text"
                         required
                     ></TextField.Root>
                 </Flex>
@@ -38,12 +45,19 @@ export default async function Address() {
                     direction="column"
                     gap="1"
                 >
-                    <Text as="label">Lastname</Text>
+                    <Text
+                        as="label"
+                        htmlFor="lastname"
+                    >
+                        Lastname
+                    </Text>
                     <TextField.Root
                         mb="2"
                         placeholder="Lastname"
                         defaultValue="Mustermensch"
                         name="lastname"
+                        id="lastname"
+                        type="text"
                         required
                     ></TextField.Root>
                 </Flex>
@@ -52,25 +66,38 @@ export default async function Address() {
                 direction="column"
                 gap="1"
             >
-                <Text as="label">Company Name</Text>
+                <Text
+                    as="label"
+                    htmlFor="company"
+                >
+                    Company Name
+                </Text>
                 <TextField.Root
                     mb="2"
                     placeholder="Company"
                     defaultValue="Mollie BV"
                     name="company"
-                    required
+                    id="company"
+                    type="text"
                 ></TextField.Root>
             </Flex>
             <Flex
                 direction="column"
                 gap="1"
             >
-                <Text as="label">Email</Text>
+                <Text
+                    as="label"
+                    htmlFor="email"
+                >
+                    Email
+                </Text>
                 <TextField.Root
                     mb="2"
                     placeholder="test@example.com"
                     defaultValue="demo@example.com"
                     name="email"
+                    id="email"
+                    type="email"
                     required
                 ></TextField.Root>
             </Flex>
@@ -78,12 +105,19 @@ export default async function Address() {
                 direction="column"
                 gap="1"
             >
-                <Text as="label">Address</Text>
+                <Text
+                    as="label"
+                    htmlFor="address"
+                >
+                    Address
+                </Text>
                 <TextField.Root
                     mb="2"
                     placeholder="Somestreet 123"
                     defaultValue="Alexanderstr. 36"
                     name="address"
+                    id="address"
+                    type="text"
                     required
                 ></TextField.Root>
             </Flex>
@@ -91,12 +125,19 @@ export default async function Address() {
                 direction="column"
                 gap="1"
             >
-                <Text as="label">City</Text>
+                <Text
+                    as="label"
+                    htmlFor="city"
+                >
+                    City
+                </Text>
                 <TextField.Root
                     mb="2"
                     placeholder="Berlin"
                     defaultValue="Berlin"
                     name="city"
+                    id="city"
+                    type="text"
                     required
                 ></TextField.Root>
             </Flex>
@@ -109,12 +150,19 @@ export default async function Address() {
                     direction="column"
                     gap="1"
                 >
-                    <Text as="label">Zip</Text>
+                    <Text
+                        as="label"
+                        htmlFor="zip_code"
+                    >
+                        Zip
+                    </Text>
                     <TextField.Root
                         mb="2"
                         placeholder="10179"
                         defaultValue="10179"
                         name="zip_code"
+                        id="zip_code"
+                        type="number"
                         required
                     ></TextField.Root>
                 </Flex>
@@ -130,11 +178,34 @@ export default async function Address() {
                     >
                         <Select.Trigger />
                         <Select.Content>
-                            <Select.Item value="DE">Germany</Select.Item>
-                            <Select.Item value="AT">Austria</Select.Item>
-                            <Select.Item value="NL">Netherlands</Select.Item>
-                            <Select.Item value="UK">United Kingdom</Select.Item>
-                            <Select.Item value="XI">
+                            <Select.Item
+                                value="DE"
+                                id="DE"
+                            >
+                                Germany
+                            </Select.Item>
+                            <Select.Item
+                                value="AT"
+                                id="AT"
+                            >
+                                Austria
+                            </Select.Item>
+                            <Select.Item
+                                value="NL"
+                                id="NL"
+                            >
+                                Netherlands
+                            </Select.Item>
+                            <Select.Item
+                                value="UK"
+                                id="UK"
+                            >
+                                United Kingdom
+                            </Select.Item>
+                            <Select.Item
+                                value="XI"
+                                id="XI"
+                            >
                                 Northern Ireland (will error)
                             </Select.Item>
                         </Select.Content>
@@ -155,6 +226,7 @@ export default async function Address() {
                 <Text
                     as="label"
                     size="2"
+                    htmlFor="shipping"
                 >
                     <Flex
                         gap="2"
@@ -163,6 +235,8 @@ export default async function Address() {
                         <Switch
                             defaultChecked
                             radius="full"
+                            id="shipping"
+                            title="shipping"
                         />
                         Shipping address is the same as my billing address
                     </Flex>

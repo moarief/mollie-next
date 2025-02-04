@@ -52,7 +52,10 @@ export default function ComponentPaymentMethods() {
                                     gap="2"
                                     align="center"
                                 >
-                                    <RadioGroup.Item value="creditcard" />
+                                    <RadioGroup.Item
+                                        value="creditcard"
+                                        aria-label="credit card"
+                                    />
                                     Card
                                 </Flex>
                             </Text>
@@ -107,6 +110,7 @@ export default function ComponentPaymentMethods() {
                                             radius="full"
                                             name="captureMode"
                                             value={'manual'}
+                                            aria-label="Capture mode"
                                         />
                                         Authorize payment
                                     </Flex>

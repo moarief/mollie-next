@@ -40,6 +40,7 @@ export default async function HostedPaymentMethods() {
                                         >
                                             <RadioGroup.Item
                                                 value={method.id}
+                                                aria-label={method.description}
                                             />
                                             {method.description}
                                         </Flex>
@@ -77,6 +78,7 @@ export default async function HostedPaymentMethods() {
                                             radius="full"
                                             name="captureMode"
                                             value={'manual'}
+                                            aria-label="Capture mode"
                                         />
                                         Authorize payment (Cards and Klarna
                                         only)

@@ -181,30 +181,35 @@ export default async function Address() {
                             <Select.Item
                                 value="DE"
                                 id="DE"
+                                aria-label="Germany"
                             >
                                 Germany
                             </Select.Item>
                             <Select.Item
                                 value="AT"
                                 id="AT"
+                                aria-label="Austria"
                             >
                                 Austria
                             </Select.Item>
                             <Select.Item
                                 value="NL"
                                 id="NL"
+                                aria-label="Netherlands"
                             >
                                 Netherlands
                             </Select.Item>
                             <Select.Item
                                 value="UK"
                                 id="UK"
+                                aria-label="United Kingdom"
                             >
                                 United Kingdom
                             </Select.Item>
                             <Select.Item
                                 value="XI"
                                 id="XI"
+                                aria-label="Northern Ireland"
                             >
                                 Northern Ireland (will error)
                             </Select.Item>

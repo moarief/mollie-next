@@ -69,6 +69,7 @@ export default async function PaymentsTable() {
                                     <IconButton
                                         variant="outline"
                                         aria-label="Details"
+                                        asChild
                                     >
                                         <Link href={'/payments/' + payment.id}>
                                             <MagnifyingGlassIcon />

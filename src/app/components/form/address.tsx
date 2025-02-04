@@ -174,6 +174,7 @@ export default async function Address() {
                     <Select.Root
                         defaultValue="DE"
                         name="country"
+                        aria-label="Country"
                         required
                     >
                         <Select.Trigger />

@@ -10,11 +10,11 @@ import ComponentPaymentMethods from './componentpaymentmethods';
 import { checkoutVariant } from '@/app/lib/validation';
 
 export default function MethodSwitch({
-    prop,
+    hostedmethods,
     variant,
     onClick,
 }: {
-    prop: React.ReactNode;
+    hostedmethods: React.ReactNode;
     variant: checkoutVariant;
     onClick: (value: string) => void;
 }) {
@@ -38,7 +38,9 @@ export default function MethodSwitch({
                 </SegmentedControl.Item>
             </SegmentedControl.Root>
             {variant === 'hosted' ? (
-                <Suspense fallback={MethodsSkeleton()}>{prop}</Suspense>
+                <Suspense fallback={MethodsSkeleton()}>
+                    {hostedmethods}
+                </Suspense>
             ) : (
                 <Suspense fallback={MethodsSkeleton()}>
                     <ComponentPaymentMethods />

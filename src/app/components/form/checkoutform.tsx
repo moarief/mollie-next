@@ -4,7 +4,7 @@
 import { Flex, Grid, Heading } from '@radix-ui/themes';
 
 // Next and React logic
-import React, { useState } from 'react';
+import React from 'react';
 
 // Lib
 import { checkoutVariant } from '@/app/lib/validation';
@@ -57,7 +57,7 @@ export default function CheckoutForm({
                         </Heading>
                         <MethodSwitch
                             variant={checkoutVariant}
-                            prop={hostedmethods}
+                            hostedmethods={hostedmethods}
                             onClick={() =>
                                 setCheckoutVariant((prev) =>
                                     prev === 'hosted' ? 'components' : 'hosted'

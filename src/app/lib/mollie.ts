@@ -35,7 +35,7 @@ export async function mollieCreatePayment({
 }: {
     firstname: string;
     lastname: string;
-    company: string;
+    company?: string;
     email: string;
     address: string;
     city: string;
@@ -47,6 +47,8 @@ export async function mollieCreatePayment({
 }) {
     // we need to construct the billingAdress object first as long as this isn't fixed:
     // https://github.com/mollie/mollie-api-node/issues/390#issuecomment-2467604847
+    // Update 2025-03-04: The original issue is fixed, but organizationName is still not supported
+    // https://github.com/mollie/mollie-api-node/issues/410
     const billingAddress = {
         givenName: firstname,
         familyName: lastname,
@@ -58,46 +60,6 @@ export async function mollieCreatePayment({
         email: email,
     };
 
-    // Likewise, we need to construct the lines object
-    const lines = [
-        {
-            description: 'An expensive product',
-            quantity: 1,
-            unitPrice: {
-                currency: 'EUR',
-                value: '200.00',
-            },
-            totalAmount: {
-                currency: 'EUR',
-                value: '200.00',
-            },
-        },
-        {
-            description: 'A cheap product',
-            quantity: 1,
-            unitPrice: {
-                currency: 'EUR',
-                value: '10.00',
-            },
-            totalAmount: {
-                currency: 'EUR',
-                value: '10.00',
-            },
-        },
-        {
-            description: 'Another cheap product',
-            quantity: 1,
-            unitPrice: {
-                currency: 'EUR',
-                value: '10.00',
-            },
-            totalAmount: {
-                currency: 'EUR',
-                value: '10.00',
-            },
-        },
-    ];
-
     // set up the actual payment with mollie library
     const payment: Payment = await mollieClient.payments.create({
         amount: {
@@ -107,7 +69,44 @@ export async function mollieCreatePayment({
         metadata: {
             internal_payment_id: 'mollie-next-' + Date.now(),
         },
-        ...{ lines },
+        lines: [
+            {
+                description: 'An expensive product',
+                quantity: 1,
+                unitPrice: {
+                    currency: 'EUR',
+                    value: '200.00',
+                },
+                totalAmount: {
+                    currency: 'EUR',
+                    value: '200.00',
+                },
+            },
+            {
+                description: 'A cheap product',
+                quantity: 1,
+                unitPrice: {
+                    currency: 'EUR',
+                    value: '10.00',
+                },
+                totalAmount: {
+                    currency: 'EUR',
+                    value: '10.00',
+                },
+            },
+            {
+                description: 'Another cheap product',
+                quantity: 1,
+                unitPrice: {
+                    currency: 'EUR',
+                    value: '10.00',
+                },
+                totalAmount: {
+                    currency: 'EUR',
+                    value: '10.00',
+                },
+            },
+        ],
         description: 'Demo payment from ' + firstname,
         redirectUrl: domain + '/success',
         cancelUrl: domain,
@@ -115,7 +114,7 @@ export async function mollieCreatePayment({
         method: payment_method,
         ...{ billingAddress },
         cardToken: cardToken,
-        captureMode: captureMode as CaptureMethod,
+        captureMode: captureMode,
     });
     const redirectUrl = payment.getCheckoutUrl();
     return redirectUrl;

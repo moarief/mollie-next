@@ -14,9 +14,7 @@ export async function validateFormData(formData: FormData) {
         lastname: z
             .string()
             .min(1, { message: 'Must be at least 1 character long.' }),
-        company: z
-            .string()
-            .min(1, { message: 'Must be at least 1 character long.' }),
+        company: z.string().optional(),
         email: z.string().email({ message: 'Must be valid email address.' }),
         address: z
             .string()

@@ -52,7 +52,7 @@ export async function mollieCreatePayment({
     const billingAddress = {
         givenName: firstname,
         familyName: lastname,
-        organizationName: company, // only add organizationName if company is provided
+        organizationName: company,
         streetAndNumber: address,
         postalCode: zip_code,
         city: city,
@@ -116,7 +116,6 @@ export async function mollieCreatePayment({
         cardToken: cardToken,
         captureMode: captureMode,
     });
-    console.log(payment);
     const redirectUrl = payment.getCheckoutUrl();
     return redirectUrl;
 }

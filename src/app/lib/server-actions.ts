@@ -14,7 +14,7 @@ export async function createPayment(formData: FormData) {
     const validatedForm: {
         firstname: string;
         lastname: string;
-        company: string;
+        company?: string;
         email: string;
         address: string;
         city: string;

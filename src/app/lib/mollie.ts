@@ -6,6 +6,7 @@ import createMollieClient, {
     Payment,
     PaymentMethod,
     SequenceType,
+    PaymentLineCategory,
 } from '@mollie/api-client';
 
 const apiKey = process.env.MOLLIE_API_KEY;
@@ -93,6 +94,7 @@ export async function mollieCreatePayment({
                     currency: 'EUR',
                     value: '10.00',
                 },
+                categories: [PaymentLineCategory.gift, PaymentLineCategory.eco],
             },
             {
                 description: 'Another cheap product',
@@ -105,6 +107,7 @@ export async function mollieCreatePayment({
                     currency: 'EUR',
                     value: '10.00',
                 },
+                categories: [PaymentLineCategory.gift, PaymentLineCategory.eco],
             },
         ],
         description: 'Demo payment from ' + firstname,

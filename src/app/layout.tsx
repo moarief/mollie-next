@@ -56,11 +56,6 @@ export default function RootLayout({
                         </Container>
                     </Theme>
                 </Providers>
-
-                <Script
-                    src="https://js.mollie.com/v1/mollie.js"
-                    strategy="beforeInteractive"
-                />
                 <Script
                     src="https://plausible.hannesreinberger.de/js/script.js"
                     data-domain="mollie-next.vercel.app"

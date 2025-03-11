@@ -1,7 +1,7 @@
 'use client';
 
 import { Flex, Heading, Text, Card, Table, Select } from '@radix-ui/themes';
-import { useState, createContext } from 'react';
+import { useState } from 'react';
 
 // Currency symbols
 const CURRENCY_SYMBOLS = {
@@ -35,9 +35,6 @@ const PRODUCTS = [
     },
 ];
 
-// Create a context to share the currency state
-export const CurrencyContext = createContext('EUR');
-
 export default function ShoppingCart() {
     const [currency, setCurrency] = useState('EUR');
 
@@ -61,7 +58,7 @@ export default function ShoppingCart() {
     );
 
     return (
-        <CurrencyContext.Provider value={currency}>
+        <>
             <Flex
                 justify="between"
                 align="center"
@@ -128,6 +125,6 @@ export default function ShoppingCart() {
                     </Flex>
                 </Flex>
             </Card>
-        </CurrencyContext.Provider>
+        </>
     );
 }

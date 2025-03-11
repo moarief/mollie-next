@@ -8,6 +8,7 @@ import createMollieClient, {
     SequenceType,
     PaymentLineCategory,
 } from '@mollie/api-client';
+import { CreatePaymentParams } from './types';
 
 const apiKey = process.env.MOLLIE_API_KEY;
 const domain = process.env.DOMAIN || 'http://localhost:3000';
@@ -33,19 +34,7 @@ export async function mollieCreatePayment({
     payment_method,
     cardToken,
     captureMode,
-}: {
-    firstname: string;
-    lastname: string;
-    company?: string;
-    email: string;
-    address: string;
-    city: string;
-    zip_code: string;
-    country: string;
-    payment_method: PaymentMethod;
-    cardToken?: string;
-    captureMode?: CaptureMethod;
-}) {
+}: CreatePaymentParams) {
     // we need to construct the billingAdress object first as long as this isn't fixed:
     // https://github.com/mollie/mollie-api-node/issues/390#issuecomment-2467604847
     // Update 2025-03-04: The original issue is fixed, but organizationName is still not supported

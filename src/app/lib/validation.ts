@@ -1,8 +1,8 @@
 'use server';
 
 import { z } from 'zod';
-
 import { CaptureMethod, PaymentMethod } from '@mollie/api-client';
+import { CheckoutVariant } from './types';
 
 export async function validateFormData(formData: FormData) {
     const form = Object.fromEntries(formData.entries());

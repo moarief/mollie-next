@@ -1,9 +1,85 @@
-import { Flex, Heading, Text, Card, Table } from '@radix-ui/themes';
+'use client';
 
-export default async function ShoppingCart() {
+import { Flex, Heading, Text, Card, Table, Select } from '@radix-ui/themes';
+import { useState, createContext } from 'react';
+
+// Currency symbols
+const CURRENCY_SYMBOLS = {
+    EUR: '€',
+    SEK: 'kr',
+    GBP: '£',
+};
+
+// Product data
+const PRODUCTS = [
+    {
+        id: 1,
+        name: 'Product 1',
+        description: 'An expensive product',
+        quantity: 1,
+        price: 200,
+    },
+    {
+        id: 2,
+        name: 'Product 2',
+        description: 'A cheap product',
+        quantity: 1,
+        price: 10,
+    },
+    {
+        id: 3,
+        name: 'Product 3',
+        description: 'Another cheap product',
+        quantity: 1,
+        price: 10,
+    },
+];
+
+// Create a context to share the currency state
+export const CurrencyContext = createContext('EUR');
+
+export default function ShoppingCart() {
+    const [currency, setCurrency] = useState('EUR');
+
+    // Format price with the selected currency symbol
+    const formatPrice = (price: number) => {
+        const symbol =
+            CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS];
+
+        // Format based on currency style
+        if (currency === 'GBP') {
+            return `${symbol}${price.toFixed(2).replace('.', ',')}`;
+        } else {
+            return `${price.toFixed(2).replace('.', ',')} ${symbol}`;
+        }
+    };
+
+    // Calculate total
+    const total = PRODUCTS.reduce(
+        (sum, product) => sum + product.price * product.quantity,
+        0
+    );
+
     return (
-        <>
-            <Heading size="3">Your Shopping Cart</Heading>
+        <CurrencyContext.Provider value={currency}>
+            <Flex
+                justify="between"
+                align="center"
+            >
+                <Heading size="3">Your Shopping Cart</Heading>
+                <Select.Root
+                    value={currency}
+                    onValueChange={setCurrency}
+                >
+                    <Select.Trigger />
+                    <Select.Content>
+                        <Select.Item value="EUR">EUR (€)</Select.Item>
+                        <Select.Item value="SEK">SEK (kr)</Select.Item>
+                        <Select.Item value="GBP">GBP (£)</Select.Item>
+                    </Select.Content>
+                </Select.Root>
+            </Flex>
+
             <Card m="1">
                 <Flex direction="column">
                     <Table.Root>
@@ -19,51 +95,26 @@ export default async function ShoppingCart() {
                                     Price
                                 </Table.ColumnHeaderCell>
                             </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>
-                                    <Flex direction="column">
-                                        <Text>Product 1</Text>
-                                        <Text
-                                            size="1"
-                                            color="gray"
-                                        >
-                                            Description
-                                        </Text>
-                                    </Flex>
-                                </Table.Cell>
-                                <Table.Cell>1</Table.Cell>
-                                <Table.Cell>200,00 €</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>
-                                    <Flex direction="column">
-                                        <Text>Product 2</Text>
-                                        <Text
-                                            size="1"
-                                            color="gray"
-                                        >
-                                            Description
-                                        </Text>
-                                    </Flex>
-                                </Table.Cell>
-                                <Table.Cell>1</Table.Cell>
-                                <Table.Cell>10,00 €</Table.Cell>
-                            </Table.Row>
-                            <Table.Row>
-                                <Table.Cell>
-                                    <Flex direction="column">
-                                        <Text>Product 3</Text>
-                                        <Text
-                                            size="1"
-                                            color="gray"
-                                        >
-                                            Description
-                                        </Text>
-                                    </Flex>
-                                </Table.Cell>
-                                <Table.Cell>1</Table.Cell>
-                                <Table.Cell>10,00 €</Table.Cell>
-                            </Table.Row>
+
+                            {PRODUCTS.map((product) => (
+                                <Table.Row key={product.id}>
+                                    <Table.Cell>
+                                        <Flex direction="column">
+                                            <Text>{product.name}</Text>
+                                            <Text
+                                                size="1"
+                                                color="gray"
+                                            >
+                                                {product.description}
+                                            </Text>
+                                        </Flex>
+                                    </Table.Cell>
+                                    <Table.Cell>{product.quantity}</Table.Cell>
+                                    <Table.Cell>
+                                        {formatPrice(product.price)}
+                                    </Table.Cell>
+                                </Table.Row>
+                            ))}
                         </Table.Body>
                     </Table.Root>
                     <Flex
@@ -73,10 +124,10 @@ export default async function ShoppingCart() {
                         m="3"
                     >
                         <Heading size="2">Total</Heading>
-                        <Heading size="2">220,00 €</Heading>
+                        <Heading size="2">{formatPrice(total)}</Heading>
                     </Flex>
                 </Flex>
             </Card>
-        </>
+        </CurrencyContext.Provider>
     );
 }

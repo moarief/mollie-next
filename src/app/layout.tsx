@@ -25,39 +25,38 @@ export default function RootLayout({
             suppressHydrationWarning
         >
             <body>
-                <MollieProvider>
-                    <Providers>
-                        <Theme
-                            accentColor="blue"
-                            grayColor="gray"
-                            panelBackground="solid"
-                            scaling="110%"
-                            radius="large"
-                        >
-                            {/* <ThemePanel /> */}
-                            <Container size="4">
-                                <Section
-                                    pt="0"
-                                    pb="4"
-                                >
-                                    <Navbar />
-                                </Section>
-                                <Section
-                                    pt="4"
-                                    pb="4"
-                                >
-                                    {children}
-                                </Section>
-                                <Section
-                                    pt="4"
-                                    pb="0"
-                                >
-                                    <Footer />
-                                </Section>
-                            </Container>
-                        </Theme>
-                    </Providers>
-                </MollieProvider>
+                <Providers>
+                    <Theme
+                        accentColor="blue"
+                        grayColor="gray"
+                        panelBackground="solid"
+                        scaling="110%"
+                        radius="large"
+                    >
+                        {/* <ThemePanel /> */}
+                        <Container size="4">
+                            <Section
+                                pt="0"
+                                pb="4"
+                            >
+                                <Navbar />
+                            </Section>
+                            <Section
+                                pt="4"
+                                pb="4"
+                            >
+                                <MollieProvider>{children}</MollieProvider>
+                            </Section>
+                            <Section
+                                pt="4"
+                                pb="0"
+                            >
+                                <Footer />
+                            </Section>
+                        </Container>
+                    </Theme>
+                </Providers>
+
                 <Script
                     src="https://js.mollie.com/v1/mollie.js"
                     strategy="beforeInteractive"

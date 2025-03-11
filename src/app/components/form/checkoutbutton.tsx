@@ -29,6 +29,10 @@ export default function CheckoutButton({
         // create a new FormData object
         const formData = new FormData(formElement);
         // get the card token from mollie
+        if (!mollie) {
+            console.error('Mollie is not initialized');
+            return;
+        }
         const { token, error } = await mollie.createToken();
         if (error) {
             console.error('Error creating card token:', error);

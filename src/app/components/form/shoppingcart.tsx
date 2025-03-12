@@ -2,6 +2,7 @@
 
 import { Flex, Heading, Text, Card, Table, Select } from '@radix-ui/themes';
 import { useState } from 'react';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
 // Currency symbols
 const CURRENCY_SYMBOLS = {
@@ -37,6 +38,22 @@ const PRODUCTS = [
 
 export default function ShoppingCart() {
     const [currency, setCurrency] = useState('EUR');
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const { replace } = useRouter();
+
+    // when the currency changes, store it in the URL
+    // and update the state
+    function handleCurrencyChange(currency: string) {
+        setCurrency(currency);
+        const params = new URLSearchParams(searchParams);
+        if (currency) {
+            params.set('currency', currency);
+        } else {
+            params.delete('currency');
+        }
+        replace(`${pathname}?${params.toString()}`);
+    }
 
     // Format price with the selected currency symbol
     const formatPrice = (price: number) => {
@@ -66,7 +83,7 @@ export default function ShoppingCart() {
                 <Heading size="3">Your Shopping Cart</Heading>
                 <Select.Root
                     value={currency}
-                    onValueChange={setCurrency}
+                    onValueChange={handleCurrencyChange}
                     name="currency"
                     aria-label="Select currency"
                     defaultValue="EUR"

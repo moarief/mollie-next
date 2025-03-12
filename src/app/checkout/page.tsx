@@ -5,16 +5,24 @@ import CheckoutForm from '../components/form/checkoutform';
 // and pass them as props to the form
 import Address from '../components/form/address';
 import HostedPaymentMethods from '../components/form/methods/hostedpaymentmethods';
+import { Suspense } from 'react';
 
 // invalidate page cache every 5 minutes to pick up new available payment methods
 export const revalidate = 300;
 
-export default function Page() {
+export default async function Page(props: {
+    searchParams?: Promise<{
+        currency?: string;
+    }>;
+}) {
+    const searchParams = await props.searchParams;
+    const currency = searchParams?.currency || 'EUR';
+
     return (
         <main>
             <CheckoutForm
                 address={<Address />}
-                hostedmethods={<HostedPaymentMethods />}
+                hostedmethods={<HostedPaymentMethods currency={currency} />}
             />
         </main>
     );

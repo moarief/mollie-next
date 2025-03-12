@@ -31,6 +31,7 @@ export type CreatePaymentParams = {
     payment_method: PaymentMethod;
     cardToken?: string;
     captureMode?: CaptureMethod;
+    currency: string;
 };
 
 // Checkout types

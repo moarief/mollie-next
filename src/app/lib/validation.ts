@@ -29,6 +29,7 @@ export async function validateFormData(formData: FormData) {
         payment_method: z.nativeEnum(PaymentMethod),
         cardToken: z.string().startsWith('tkn_').optional(),
         captureMode: z.nativeEnum(CaptureMethod).optional(),
+        currency: z.string().length(3),
     });
 
     try {
@@ -58,8 +59,3 @@ export async function validateMolliePayment(id: string) {
         throw new Error(`No valid Mollie payment ID.`);
     }
 }
-
-// types
-
-// type for checkout variant
-export type checkoutVariant = 'hosted' | 'components';

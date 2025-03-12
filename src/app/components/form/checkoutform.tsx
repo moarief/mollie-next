@@ -7,7 +7,7 @@ import { Flex, Grid, Heading } from '@radix-ui/themes';
 import React from 'react';
 
 // Lib
-import { checkoutVariant } from '@/app/lib/validation';
+import { CheckoutVariant } from '@/app/lib/types';
 
 // Client Components
 import CheckoutButton from './checkoutbutton';
@@ -29,7 +29,7 @@ export default function CheckoutForm({
 }) {
     // Use React State to switch between hosted and component payment methods
     const [checkoutVariant, setCheckoutVariant] =
-        React.useState<checkoutVariant>('hosted');
+        React.useState<CheckoutVariant>('hosted');
     return (
         // The form data is sent to the createPayment function when the form is submitted
         <form>

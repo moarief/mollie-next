@@ -2,14 +2,14 @@
 
 import { Button } from '@radix-ui/themes';
 import { useFormStatus } from 'react-dom';
-import { checkoutVariant } from '@/app/lib/validation';
+import { CheckoutVariant } from '@/app/lib/types';
 import { useMollie } from '@/app/lib/MollieContext';
 import { createPayment } from '@/app/lib/server-actions';
 
 export default function CheckoutButton({
     variant,
 }: {
-    variant: checkoutVariant;
+    variant: CheckoutVariant;
 }) {
     // display a loading indicator once the button is clicked
     const { pending } = useFormStatus();

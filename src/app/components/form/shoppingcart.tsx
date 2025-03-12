@@ -67,6 +67,9 @@ export default function ShoppingCart() {
                 <Select.Root
                     value={currency}
                     onValueChange={setCurrency}
+                    name="currency"
+                    aria-label="Select currency"
+                    defaultValue="EUR"
                 >
                     <Select.Trigger />
                     <Select.Content>

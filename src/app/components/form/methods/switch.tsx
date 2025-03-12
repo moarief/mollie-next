@@ -7,7 +7,7 @@ import React, { Suspense } from 'react';
 import MethodsSkeleton from './methodskeleton';
 import ComponentPaymentMethods from './componentpaymentmethods';
 
-import { checkoutVariant } from '@/app/lib/validation';
+import { CheckoutVariant } from '@/app/lib/types';
 
 export default function MethodSwitch({
     hostedmethods,
@@ -15,7 +15,7 @@ export default function MethodSwitch({
     onClick,
 }: {
     hostedmethods: React.ReactNode;
-    variant: checkoutVariant;
+    variant: CheckoutVariant;
     onClick: (value: string) => void;
 }) {
     // Use React State to switch between hosted and component payment methods

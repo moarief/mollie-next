@@ -15,10 +15,12 @@ import { mollieGetMethods } from '@/app/lib/mollie';
 
 export default async function HostedPaymentMethodCards({
     currency,
+    country,
 }: {
     currency?: string;
+    country?: string;
 }) {
-    const methods = await mollieGetMethods(currency);
+    const methods = await mollieGetMethods(currency, country);
 
     return (
         <>

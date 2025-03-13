@@ -11,6 +11,12 @@ export default function SelectCountry() {
     const pathname = usePathname();
     const { replace } = useRouter();
 
+    // Check if country is in the URL
+    const urlCountry = searchParams.get('country');
+    if (urlCountry && urlCountry !== country) {
+        setCountry(urlCountry);
+    }
+
     function handleCountryChange(country: string) {
         setCountry(country);
         const params = new URLSearchParams(searchParams);

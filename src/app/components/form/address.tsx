@@ -5,7 +5,6 @@ import {
     Grid,
     Separator,
     TextField,
-    Select,
     Switch,
 } from '@radix-ui/themes';
 import SelectCountry from './SelectCountry';

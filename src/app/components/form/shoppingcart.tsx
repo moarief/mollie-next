@@ -43,6 +43,12 @@ export default function ShoppingCart() {
     const pathname = usePathname();
     const { replace } = useRouter();
 
+    // Check if currency is in the URL
+    const urlCurrency = searchParams.get('currency');
+    if (urlCurrency && urlCurrency !== currency) {
+        setCurrency(urlCurrency);
+    }
+
     // when the currency changes, store it in the URL
     // and update the state
     function handleCurrencyChange(currency: string) {

@@ -184,35 +184,49 @@ export default async function Address() {
                                 id="DE"
                                 aria-label="Germany"
                             >
-                                Germany
+                                🇩🇪 Germany
                             </Select.Item>
                             <Select.Item
                                 value="AT"
                                 id="AT"
                                 aria-label="Austria"
                             >
-                                Austria
+                                🇦🇹 Austria
                             </Select.Item>
                             <Select.Item
                                 value="NL"
                                 id="NL"
                                 aria-label="Netherlands"
                             >
-                                Netherlands
+                                🇳🇱 Netherlands
                             </Select.Item>
                             <Select.Item
                                 value="UK"
                                 id="UK"
                                 aria-label="United Kingdom"
                             >
-                                United Kingdom
+                                🇬🇧 United Kingdom
                             </Select.Item>
                             <Select.Item
-                                value="XI"
-                                id="XI"
-                                aria-label="Northern Ireland"
+                                value="SE"
+                                id="SE"
+                                aria-label="Sweden"
                             >
-                                Northern Ireland (will error)
+                                🇸🇪 Sweden
+                            </Select.Item>
+                            <Select.Item
+                                value="PT"
+                                id="PT"
+                                aria-label="Portugal"
+                            >
+                                🇵🇹 Portugal
+                            </Select.Item>
+                            <Select.Item
+                                value="IT"
+                                id="IT"
+                                aria-label="Italy"
+                            >
+                                🇮🇹 Italy
                             </Select.Item>
                         </Select.Content>
                     </Select.Root>

@@ -132,9 +132,14 @@ export async function mollieGetPayment(id: string) {
 // this way we can filter the available payment methods.
 
 export async function mollieGetMethods(currency: string = 'EUR') {
+    let locale = Locale.en_US;
+    // TODO: set locale based on billing country
+    if (currency === 'SEK') {
+        locale = Locale.sv_SE;
+    }
     const methods = await mollieClient.methods.list({
         sequenceType: SequenceType.oneoff,
-        locale: Locale.en_US,
+        locale: locale,
         resource: 'payments',
         amount: { currency: currency, value: '220.00' },
     });

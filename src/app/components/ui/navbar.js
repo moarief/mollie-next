@@ -31,7 +31,7 @@ export default function Navbar() {
                                 md: '3',
                                 xl: '4',
                             }}
-                            className="font-light"
+                            className="font-light max-sm:hidden"
                             color="gray"
                         >
                             Checkout Demo
@@ -75,7 +75,10 @@ export default function Navbar() {
                             Payments
                         </Text>
                     </Link>
-                    <Link href="https://github.com/hreinberger/mollie-next">
+                    <Link
+                        href="https://github.com/hreinberger/mollie-next"
+                        className="max-sm:hidden"
+                    >
                         <Text
                             size={{
                                 initial: '1',

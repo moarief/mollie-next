@@ -48,7 +48,7 @@ export default function CheckoutButton({
         <Button
             variant="solid"
             size="3"
-            className="w-8/12 sm:w-6/12 lg:w-4/12"
+            className="w-10/12 sm:w-6/12 lg:w-4/12"
             loading={pending}
             formAction={variant === 'components' ? payWithToken : createPayment}
         >

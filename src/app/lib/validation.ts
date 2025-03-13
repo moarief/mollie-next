@@ -2,7 +2,6 @@
 
 import { z } from 'zod';
 import { CaptureMethod, PaymentMethod } from '@mollie/api-client';
-import { CheckoutVariant } from './types';
 
 export async function validateFormData(formData: FormData) {
     const form = Object.fromEntries(formData.entries());
@@ -57,5 +56,15 @@ export async function validateMolliePayment(id: string) {
         return result;
     } catch (error) {
         throw new Error(`No valid Mollie payment ID.`);
+    }
+}
+
+export async function validateCurrency(currency: string) {
+    const currencySchema = z.string().length(3);
+    try {
+        const result = currencySchema.parse(currency);
+        return result;
+    } catch (error) {
+        throw new Error(`No valid currency.`);
     }
 }

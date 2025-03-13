@@ -52,7 +52,9 @@ export default function ShoppingCart() {
         } else {
             params.delete('currency');
         }
-        replace(`${pathname}?${params.toString()}`);
+        replace(`${pathname}?${params.toString()}`, {
+            scroll: false,
+        });
     }
 
     // Format price with the selected currency symbol

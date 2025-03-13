@@ -140,7 +140,6 @@ export async function mollieGetMethods(currency: string = 'EUR') {
     });
     return methods;
 }
-
 // Capture a payment in full
 
 export async function mollieCapturePayment(id: string) {

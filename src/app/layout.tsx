@@ -11,7 +11,7 @@ import { MollieProvider } from './lib/MollieContext';
 
 export const metadata: Metadata = {
     title: 'Mollie Demo App',
-    description: 'A demo app for Mollie payments, written in nextJS',
+    description: 'A demo app for Mollie payments, written in next.js',
 };
 
 export default function RootLayout({
@@ -30,7 +30,7 @@ export default function RootLayout({
                         accentColor="blue"
                         grayColor="gray"
                         panelBackground="solid"
-                        scaling="110%"
+                        scaling="100%"
                         radius="large"
                     >
                         {/* <ThemePanel /> */}

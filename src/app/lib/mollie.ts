@@ -19,6 +19,26 @@ if (!apiKey) {
 // Set up Mollie API client
 const mollieClient = createMollieClient({ apiKey: apiKey });
 
+// translate countries to locales
+const countryToLocale: Record<string, Locale> = {
+    DE: Locale.de_DE,
+    AT: Locale.de_AT,
+    NL: Locale.nl_NL,
+    UK: Locale.en_US,
+    SE: Locale.sv_SE,
+    PT: Locale.pt_PT,
+    IT: Locale.it_IT,
+};
+
+// function to get the locale for a given country
+function getLocaleForCountry(country: string): Locale {
+    let locale = countryToLocale[country];
+    if (!locale) {
+        locale = Locale.en_US; // default to English if country is not found
+    }
+    return locale;
+}
+
 // Create a payment using data gathered from the checkout form
 export async function mollieCreatePayment({
     firstname,
@@ -108,6 +128,7 @@ export async function mollieCreatePayment({
         ...{ billingAddress },
         cardToken: cardToken,
         captureMode: captureMode,
+        locale: getLocaleForCountry(country),
     });
     const redirectUrl = payment.getCheckoutUrl();
     return redirectUrl;
@@ -131,10 +152,15 @@ export async function mollieGetPayment(id: string) {
 // we're passing some additional info like sequencetype, locale and amount
 // this way we can filter the available payment methods.
 
-export async function mollieGetMethods(currency: string = 'EUR') {
+export async function mollieGetMethods(
+    currency: string = 'EUR',
+    country: string = 'DE'
+) {
+    let locale = Locale.en_US;
+    locale = getLocaleForCountry(country);
     const methods = await mollieClient.methods.list({
         sequenceType: SequenceType.oneoff,
-        locale: Locale.en_US,
+        locale: locale,
         resource: 'payments',
         amount: { currency: currency, value: '220.00' },
     });

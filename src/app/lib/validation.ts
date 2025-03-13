@@ -24,7 +24,7 @@ export async function validateFormData(formData: FormData) {
         zip_code: z
             .string()
             .min(1, { message: 'Must be at least 1 character long.' }),
-        country: z.string().length(2),
+        country: z.string().toUpperCase().length(2),
         payment_method: z.nativeEnum(PaymentMethod),
         cardToken: z.string().startsWith('tkn_').optional(),
         captureMode: z.nativeEnum(CaptureMethod).optional(),
@@ -66,5 +66,15 @@ export async function validateCurrency(currency: string) {
         return result;
     } catch (error) {
         throw new Error(`No valid currency.`);
+    }
+}
+
+export async function validateCountry(country: string) {
+    const currencySchema = z.string().toUpperCase().length(2);
+    try {
+        const result = currencySchema.parse(country);
+        return result;
+    } catch (error) {
+        throw new Error(`No valid country.`);
     }
 }

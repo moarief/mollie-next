@@ -10,7 +10,7 @@ import MethodsSkeleton from '../components/form/methods/methodskeleton';
 import { Suspense } from 'react';
 
 // Validation for Currency Strings
-import { validateCurrency } from '../lib/validation';
+import { validateCurrency, validateCountry } from '../lib/validation';
 
 // invalidate page cache every 5 minutes to pick up new available payment methods
 export const revalidate = 300;
@@ -18,12 +18,15 @@ export const revalidate = 300;
 export default async function Page(props: {
     searchParams?: Promise<{
         currency?: string;
+        country?: string;
     }>;
 }) {
     const searchParams = await props.searchParams;
     const currency = searchParams?.currency || 'EUR';
+    const country = searchParams?.country || 'DE';
     // Validate the currency
     const validatedCurrency = await validateCurrency(currency);
+    const validatedCountry = await validateCountry(country);
 
     return (
         <main>
@@ -32,10 +35,13 @@ export default async function Page(props: {
                 hostedmethods={
                     <Suspense
                         // use the validated currency as key to re-trigger suspense when currency changes
-                        key={validatedCurrency}
+                        key={validatedCurrency + validatedCountry}
                         fallback={<MethodsSkeleton />}
                     >
-                        <HostedPaymentMethods currency={validatedCurrency} />
+                        <HostedPaymentMethods
+                            currency={validatedCurrency}
+                            country={validatedCountry}
+                        />
                     </Suspense>
                 }
             />

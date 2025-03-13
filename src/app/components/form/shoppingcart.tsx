@@ -9,6 +9,7 @@ const CURRENCY_SYMBOLS = {
     EUR: '€',
     SEK: 'kr',
     GBP: '£',
+    USD: '$',
 };
 
 // Product data
@@ -63,7 +64,7 @@ export default function ShoppingCart() {
             CURRENCY_SYMBOLS[currency as keyof typeof CURRENCY_SYMBOLS];
 
         // Format based on currency style
-        if (currency === 'GBP') {
+        if (currency === 'GBP' || currency === 'USD') {
             return `${symbol}${price.toFixed(2).replace('.', ',')}`;
         } else {
             return `${price.toFixed(2).replace('.', ',')} ${symbol}`;
@@ -95,6 +96,7 @@ export default function ShoppingCart() {
                         <Select.Item value="EUR">EUR (€)</Select.Item>
                         <Select.Item value="SEK">SEK (kr)</Select.Item>
                         <Select.Item value="GBP">GBP (£)</Select.Item>
+                        <Select.Item value="USD">USD ($)</Select.Item>
                     </Select.Content>
                 </Select.Root>
             </Flex>

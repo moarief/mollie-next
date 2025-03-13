@@ -8,6 +8,7 @@ import {
     Select,
     Switch,
 } from '@radix-ui/themes';
+import SelectCountry from './SelectCountry';
 
 export default async function Address() {
     return (
@@ -170,52 +171,7 @@ export default async function Address() {
                     direction="column"
                     gap="1"
                 >
-                    <Text as="label">Country</Text>
-                    <Select.Root
-                        defaultValue="DE"
-                        name="country"
-                        aria-label="Country"
-                        required
-                    >
-                        <Select.Trigger />
-                        <Select.Content>
-                            <Select.Item
-                                value="DE"
-                                id="DE"
-                                aria-label="Germany"
-                            >
-                                Germany
-                            </Select.Item>
-                            <Select.Item
-                                value="AT"
-                                id="AT"
-                                aria-label="Austria"
-                            >
-                                Austria
-                            </Select.Item>
-                            <Select.Item
-                                value="NL"
-                                id="NL"
-                                aria-label="Netherlands"
-                            >
-                                Netherlands
-                            </Select.Item>
-                            <Select.Item
-                                value="UK"
-                                id="UK"
-                                aria-label="United Kingdom"
-                            >
-                                United Kingdom
-                            </Select.Item>
-                            <Select.Item
-                                value="XI"
-                                id="XI"
-                                aria-label="Northern Ireland"
-                            >
-                                Northern Ireland (will error)
-                            </Select.Item>
-                        </Select.Content>
-                    </Select.Root>
+                    <SelectCountry />
                 </Flex>
             </Grid>
             <Separator

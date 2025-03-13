@@ -1,13 +1,12 @@
 'use server';
 
 import createMollieClient, {
-    CaptureMethod,
     Locale,
     Payment,
-    PaymentMethod,
     SequenceType,
     PaymentLineCategory,
 } from '@mollie/api-client';
+import { CreatePaymentParams } from './types';
 
 const apiKey = process.env.MOLLIE_API_KEY;
 const domain = process.env.DOMAIN || 'http://localhost:3000';
@@ -33,19 +32,8 @@ export async function mollieCreatePayment({
     payment_method,
     cardToken,
     captureMode,
-}: {
-    firstname: string;
-    lastname: string;
-    company?: string;
-    email: string;
-    address: string;
-    city: string;
-    zip_code: string;
-    country: string;
-    payment_method: PaymentMethod;
-    cardToken?: string;
-    captureMode?: CaptureMethod;
-}) {
+    currency,
+}: CreatePaymentParams) {
     // we need to construct the billingAdress object first as long as this isn't fixed:
     // https://github.com/mollie/mollie-api-node/issues/390#issuecomment-2467604847
     // Update 2025-03-04: The original issue is fixed, but organizationName is still not supported
@@ -64,7 +52,7 @@ export async function mollieCreatePayment({
     // set up the actual payment with mollie library
     const payment: Payment = await mollieClient.payments.create({
         amount: {
-            currency: 'EUR',
+            currency: currency,
             value: '220.00',
         },
         metadata: {
@@ -75,11 +63,11 @@ export async function mollieCreatePayment({
                 description: 'An expensive product',
                 quantity: 1,
                 unitPrice: {
-                    currency: 'EUR',
+                    currency: currency,
                     value: '200.00',
                 },
                 totalAmount: {
-                    currency: 'EUR',
+                    currency: currency,
                     value: '200.00',
                 },
             },
@@ -87,26 +75,28 @@ export async function mollieCreatePayment({
                 description: 'A cheap product',
                 quantity: 1,
                 unitPrice: {
-                    currency: 'EUR',
+                    currency: currency,
                     value: '10.00',
                 },
                 totalAmount: {
-                    currency: 'EUR',
+                    currency: currency,
                     value: '10.00',
                 },
+                // categories for voucher payments
                 categories: [PaymentLineCategory.gift, PaymentLineCategory.eco],
             },
             {
                 description: 'Another cheap product',
                 quantity: 1,
                 unitPrice: {
-                    currency: 'EUR',
+                    currency: currency,
                     value: '10.00',
                 },
                 totalAmount: {
-                    currency: 'EUR',
+                    currency: currency,
                     value: '10.00',
                 },
+                // categories for voucher payments
                 categories: [PaymentLineCategory.gift, PaymentLineCategory.eco],
             },
         ],
@@ -141,16 +131,15 @@ export async function mollieGetPayment(id: string) {
 // we're passing some additional info like sequencetype, locale and amount
 // this way we can filter the available payment methods.
 
-export async function mollieGetMethods() {
+export async function mollieGetMethods(currency: string = 'EUR') {
     const methods = await mollieClient.methods.list({
         sequenceType: SequenceType.oneoff,
         locale: Locale.en_US,
         resource: 'payments',
-        amount: { currency: 'EUR', value: '220.00' },
+        amount: { currency: currency, value: '220.00' },
     });
     return methods;
 }
-
 // Capture a payment in full
 
 export async function mollieCapturePayment(id: string) {

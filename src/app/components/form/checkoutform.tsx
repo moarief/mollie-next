@@ -3,28 +3,33 @@
 // UI
 import { Flex, Grid, Heading } from '@radix-ui/themes';
 
-// Next and React logic
+// React Types
 import React from 'react';
 
 // Lib
-import { checkoutVariant } from '@/app/lib/validation';
+import { CheckoutVariant } from '@/app/lib/types';
 
-// Form components
+// Client Components
 import CheckoutButton from './checkoutbutton';
 import MethodSwitch from './methods/switch';
+import ShoppingCart from './shoppingcart';
+
+// This is the main checkout form component
+
+// It takes the address and payment methods as props
+// The form itself is a client component (to make use of client-side JavaScript), but the address and payment methods are server components
+// The form is submitted to the createPayment function when the CheckoutButton is clicked
 
 export default function CheckoutForm({
     address,
-    cart,
     hostedmethods,
 }: {
     address: React.ReactNode;
-    cart: React.ReactNode;
     hostedmethods: React.ReactNode;
 }) {
     // Use React State to switch between hosted and component payment methods
     const [checkoutVariant, setCheckoutVariant] =
-        React.useState<checkoutVariant>('hosted');
+        React.useState<CheckoutVariant>('hosted');
     return (
         // The form data is sent to the createPayment function when the form is submitted
         <form>
@@ -48,7 +53,7 @@ export default function CheckoutForm({
                         direction="column"
                         gap="2"
                     >
-                        {cart}
+                        <ShoppingCart />
                         <Heading
                             size="3"
                             mt="2"

@@ -1,7 +1,6 @@
 'use server';
 
 import { z } from 'zod';
-
 import { CaptureMethod, PaymentMethod } from '@mollie/api-client';
 
 export async function validateFormData(formData: FormData) {
@@ -29,6 +28,7 @@ export async function validateFormData(formData: FormData) {
         payment_method: z.nativeEnum(PaymentMethod),
         cardToken: z.string().startsWith('tkn_').optional(),
         captureMode: z.nativeEnum(CaptureMethod).optional(),
+        currency: z.string().length(3),
     });
 
     try {
@@ -59,7 +59,12 @@ export async function validateMolliePayment(id: string) {
     }
 }
 
-// types
-
-// type for checkout variant
-export type checkoutVariant = 'hosted' | 'components';
+export async function validateCurrency(currency: string) {
+    const currencySchema = z.string().length(3);
+    try {
+        const result = currencySchema.parse(currency);
+        return result;
+    } catch (error) {
+        throw new Error(`No valid currency.`);
+    }
+}

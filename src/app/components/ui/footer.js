@@ -7,6 +7,7 @@ export default function Footer() {
             align="center"
             gap="2"
             pb="4"
+            className="max-sm:hidden"
         >
             <Text
                 size="1"

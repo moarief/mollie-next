@@ -27,7 +27,7 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts",
-        "src/app/lib/MollieContext.js"
+        "src/app/lib/MollieContext.tsx"
     ],
     "exclude": ["node_modules"]
 }

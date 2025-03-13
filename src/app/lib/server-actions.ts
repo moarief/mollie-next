@@ -2,7 +2,7 @@
 
 // Lib
 import { validateFormData, validateUrl } from '@/app/lib/validation';
-import { mollieCreatePayment } from '@/app/lib/mollie';
+import { mollieCreatePayment, mollieGetMethods } from '@/app/lib/mollie';
 import { PaymentMethod, CaptureMethod } from '@mollie/api-client';
 
 // Next.js
@@ -23,6 +23,7 @@ export async function createPayment(formData: FormData) {
         payment_method: PaymentMethod;
         cardToken?: string;
         captureMode?: CaptureMethod;
+        currency: string;
     } = await validateFormData(formData);
 
     // Create a payment with the validated form data and retrieve the redirect URL

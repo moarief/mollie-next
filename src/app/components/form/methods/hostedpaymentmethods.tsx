@@ -13,8 +13,12 @@ import PaymentLogo from '@/app/components/form/paymentlogo';
 
 import { mollieGetMethods } from '@/app/lib/mollie';
 
-export default async function HostedPaymentMethodCards() {
-    const methods = await mollieGetMethods();
+export default async function HostedPaymentMethodCards({
+    currency,
+}: {
+    currency?: string;
+}) {
+    const methods = await mollieGetMethods(currency);
 
     return (
         <>

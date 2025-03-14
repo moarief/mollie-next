@@ -31,10 +31,6 @@ export default function SessionWrapper({ session }) {
       >
         <Flex id="express-component"></Flex>
       </Flex>
-      <Script
-        src="https://js.mollie.com/v2/mollie.js"
-        strategy="beforeInteractive"
-      />
     </>
   );
 }

@@ -217,5 +217,10 @@ export async function mollieCreateSessionPayment(sessionId: string) {
             }),
         }
     );
-    return payment;
+    if (!payment.ok) {
+        console.error(payment);
+        throw new Error('Failed to create session payment');
+    } else {
+        return payment;
+    }
 }

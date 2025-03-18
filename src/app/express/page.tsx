@@ -7,8 +7,6 @@ import Script from 'next/script';
 export default async function Page() {
     const { sessionId, clientAccessToken } = await mollieCreateSession();
     const session: ExpressSession = { id: sessionId, clientAccessToken };
-    console.log('Session created with id: ' + sessionId);
-    console.log('Client access token: ' + clientAccessToken);
 
     return (
         <main>

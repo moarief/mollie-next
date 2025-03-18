@@ -18,9 +18,13 @@ export default function SessionWrapper({ session }) {
         expressComponent.mount(document.getElementById('express-component'));
 
         // on the 'paymentauthorized' event, redirect to the success URL
-        expressComponent.on('paymentauthorized', (data) => {
+        expressComponent.on('paymentauthorized', async (data) => {
             console.log('Payment authorized:', data);
-            use(createSessionPayment(session.id));
+            try {
+                await createSessionPayment(session.id);
+            } catch (error) {
+                // Handle error if needed
+            }
         });
 
         return () => {

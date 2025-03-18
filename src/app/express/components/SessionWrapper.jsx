@@ -1,7 +1,9 @@
 'use client';
 
 import { Flex } from '@radix-ui/themes';
-import { useEffect } from 'react';
+import { useEffect, use } from 'react';
+
+import { createSessionPayment } from '@/app/lib/server-actions';
 
 export default function SessionWrapper({ session }) {
     // Check if the Mollie object is available
@@ -14,6 +16,12 @@ export default function SessionWrapper({ session }) {
         const expressComponent = mollie.create('express-checkout');
         console.log('Express Component:', expressComponent);
         expressComponent.mount(document.getElementById('express-component'));
+
+        // on the 'paymentauthorized' event, redirect to the success URL
+        expressComponent.on('paymentauthorized', (data) => {
+            console.log('Payment authorized:', data);
+            use(createSessionPayment(session.id));
+        });
 
         return () => {
             // Cleanup the Mollie component

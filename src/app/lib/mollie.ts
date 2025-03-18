@@ -192,9 +192,6 @@ export async function mollieCreateSession() {
     });
 
     const { id, clientAccessToken } = await session.json();
-    console.log('Session created with id: ' + id);
-    console.log('Client access token: ' + clientAccessToken);
-
     return { sessionId: id, clientAccessToken: clientAccessToken };
 }
 

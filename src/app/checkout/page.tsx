@@ -35,7 +35,7 @@ export default async function Page(props: {
                 hostedmethods={
                     <Suspense
                         // use the validated currency as key to re-trigger suspense when currency changes
-                        key={validatedCurrency + validatedCountry}
+                        key={`${validatedCurrency}-${validatedCountry}`}
                         fallback={<MethodsSkeleton />}
                     >
                         <HostedPaymentMethods

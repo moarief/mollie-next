@@ -24,10 +24,12 @@ const countryToLocale: Record<string, Locale> = {
     DE: Locale.de_DE,
     AT: Locale.de_AT,
     NL: Locale.nl_NL,
+    FR: Locale.fr_FR,
     UK: Locale.en_US,
     SE: Locale.sv_SE,
     PT: Locale.pt_PT,
     IT: Locale.it_IT,
+    CH: Locale.de_CH,
 };
 
 // function to get the locale for a given country
@@ -158,18 +160,27 @@ export async function mollieGetMethods(
 ) {
     let locale = Locale.en_US;
     locale = getLocaleForCountry(country);
+    console.debug(
+        'Retrieving payment methods for combination: ' +
+            country +
+            ' ' +
+            locale +
+            ' ' +
+            currency
+    );
     const methods = await mollieClient.methods.list({
         sequenceType: SequenceType.oneoff,
         locale: locale,
         resource: 'payments',
         amount: { currency: currency, value: '220.00' },
+        billingCountry: country,
     });
     return methods;
 }
 // Capture a payment in full
 
 export async function mollieCapturePayment(id: string) {
-    console.log('Capturing payment with id: ' + id);
+    console.debug('Capturing payment with id: ' + id);
     const capture = await mollieClient.paymentCaptures.create({
         paymentId: id,
     });

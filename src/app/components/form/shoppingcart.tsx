@@ -10,6 +10,7 @@ const CURRENCY_SYMBOLS = {
     SEK: 'kr',
     GBP: '£',
     USD: '$',
+    CHF: 'fr',
 };
 
 // Product data
@@ -100,9 +101,11 @@ export default function ShoppingCart() {
                     <Select.Trigger />
                     <Select.Content>
                         <Select.Item value="EUR">EUR (€)</Select.Item>
+                        <Select.Separator />
                         <Select.Item value="SEK">SEK (kr)</Select.Item>
                         <Select.Item value="GBP">GBP (£)</Select.Item>
                         <Select.Item value="USD">USD ($)</Select.Item>
+                        <Select.Item value="CHF">CHF (fr)</Select.Item>
                     </Select.Content>
                 </Select.Root>
             </Flex>

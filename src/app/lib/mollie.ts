@@ -24,10 +24,12 @@ const countryToLocale: Record<string, Locale> = {
     DE: Locale.de_DE,
     AT: Locale.de_AT,
     NL: Locale.nl_NL,
+    FR: Locale.fr_FR,
     UK: Locale.en_US,
     SE: Locale.sv_SE,
     PT: Locale.pt_PT,
     IT: Locale.it_IT,
+    CH: Locale.de_CH,
 };
 
 // function to get the locale for a given country

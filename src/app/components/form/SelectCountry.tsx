@@ -43,55 +43,76 @@ export default function SelectCountry() {
             >
                 <Select.Trigger />
                 <Select.Content>
-                    <Select.Item
-                        value="DE"
-                        id="DE"
-                        aria-label="Germany"
-                    >
-                        🇩🇪 Germany
-                    </Select.Item>
-                    <Select.Item
-                        value="AT"
-                        id="AT"
-                        aria-label="Austria"
-                    >
-                        🇦🇹 Austria
-                    </Select.Item>
-                    <Select.Item
-                        value="NL"
-                        id="NL"
-                        aria-label="Netherlands"
-                    >
-                        🇳🇱 Netherlands
-                    </Select.Item>
-                    <Select.Item
-                        value="UK"
-                        id="UK"
-                        aria-label="United Kingdom"
-                    >
-                        🇬🇧 United Kingdom
-                    </Select.Item>
-                    <Select.Item
-                        value="SE"
-                        id="SE"
-                        aria-label="Sweden"
-                    >
-                        🇸🇪 Sweden
-                    </Select.Item>
-                    <Select.Item
-                        value="PT"
-                        id="PT"
-                        aria-label="Portugal"
-                    >
-                        🇵🇹 Portugal
-                    </Select.Item>
-                    <Select.Item
-                        value="IT"
-                        id="IT"
-                        aria-label="Italy"
-                    >
-                        🇮🇹 Italy
-                    </Select.Item>
+                    <Select.Group>
+                        <Select.Label>EUR</Select.Label>
+                        <Select.Item
+                            value="DE"
+                            id="DE"
+                            aria-label="Germany"
+                        >
+                            🇩🇪 Germany
+                        </Select.Item>
+                        <Select.Item
+                            value="AT"
+                            id="AT"
+                            aria-label="Austria"
+                        >
+                            🇦🇹 Austria
+                        </Select.Item>
+                        <Select.Item
+                            value="NL"
+                            id="NL"
+                            aria-label="Netherlands"
+                        >
+                            🇳🇱 Netherlands
+                        </Select.Item>
+                        <Select.Item
+                            value="FR"
+                            id="FR"
+                            aria-label="France"
+                        >
+                            🇫🇷 France
+                        </Select.Item>
+                        <Select.Item
+                            value="PT"
+                            id="PT"
+                            aria-label="Portugal"
+                        >
+                            🇵🇹 Portugal
+                        </Select.Item>
+                        <Select.Item
+                            value="IT"
+                            id="IT"
+                            aria-label="Italy"
+                        >
+                            🇮🇹 Italy
+                        </Select.Item>
+                    </Select.Group>
+                    <Select.Group>
+                        <Select.Label>Other currencies</Select.Label>
+                        <Select.Item
+                            value="UK"
+                            id="UK"
+                            aria-label="United Kingdom"
+                        >
+                            🇬🇧 United Kingdom
+                        </Select.Item>
+                        <Select.Item
+                            value="SE"
+                            id="SE"
+                            aria-label="Sweden"
+                        >
+                            🇸🇪 Sweden
+                        </Select.Item>
+
+                        <Select.Item
+                            value="CH"
+                            id="CH"
+                            aria-label="Switzerland"
+                        >
+                            🇨🇭 Switzerland
+                        </Select.Item>
+                    </Select.Group>
                 </Select.Content>
             </Select.Root>
         </>

@@ -12,7 +12,7 @@ sequenceDiagram
     Merchant ->>+ Mollie: Create Payment
     Mollie -->>- Merchant: hosted checkout URL
     Merchant -->> Buyer: Redirect to Mollie hosted checkout
-    Buyer ->>+ Mollie: Interact on Mondu Hosted Checkout
+    Buyer ->>+ Mollie: Interact on Mollie Hosted Checkout
     Mollie -->> Buyer: Redirect to success page
     Mollie -->> Merchant: Webhook
 

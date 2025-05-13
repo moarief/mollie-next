@@ -3,35 +3,63 @@ import { CaptureMethod, PaymentMethod } from '@mollie/api-client';
 
 // Mollie Context types
 export type MollieInstance = {
-  createComponent: (type: string) => {
-    mount: (selector: string) => void;
-    unmount: () => void;
-  };
-  createToken: () => Promise<{ token: string; error?: string }>;
+    createComponent: (type: string) => {
+        mount: (selector: string) => void;
+        unmount: () => void;
+    };
+    createToken: () => Promise<{ token: string; error?: string }>;
 };
 
 export type MollieContextType = {
-  mollie: MollieInstance | null;
+    mollie: MollieInstance | null;
 };
 
 export type MollieProviderProps = {
-  children: ReactNode;
+    children: ReactNode;
 };
+
+// Declare the Mollie and Mollie2 global types
+declare global {
+    interface Window {
+        // the "old" Mollie object for card components
+        Mollie: (
+            profileId: string,
+            options: { locale: string; testmode: boolean }
+        ) => MollieInstance;
+        // the new Mollie object for express components
+        Mollie2: (
+            clientAccessToken: string,
+            options: { locale: string }
+        ) => MollieExpressInstance;
+    }
+}
+
+// Define the structure for the object returned by Mollie2()
+export interface MollieExpressInstance {
+    create: (componentType: string) => MollieExpressComponent;
+}
+
+// Define the structure for the object returned by mollie.create()
+export interface MollieExpressComponent {
+    mount: (element: HTMLElement | string | null) => void;
+    unmount: () => void; // Assuming there's an unmount method based on SessionWrapper.jsx
+    on: (event: string, callback: (data?: any) => void) => void; // Assuming an 'on' method for events
+}
 
 // Mollie payment form types
 export type CreatePaymentParams = {
-  firstname: string;
-  lastname: string;
-  company?: string;
-  email: string;
-  address: string;
-  city: string;
-  zip_code: string;
-  country: string;
-  payment_method: PaymentMethod;
-  cardToken?: string;
-  captureMode?: CaptureMethod;
-  currency: string;
+    firstname: string;
+    lastname: string;
+    company?: string;
+    email: string;
+    address: string;
+    city: string;
+    zip_code: string;
+    country: string;
+    payment_method: PaymentMethod;
+    cardToken?: string;
+    captureMode?: CaptureMethod;
+    currency: string;
 };
 
 // Checkout types
@@ -39,6 +67,6 @@ export type CheckoutVariant = 'hosted' | 'components';
 
 // Express Session Type
 export type ExpressSession = {
-  id: string;
-  clientAccessToken: string;
+    id: string;
+    clientAccessToken: string;
 };

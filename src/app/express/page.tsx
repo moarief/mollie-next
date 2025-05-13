@@ -2,7 +2,6 @@ import { Flex, Heading } from '@radix-ui/themes';
 import { mollieCreateSession } from '../lib/mollie';
 import SessionWrapper from './components/SessionWrapper';
 import { ExpressSession } from '../lib/types';
-import Script from 'next/script';
 
 export default async function Page() {
     const { sessionId, clientAccessToken } = await mollieCreateSession();
@@ -23,10 +22,6 @@ export default async function Page() {
                     <SessionWrapper session={session} />
                 </Flex>
             </Flex>
-            <Script
-                src="https://js.mollie.com/v2/mollie.js"
-                strategy="beforeInteractive"
-            />
         </main>
     );
 }

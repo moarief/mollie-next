@@ -6,26 +6,109 @@ import { useEffect } from 'react';
 import { createSessionPayment } from '@/app/lib/server-actions';
 
 export default function SessionWrapper({ session }) {
-    // Check if the Mollie object is available
     useEffect(() => {
-        // Initialize the Mollie component
-        const mollie = Mollie(session.clientAccessToken, { locale: 'en-US' });
+        let expressComponent; // Define here to ensure it's in scope for cleanup
 
-        const expressComponent = mollie.create('express-checkout');
-        expressComponent.mount(document.getElementById('express-component'));
+        if (typeof window === 'undefined' || !window.Mollie2) {
+            console.error('Mollie2 object is not available on window.');
+            return;
+        }
 
-        // on the 'paymentauthorized' event, redirect to the success URL
-        expressComponent.on('paymentauthorized', async (data) => {
-            try {
-                await createSessionPayment(session.id);
-            } catch (error) {
-                // Handle error
+        if (!session || !session.clientAccessToken) {
+            console.error('Mollie session or clientAccessToken is missing.');
+            return;
+        }
+
+        try {
+            const mollieInstance = window.Mollie2(session.clientAccessToken, {
+                locale: 'en-US',
+            });
+
+            if (
+                !mollieInstance ||
+                typeof mollieInstance.create !== 'function'
+            ) {
+                console.error(
+                    'Failed to initialize Mollie instance or `create` method is missing.'
+                );
+                return;
             }
-        });
+
+            expressComponent = mollieInstance.create('express-checkout');
+
+            if (
+                !expressComponent ||
+                typeof expressComponent.mount !== 'function' ||
+                typeof expressComponent.on !== 'function' ||
+                typeof expressComponent.unmount !== 'function'
+            ) {
+                console.error(
+                    'Mollie express component is invalid or missing required methods.'
+                );
+                expressComponent = null; // Ensure it's null if invalid
+                return;
+            }
+
+            const mountPoint = document.getElementById('express-component');
+            if (!mountPoint) {
+                console.error(
+                    'Mount point #express-component not found in the DOM.'
+                );
+                expressComponent = null; // Ensure it's null if mount point is missing
+                return;
+            }
+
+            expressComponent.mount(mountPoint);
+
+            const handlePaymentAuthorized = async (data) => {
+                try {
+                    console.log(
+                        'Payment authorized, creating session payment...',
+                        data
+                    );
+                    await createSessionPayment(session.id);
+                    console.log('Session payment creation attempted.');
+                } catch (error) {
+                    console.error(
+                        'Error processing payment authorization:',
+                        error
+                    );
+                }
+            };
+
+            expressComponent.on('paymentauthorized', handlePaymentAuthorized);
+        } catch (error) {
+            console.error('Error during Mollie component setup:', error);
+            // If setup fails, ensure expressComponent is not set or is null
+            // so cleanup doesn't try to unmount a partially initialized component.
+            expressComponent = null;
+        }
 
         return () => {
-            // Cleanup the Mollie component
-            expressComponent.unmount();
+            if (
+                expressComponent &&
+                typeof expressComponent.unmount === 'function'
+            ) {
+                console.log(
+                    'Attempting to unmount Mollie express component...'
+                );
+                try {
+                    expressComponent.unmount();
+                    console.log(
+                        'Mollie express component unmounted successfully.'
+                    );
+                } catch (unmountError) {
+                    // This is where "Cannot read properties of undefined (reading 'destroy')" would be caught
+                    console.error(
+                        'Error during Mollie component unmount:',
+                        unmountError
+                    );
+                }
+            } else {
+                console.log(
+                    'Mollie express component was not available or unmount is not a function during cleanup.'
+                );
+            }
         };
     }, [session.clientAccessToken, session.id]);
 

@@ -181,7 +181,7 @@ export async function mollieCapturePayment(id: string) {
     return capture;
 }
 
-export async function mollieCreateSession() {
+export async function mollieCreateSession(currency: string = 'EUR') {
     const session = await fetch('https://api.mollie.com/v2/sessions', {
         method: 'POST',
         headers: {
@@ -190,8 +190,8 @@ export async function mollieCreateSession() {
         },
         body: JSON.stringify({
             amount: {
-                value: '10.00',
-                currency: 'EUR',
+                value: '220.00',
+                currency: currency,
             },
         }),
     });

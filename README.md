@@ -83,6 +83,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser and start 
 
 ✅ Use Mollie Components where it makes sense
 
+[ ] (Multi)partial captures
+
+[ ] Make Payments Table show more detail based on screen size (Card view on mobile, expanding table on desktop)
+
+[ ] Show Error Messages on Frontend (where it makes sense)
+
+[ ] Auto-Authorize Card and Klarna Payments (and only Cards and Klarna)
+
+[ ] Bring your own Mollie Account by registering as an OAuth App and using Mollie Connect (this is a huge one)
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.

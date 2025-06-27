@@ -60,7 +60,7 @@ export async function mollieCreatePayment({
     const payment: Payment = await mollieClient.payments.create({
         amount: {
             currency: currency,
-            value: '220.00',
+            value: '200.00',
         },
         billingAddress: {
             givenName: firstname,

@@ -8,6 +8,7 @@ import { createSessionPayment } from '@/app/lib/server-actions';
 export default function SessionWrapper({ session }) {
     useEffect(() => {
         let expressComponent; // Define here to ensure it's in scope for cleanup
+        let checkout; // Define checkout object
 
         if (typeof window === 'undefined' || !window.Mollie2) {
             console.error('Mollie2 object is not available on window.');
@@ -20,26 +21,26 @@ export default function SessionWrapper({ session }) {
         }
 
         try {
-            const mollieInstance = window.Mollie2(session.clientAccessToken, {
+            checkout = window.Mollie2.Checkout(session.clientAccessToken, {
                 locale: 'en-US',
             });
 
             if (
-                !mollieInstance ||
-                typeof mollieInstance.create !== 'function'
+                !checkout ||
+                typeof checkout.create !== 'function' ||
+                typeof checkout.on !== 'function'
             ) {
                 console.error(
-                    'Failed to initialize Mollie instance or `create` method is missing.'
+                    'Failed to initialize Mollie Checkout instance or `create` or `on` method is missing.'
                 );
                 return;
             }
 
-            expressComponent = mollieInstance.create('express-checkout');
+            expressComponent = checkout.create('express-checkout');
 
             if (
                 !expressComponent ||
                 typeof expressComponent.mount !== 'function' ||
-                typeof expressComponent.on !== 'function' ||
                 typeof expressComponent.unmount !== 'function'
             ) {
                 console.error(
@@ -60,23 +61,23 @@ export default function SessionWrapper({ session }) {
 
             expressComponent.mount(mountPoint);
 
-            const handlePaymentAuthorized = async (data) => {
+            const handleReadyForPayment = async (data) => {
                 try {
                     console.log(
-                        'Payment authorized, creating session payment...',
+                        'Ready for payment, creating session payment...',
                         data
                     );
                     await createSessionPayment(session.id);
                     console.log('Session payment creation attempted.');
                 } catch (error) {
                     console.error(
-                        'Error processing payment authorization:',
+                        'Error processing readyforpayment event:',
                         error
                     );
                 }
             };
 
-            expressComponent.on('paymentauthorized', handlePaymentAuthorized);
+            checkout.on('readyforpayment', handleReadyForPayment);
         } catch (error) {
             console.error('Error during Mollie component setup:', error);
             // If setup fails, ensure expressComponent is not set or is null

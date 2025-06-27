@@ -182,22 +182,34 @@ export async function mollieCapturePayment(id: string) {
 }
 
 export async function mollieCreateSession(currency: string = 'EUR') {
-    const session = await fetch('https://api.mollie.com/v2/sessions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + apiKey,
-        },
-        body: JSON.stringify({
-            amount: {
-                value: '220.00',
-                currency: currency,
+    try {
+        const session = await fetch('https://api.mollie.com/v2/sessions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + apiKey,
             },
-        }),
-    });
+            body: JSON.stringify({
+                description: 'Order #1234',
+                amount: {
+                    value: '10.00',
+                    currency: 'EUR',
+                },
+            }),
+        });
 
-    const { id, clientAccessToken } = await session.json();
-    return { sessionId: id, clientAccessToken: clientAccessToken };
+        if (!session.ok) {
+            throw new Error(
+                `Failed to create session: ${session.status} ${session.statusText}`
+            );
+        }
+
+        const { id, clientAccessToken } = await session.json();
+        return { sessionId: id, clientAccessToken: clientAccessToken };
+    } catch (error) {
+        console.error('Error creating Mollie session:', error);
+        throw error;
+    }
 }
 
 export async function mollieCreateSessionPayment(sessionId: string) {

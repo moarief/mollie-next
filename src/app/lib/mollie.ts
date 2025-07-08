@@ -195,6 +195,7 @@ export async function mollieCreateSession(currency: string = 'EUR') {
                     value: '10.00',
                     currency: 'EUR',
                 },
+                redirectUrl: domain + '/success',
             }),
         });
 
@@ -227,7 +228,6 @@ export async function mollieCreateSessionPayment(sessionId: string) {
                     value: '10.00',
                     currency: 'EUR',
                 },
-                redirectUrl: domain + '/success',
             }),
         }
     );

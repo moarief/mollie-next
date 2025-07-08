@@ -1,4 +1,4 @@
-import { Flex, Heading } from '@radix-ui/themes';
+import { Flex, Heading, Text } from '@radix-ui/themes';
 import { mollieCreateSession } from '../lib/mollie';
 import SessionWrapper from './components/SessionWrapper';
 import { ExpressSession } from '../lib/types';
@@ -29,6 +29,9 @@ export default async function Page() {
                         <Suspense fallback={<div>⏳</div>}>
                             <ShoppingCart />
                         </Suspense>
+                        <Flex justify="center">
+                            <Text>Pay now with</Text>
+                        </Flex>
                         <SessionWrapper session={session} />
                     </Flex>
                 </Flex>

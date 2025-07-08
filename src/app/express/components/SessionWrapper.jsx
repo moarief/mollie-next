@@ -111,7 +111,7 @@ export default function SessionWrapper({ session }) {
                 );
             }
         };
-    }, [session.clientAccessToken, session.id]);
+    }, [session]);
 
     return (
         <>

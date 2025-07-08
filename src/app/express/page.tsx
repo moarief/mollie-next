@@ -3,6 +3,7 @@ import { mollieCreateSession } from '../lib/mollie';
 import SessionWrapper from './components/SessionWrapper';
 import { ExpressSession } from '../lib/types';
 import ShoppingCart from '../components/form/shoppingcart';
+import { Suspense } from 'react';
 
 export default async function Page() {
     const { sessionId, clientAccessToken } = await mollieCreateSession();
@@ -25,7 +26,9 @@ export default async function Page() {
                         align="stretch"
                         gap="4"
                     >
-                        <ShoppingCart />
+                        <Suspense fallback={<div>⏳</div>}>
+                            <ShoppingCart />
+                        </Suspense>
                         <SessionWrapper session={session} />
                     </Flex>
                 </Flex>

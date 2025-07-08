@@ -192,7 +192,7 @@ export async function mollieCreateSession(currency: string = 'EUR') {
             body: JSON.stringify({
                 description: 'Order #1234',
                 amount: {
-                    value: '10.00',
+                    value: '1.00',
                     currency: 'EUR',
                 },
                 redirectUrl: domain + '/success',
@@ -225,7 +225,7 @@ export async function mollieCreateSessionPayment(sessionId: string) {
             body: JSON.stringify({
                 description: 'Test Express Payment',
                 amount: {
-                    value: '10.00',
+                    value: '1.00',
                     currency: 'EUR',
                 },
             }),
